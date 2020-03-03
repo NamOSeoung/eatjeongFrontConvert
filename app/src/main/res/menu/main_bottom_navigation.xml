@@ -3,22 +3,23 @@
 
     <item
         android:id="@+id/home"
-        android:icon="@android:drawable/ic_menu_call"
+        android:color="#FFE074"
+        android:icon="@drawable/home_d_64"
         android:title="메인" />
 
     <item
         android:id="@+id/search"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@drawable/search_d_64"
         android:title="검색" />
 
     <item
         android:id="@+id/bookmark"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@drawable/bookmark_d_64"
         android:title="북마크" />
 
     <item
         android:id="@+id/settings"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@drawable/user_d_64"
         android:title="내정보" />
 
 

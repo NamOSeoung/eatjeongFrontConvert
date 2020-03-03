@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".mainWrap.MainWrapActivity"/>
+        <activity android:name=".main.search.MapSearchActivity"/>
     </application>
 
 </manifest>

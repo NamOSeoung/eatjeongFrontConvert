@@ -1,55 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA">
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:background="#FFF"
-        android:textSize="20dp"
-        android:textColor="#666"
-        android:text="게시글 목록"/>
-
-    <ImageView
-        android:id="@+id/img_close"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="18dp"
-        android:layout_alignParentEnd="true"/>
-
-    <View
-        android:id="@+id/viewline_01"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/title"
-        android:background="#EEE" />
-
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/viewline_01">
-
-        <ListView
-            android:id="@+id/listview"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="#EEE"
-            android:dividerHeight="1dp" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/bookmark_place"
+            android:text="매장"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/bookmark_youtube"
+            android:text="유튜브"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/bookmark_naver"
+            android:text="네이버"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/bookmark_tistory"
+            android:text="티스토리"/>
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:alpha="0.3"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone" />
+    <FrameLayout
+        android:id="@+id/child_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>

@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
@@ -46,22 +47,26 @@ public class MainWrapActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
+
                 switch (menuItem.getItemId()) {
                     case R.id.home: {
-
-                        transaction.replace(R.id.frame_layout, homeTab).commitAllowingStateLoss();
+                        transaction.replace(R.id.frame_layout, homeTab);
+                        transaction.commit();
                         break;
                     }
                     case R.id.search: {
-                        transaction.replace(R.id.frame_layout, searchTab).commitAllowingStateLoss();
+                        transaction.replace(R.id.frame_layout, searchTab);
+                        transaction.commit();
                         break;
                     }
                     case R.id.bookmark: {
-                        transaction.replace(R.id.frame_layout, bookmarkTab).commitAllowingStateLoss();
+                        transaction.replace(R.id.frame_layout, bookmarkTab);
+                        transaction.commit();
                         break;
                     }
                     case R.id.settings: {
-                        transaction.replace(R.id.frame_layout, settingsTab).commitAllowingStateLoss();
+                        transaction.replace(R.id.frame_layout, settingsTab);
+                        transaction.commit();
                         break;
                     }
                 }
@@ -108,6 +113,7 @@ public class MainWrapActivity extends AppCompatActivity {
 //                });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goHome = new Intent(getApplicationContext(), MainWrapActivity.class);
                 startActivityForResult(goHome,sub);//액티비티 띄우기
+                overridePendingTransition(R.anim.fadein,R.anim.fadeout);
             }
         });
     }

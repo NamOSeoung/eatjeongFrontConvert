@@ -16,19 +16,14 @@ tools:context=".mainWrap.MainWrapActivity">
 
     <!-- Main content -->
 
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/bottom_navigation_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom"-->
-<!--        android:background="@color/colorPrimary"-->
-<!--        app:menu="@menu/main_bottom_navigation"/>-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        app:itemIconTint="@drawable/item_color"
+        app:itemTextColor="@drawable/item_color"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/main_bottom_navigation"
 />
