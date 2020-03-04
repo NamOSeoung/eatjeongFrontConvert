@@ -6,6 +6,6 @@ android:layout_height="match_parent">
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="로그아웃"
-        android:id="@+id/settings_logout"/>
+        android:text="로그인하기"
+        android:id="@+id/settings_login"/>
 </LinearLayout>

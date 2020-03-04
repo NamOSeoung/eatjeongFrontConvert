@@ -109,4 +109,11 @@ public class SearchTab extends Fragment implements View.OnClickListener{
            // search_keyword.setText("23123");
         }
     }
+
+    public void changeText(String text)
+    {
+        search_keyword.setText(text);
+    }
+
+
 }

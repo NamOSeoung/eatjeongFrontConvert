@@ -9,10 +9,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:windowSoftInputMode="adjustNothing"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".login.LoginActivity"
             android:label="@string/app_name"
+            android:windowSoftInputMode="adjustNothing"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mainWrap.MainWrapActivity"/>
-        <activity android:name=".main.search.MapSearchActivity"/>
+        <activity
+            android:name=".mainWrap.MainWrapActivity"
+            android:windowSoftInputMode="adjustNothing"
+            />
+        <activity
+            android:name=".main.search.MapSearchActivity"
+            android:windowSoftInputMode="adjustNothing"/>
     </application>
 
 </manifest>

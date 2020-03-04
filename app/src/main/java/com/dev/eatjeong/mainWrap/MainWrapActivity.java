@@ -1,10 +1,14 @@
 package com.dev.eatjeong.mainWrap;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +25,18 @@ import com.dev.eatjeong.main.settings.SettingsTab;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MainWrapActivity extends AppCompatActivity {
+
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
     // FrameLayout에 각 메뉴의 Fragment를 바꿔 줌
     private FragmentManager fragmentManager = getSupportFragmentManager();
     // 4개의 메뉴에 들어갈 Fragment들
@@ -32,6 +46,7 @@ public class MainWrapActivity extends AppCompatActivity {
     private SettingsTab settingsTab = new SettingsTab();
     static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"} ;
     private MenuItem prevBottomNavigation;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_wrap);
@@ -75,43 +90,6 @@ public class MainWrapActivity extends AppCompatActivity {
         });
 
 
-
-        // 버튼 누른 결과를 보여주기 위해 TextView를 사용합니다.
-
-//        // 버튼 클릭시 사용되는 리스너를 구현합니다.
-//
-//        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView_main_menu);
-//        bottomNavigationView.setOnNavigationItemSelectedListener(
-//                new BottomNavigationView.OnNavigationItemSelectedListener() {
-//                    @Override
-//                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
-//
-//                        // 어떤 메뉴 아이템이 터치되었는지 확인합니다.
-//                        switch (item.getItemId()) {
-//
-//                            case R.id.searchItem:
-//
-//                                message.setText("Up 버튼을 눌렀습니다.");
-//
-//                                return true;
-//
-//                            case R.id.cameraItem:
-//
-//                                message.setText("Down 버튼을 눌렀습니다.");
-//
-//                                return true;
-//
-//                            case R.id.callItem:
-//
-//                                message.setText("Search 버튼을 눌렀습니다.");
-//
-//                                return true;
-//                        }
-//                        return false;
-//                    }
-//                });
-
     }
 
 
@@ -138,4 +116,87 @@ public class MainWrapActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void appLogout(){
+        SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.remove("user_id");
+
+        editor.remove("sns_division");
+
+        editor.commit();
+
+        super.onBackPressed();
+    }
+
+    public void backLoginPage(){
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
+        String user_id = sp.getString("user_id",null);
+
+        if(user_id == null){
+            super.onBackPressed();
+        }else{
+            long tempTime = System.currentTimeMillis();
+            long intervalTime = tempTime - backPressedTime;
+
+            if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
+                finishAffinity(); //앱 종료해버리는 이벤트
+            } else {
+                backPressedTime = tempTime;
+                Toast.makeText(this, "뒤로 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+    }
+
+    public void changeText(String text)
+    {
+        SharedPreferences sf = getSharedPreferences("lately_keyword",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sf.edit();
+        editor.putString("keyword",text);
+
+        editor.commit();
+        searchTab.changeText(text);
+        Log.e("lately",sf.getString("keyword",null));
+    }
+
+    public void latelyKeywordSetting(){
+        JSONArray array = new JSONArray();
+        JSONArray array2;
+
+        array.put("강남");
+        array.put("서울");
+        SharedPreferences sf = getSharedPreferences("lately_keyword",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sf.edit();
+        editor.putString("keyword",array.toString());
+
+        try{
+            array2 = new JSONArray(sf.getString("keyword",null));
+
+        }catch (JSONException e){
+
+        }
+
+
+    }
+
+    public Map<String,String> getUserInfo(){
+        Map<String,String> userInfo = new HashMap();
+
+        SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
+
+        userInfo.put("user_id",sp.getString("user_id",null));
+        userInfo.put("sns_division",sp.getString("sns_division",null));
+
+        return userInfo;
+    }
+
 }

@@ -45,5 +45,11 @@ dependencies {
 //    implementation 'com.android.support:design:29.0.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    /*레트로핏2, GSON, 리사이클러뷰*/
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.android.support:recyclerview-v7:29.0.0'
+
 }
 

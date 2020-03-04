@@ -8,4 +8,18 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="최근검색어"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <ListView
+            android:id="@+id/lately_keyword_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#EEE"
+            android:dividerHeight="1dp" />
+    </ScrollView>
+
 </LinearLayout>

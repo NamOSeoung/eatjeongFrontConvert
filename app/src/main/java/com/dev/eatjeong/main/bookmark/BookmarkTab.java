@@ -12,26 +12,54 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 public class BookmarkTab extends Fragment implements  View.OnClickListener{
 
-    Button bookmark_place, bookmark_youtube, bookmark_naver, bookmark_tistory;
+    Button bookmark_place, bookmark_youtube, bookmark_naver, bookmark_tistory,bookmark_login;
+
+    String user_id;
+    String sns_division;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.bookmark_tab, container, false);
+        View v;
 
-        initFragment(v);
 
-        bookmark_place = (Button)v.findViewById(R.id.bookmark_place);
-        bookmark_youtube = (Button)v.findViewById(R.id.bookmark_youtube);
-        bookmark_naver = (Button)v.findViewById(R.id.bookmark_naver);
-        bookmark_tistory = (Button)v.findViewById(R.id.bookmark_tistory);
+        user_id = ((MainWrapActivity)getActivity()).getUserInfo().get("user_id");
+        sns_division = ((MainWrapActivity)getActivity()).getUserInfo().get("sns_division");
 
-        bookmark_place.setOnClickListener(this);
-        bookmark_youtube.setOnClickListener(this);
-        bookmark_naver.setOnClickListener(this);
-        bookmark_tistory.setOnClickListener(this);
+        if(user_id != null) {
+            v = inflater.inflate(R.layout.bookmark_tab, container, false);
+            initFragment(v);
+            bookmark_place = (Button)v.findViewById(R.id.bookmark_place);
+            bookmark_youtube = (Button)v.findViewById(R.id.bookmark_youtube);
+            bookmark_naver = (Button)v.findViewById(R.id.bookmark_naver);
+            bookmark_tistory = (Button)v.findViewById(R.id.bookmark_tistory);
+
+            bookmark_place.setOnClickListener(this);
+            bookmark_youtube.setOnClickListener(this);
+            bookmark_naver.setOnClickListener(this);
+            bookmark_tistory.setOnClickListener(this);
+
+        }else{
+            v = inflater.inflate(R.layout.bookmark_logout_tab, container, false);
+
+            bookmark_login = (Button)v.findViewById(R.id.bookmark_login);
+
+
+            bookmark_login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainWrapActivity)getActivity()).backLoginPage();
+                }
+            });
+        }
+
+
+
 
 
         return v;

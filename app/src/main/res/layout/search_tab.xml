@@ -21,7 +21,6 @@
             android:id="@+id/search_keyword"
             android:imeOptions="actionSearch"
             android:singleLine="true"
-            android:privateImeOptions="defaultInputmode=english;symbol=true"
             android:hint="검색어를 입력해주세요">
             <requestFocus />
         </EditText>

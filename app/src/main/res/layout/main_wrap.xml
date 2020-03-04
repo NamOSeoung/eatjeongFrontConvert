@@ -23,7 +23,7 @@ tools:context=".mainWrap.MainWrapActivity">
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:itemIconTint="@drawable/item_color"
-        app:itemTextColor="@drawable/item_color"
+        app:itemTextColor="#333333"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/main_bottom_navigation"
 />
