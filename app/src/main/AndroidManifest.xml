@@ -29,6 +29,19 @@
         <activity
             android:name=".main.search.MapSearchActivity"
             android:windowSoftInputMode="adjustNothing"/>
+
+        <activity
+            android:name=".main.bookmark.bookmarkListWebview.BookmarkPlaceWebviewActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.bookmark.bookmarkListWebview.BookmarkYoutubeWebviewActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.bookmark.bookmarkListWebview.BookmarkNaverWebviewActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.bookmark.bookmarkListWebview.BookmarkTistoryWebviewActivity"
+            android:windowSoftInputMode="adjustNothing"/>
     </application>
 
 </manifest>

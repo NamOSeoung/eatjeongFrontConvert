@@ -1,19 +1,22 @@
-package com.dev.eatjeong.main.bookmark.BookmarkFragment;
+package com.dev.eatjeong.main.bookmark.bookmarkFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.bookmark.BookmarkListAdapter.BookmarkYoutubeListAdapter;
-import com.dev.eatjeong.main.bookmark.BookmarkListVO.BookmarkYoutubeListVO;
+import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkYoutubeListAdapter;
+import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkYoutubeListVO;
+import com.dev.eatjeong.main.bookmark.bookmarkListWebview.BookmarkYoutubeWebviewActivity;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
-import com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO.BookmarkYoutubeResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeResponseVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
@@ -67,6 +70,18 @@ public class YoutubeFragment extends Fragment {
 
         listView = (ListView) v.findViewById(R.id.bookmark_youtube_list);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent youtubeWebview = new Intent(getContext(), BookmarkYoutubeWebviewActivity.class);
+                youtubeWebview.putExtra("url",arrayList.get(position).getUrl());
+                startActivityForResult(youtubeWebview,0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein,0);
+
+            }
+        });
+
         return v;
     }
 
@@ -109,7 +124,8 @@ public class YoutubeFragment extends Fragment {
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
                 Log.e("dd",response.body().mDatalist.get(i).toString());
                 arrayList.add(new BookmarkYoutubeListVO(
-                        response.body().mDatalist.get(i).getPlace_name()
+                        response.body().mDatalist.get(i).getPlace_name(),
+                        response.body().mDatalist.get(i).getUrl()
                         //response.body().mDatalist.get(i).getCategory_name()
                 ));
 

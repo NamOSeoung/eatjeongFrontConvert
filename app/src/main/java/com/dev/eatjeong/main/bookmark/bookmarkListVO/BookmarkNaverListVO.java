@@ -1,6 +1,6 @@
-package com.dev.eatjeong.main.bookmark.BookmarkListVO;
+package com.dev.eatjeong.main.bookmark.bookmarkListVO;
 
-public class BookmarkTistoryListVO {
+public class BookmarkNaverListVO {
     private String place_name;
     private String place_id = "";
     private String category_name = "";
@@ -16,9 +16,11 @@ public class BookmarkTistoryListVO {
     private String google_review_count = "";
     private String youtube_review_count = "";
     private String app_review_count = "";
+    private String url = "";
 
-    public BookmarkTistoryListVO(String place_name){
+    public BookmarkNaverListVO(String place_name,String url){
         this.place_name = place_name;
+        this.url = url;
     }
 
     public String getPlace_name() {
@@ -139,5 +141,13 @@ public class BookmarkTistoryListVO {
 
     public void setApp_review_count(String app_review_count) {
         this.app_review_count = app_review_count;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

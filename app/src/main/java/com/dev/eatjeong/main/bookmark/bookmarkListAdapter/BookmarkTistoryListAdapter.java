@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.bookmark.BookmarkListAdapter;
+package com.dev.eatjeong.main.bookmark.bookmarkListAdapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.bookmark.BookmarkListVO.BookmarkTistoryListVO;
+import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkTistoryListVO;
 
 import java.util.ArrayList;
 

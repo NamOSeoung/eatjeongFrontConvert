@@ -1,19 +1,22 @@
-package com.dev.eatjeong.main.bookmark.BookmarkFragment;
+package com.dev.eatjeong.main.bookmark.bookmarkFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.bookmark.BookmarkListAdapter.BookmarkPlaceListAdapter;
-import com.dev.eatjeong.main.bookmark.BookmarkListVO.BookmarkPlaceListVO;
+import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkPlaceListAdapter;
+import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkPlaceListVO;
+import com.dev.eatjeong.main.bookmark.bookmarkListWebview.BookmarkPlaceWebviewActivity;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
-import com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO.BookmarkPlaceResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkPlaceResponseVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
@@ -25,6 +28,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlaceFragment extends Fragment {
+
+
+    public static final int sub = 1003; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
 
     String user_id;
     String sns_division;
@@ -65,6 +71,17 @@ public class PlaceFragment extends Fragment {
         callSearchResponse();
 
         listView = (ListView) v.findViewById(R.id.bookmark_place_list);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent placeWebview = new Intent(getContext(), BookmarkPlaceWebviewActivity.class);
+                startActivityForResult(placeWebview,0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein,0);
+
+            }
+        });
 
         return v;
     }

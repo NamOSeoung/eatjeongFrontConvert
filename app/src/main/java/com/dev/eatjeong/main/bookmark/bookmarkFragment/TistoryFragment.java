@@ -1,19 +1,22 @@
-package com.dev.eatjeong.main.bookmark.BookmarkFragment;
+package com.dev.eatjeong.main.bookmark.bookmarkFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.bookmark.BookmarkListAdapter.BookmarkTistoryListAdapter;
-import com.dev.eatjeong.main.bookmark.BookmarkListVO.BookmarkTistoryListVO;
+import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkTistoryListAdapter;
+import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkTistoryListVO;
+import com.dev.eatjeong.main.bookmark.bookmarkListWebview.BookmarkTistoryWebviewActivity;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
-import com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO.BookmarkTistoryResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkTistoryResponseVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
@@ -68,6 +71,18 @@ public class TistoryFragment extends Fragment {
 
         listView = (ListView) v.findViewById(R.id.bookmark_tistory_list);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent tistoryWebview = new Intent(getContext(), BookmarkTistoryWebviewActivity.class);
+                tistoryWebview.putExtra("url",arrayList.get(position).getUrl());
+                startActivityForResult(tistoryWebview,0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein,0);
+
+            }
+        });
+
         return v;
     }
 
@@ -109,7 +124,8 @@ public class TistoryFragment extends Fragment {
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
                 Log.e("dd",response.body().mDatalist.get(i).toString());
                 arrayList.add(new BookmarkTistoryListVO(
-                        response.body().mDatalist.get(i).getPlace_name()
+                        response.body().mDatalist.get(i).getPlace_name(),
+                        response.body().mDatalist.get(i).getUrl()
                 ));
 
             }

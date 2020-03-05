@@ -12,10 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.bookmark.BookmarkFragment.NaverFragment;
-import com.dev.eatjeong.main.bookmark.BookmarkFragment.PlaceFragment;
-import com.dev.eatjeong.main.bookmark.BookmarkFragment.TistoryFragment;
-import com.dev.eatjeong.main.bookmark.BookmarkFragment.YoutubeFragment;
+
+import com.dev.eatjeong.main.bookmark.bookmarkFragment.NaverFragment;
+import com.dev.eatjeong.main.bookmark.bookmarkFragment.PlaceFragment;
+import com.dev.eatjeong.main.bookmark.bookmarkFragment.TistoryFragment;
+import com.dev.eatjeong.main.bookmark.bookmarkFragment.YoutubeFragment;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 public class BookmarkTab extends Fragment implements  View.OnClickListener{

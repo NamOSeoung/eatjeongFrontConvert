@@ -1,9 +1,9 @@
 package com.dev.eatjeong.main.bookmark;
 
-import com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO.BookmarkNaverResponseVO;
-import com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO.BookmarkPlaceResponseVO;
-import com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO.BookmarkTistoryResponseVO;
-import com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO.BookmarkYoutubeResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkNaverResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkPlaceResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkTistoryResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeResponseVO;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
