@@ -1,10 +1,10 @@
-package com.dev.eatjeong.main.bookmark;
+package com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BookmarkYoutubeResponseVO {
+public class BookmarkTistoryResponseVO {
 
     private String code;
     private String message;
@@ -96,6 +96,10 @@ public class BookmarkYoutubeResponseVO {
 
         public String getPlace_name() {
             return place_name;
+        }
+
+        public void getPlace_name(String index) {
+            this.place_name = index;
         }
 
         public void setPlace_name(String place_name) {

@@ -1,10 +1,10 @@
-package com.dev.eatjeong.main.bookmark;
+package com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BookmarkTistoryResponseVO {
+public class BookmarkNaverResponseVO {
 
     private String code;
     private String message;

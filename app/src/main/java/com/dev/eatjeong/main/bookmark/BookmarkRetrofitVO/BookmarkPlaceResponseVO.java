@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.bookmark;
+package com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO;
 
 import com.google.gson.annotations.SerializedName;
 

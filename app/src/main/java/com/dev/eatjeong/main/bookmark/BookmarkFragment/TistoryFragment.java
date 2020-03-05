@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.bookmark;
+package com.dev.eatjeong.main.bookmark.BookmarkFragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +10,10 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.main.bookmark.BookmarkListAdapter.BookmarkTistoryListAdapter;
+import com.dev.eatjeong.main.bookmark.BookmarkListVO.BookmarkTistoryListVO;
+import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
+import com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO.BookmarkTistoryResponseVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;

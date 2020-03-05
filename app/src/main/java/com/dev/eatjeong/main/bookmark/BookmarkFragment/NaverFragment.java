@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.bookmark;
+package com.dev.eatjeong.main.bookmark.BookmarkFragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +10,10 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.main.bookmark.BookmarkListAdapter.BookmarkNaverListAdapter;
+import com.dev.eatjeong.main.bookmark.BookmarkListVO.BookmarkNaverListVO;
+import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
+import com.dev.eatjeong.main.bookmark.BookmarkRetrofitVO.BookmarkNaverResponseVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
@@ -20,25 +24,25 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class YoutubeFragment extends Fragment {
+public class NaverFragment extends Fragment {
 
     String user_id;
     String sns_division;
 
-    private ArrayList<BookmarkYoutubeListVO> arrayList = new ArrayList<BookmarkYoutubeListVO>();
+    private ArrayList<BookmarkNaverListVO> arrayList = new ArrayList<BookmarkNaverListVO>();
 
     private Retrofit mRetrofit;
 
     private BookmarkRetrofitAPI mBookmarkRetrofitAPI;
 
-    private Call<BookmarkYoutubeResponseVO> mCallBookmarkYoutubeResponseVO;
+    private Call<BookmarkNaverResponseVO> mCallBookmarkNaverResponseVO;
 
     ListView listView;
 
-    BookmarkYoutubeListAdapter adapter;
+    BookmarkNaverListAdapter adapter;
 
-    public static YoutubeFragment newInstance(){
-        return new YoutubeFragment();
+    public static NaverFragment newInstance(){
+        return new NaverFragment();
     }
 
     @Override
@@ -49,7 +53,8 @@ public class YoutubeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.bookmark_youtube_fragment, container, false);
+        View v = inflater.inflate(R.layout.bookmark_naver_fragment, container, false);
+
 
         user_id = ((MainWrapActivity)getActivity()).getUserInfo().get("user_id");
         sns_division = ((MainWrapActivity)getActivity()).getUserInfo().get("sns_division");
@@ -61,11 +66,11 @@ public class YoutubeFragment extends Fragment {
         //레트로핏 초기화 후 호출작업 진행.
         callSearchResponse();
 
-        listView = (ListView) v.findViewById(R.id.bookmark_youtube_list);
+        listView = (ListView) v.findViewById(R.id.bookmark_naver_list);
+
 
         return v;
     }
-
 
     private void setRetrofitInit() {
         /*addConverterFactory(GsonConverterFactory.create())은
@@ -86,32 +91,32 @@ public class YoutubeFragment extends Fragment {
 
     private void callSearchResponse() {
 
-        mCallBookmarkYoutubeResponseVO = mBookmarkRetrofitAPI.getBookmarkYoutube("youtube",user_id,sns_division);
+        mCallBookmarkNaverResponseVO = mBookmarkRetrofitAPI.getBookmarkNaver("naver",user_id,sns_division);
 
-        mCallBookmarkYoutubeResponseVO.enqueue(mRetrofitCallback);
+        mCallBookmarkNaverResponseVO.enqueue(mRetrofitCallback);
 
     }
 
-    private Callback<BookmarkYoutubeResponseVO> mRetrofitCallback = new Callback<BookmarkYoutubeResponseVO>() {
+    private Callback<BookmarkNaverResponseVO> mRetrofitCallback = new Callback<BookmarkNaverResponseVO>() {
 
 
 
         @Override
 
-        public void onResponse(Call<BookmarkYoutubeResponseVO> call, Response<BookmarkYoutubeResponseVO> response) {
+        public void onResponse(Call<BookmarkNaverResponseVO> call, Response<BookmarkNaverResponseVO> response) {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
 
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
                 Log.e("dd",response.body().mDatalist.get(i).toString());
-                arrayList.add(new BookmarkYoutubeListVO(
+                arrayList.add(new BookmarkNaverListVO(
                         response.body().mDatalist.get(i).getPlace_name()
                         //response.body().mDatalist.get(i).getCategory_name()
                 ));
 
             }
 
-            adapter = new BookmarkYoutubeListAdapter(getContext(),arrayList);
+            adapter = new BookmarkNaverListAdapter(getContext(),arrayList);
             listView.setAdapter(adapter);
 
         }
@@ -120,7 +125,7 @@ public class YoutubeFragment extends Fragment {
 
         @Override
 
-        public void onFailure(Call<BookmarkYoutubeResponseVO> call, Throwable t) {
+        public void onFailure(Call<BookmarkNaverResponseVO> call, Throwable t) {
 
 
             Log.e("ss","asdasdasd");

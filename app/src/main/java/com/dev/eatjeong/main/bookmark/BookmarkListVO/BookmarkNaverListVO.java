@@ -1,7 +1,7 @@
-package com.dev.eatjeong.main.bookmark;
+package com.dev.eatjeong.main.bookmark.BookmarkListVO;
 
-public class BookmarkYoutubeListVO {
-    private String place_name = "";
+public class BookmarkNaverListVO {
+    private String place_name;
     private String place_id = "";
     private String category_name = "";
     private String place_address = "";
@@ -17,7 +17,7 @@ public class BookmarkYoutubeListVO {
     private String youtube_review_count = "";
     private String app_review_count = "";
 
-    public BookmarkYoutubeListVO(String place_name){
+    public BookmarkNaverListVO(String place_name){
         this.place_name = place_name;
     }
 

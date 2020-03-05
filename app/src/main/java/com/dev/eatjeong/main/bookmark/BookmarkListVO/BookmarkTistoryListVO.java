@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.bookmark;
+package com.dev.eatjeong.main.bookmark.BookmarkListVO;
 
 public class BookmarkTistoryListVO {
     private String place_name;
