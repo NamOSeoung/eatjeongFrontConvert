@@ -65,10 +65,11 @@
             android:name=".main.search.searchReviewMoreActivirt.SearchTistoryReviewMoreActivity"
             android:windowSoftInputMode="adjustNothing"/>
         <activity
-            android:name=".main.search.searchReviewMoreActivirt.SearchGoogleReviewMoreActivity"
-            android:windowSoftInputMode="adjustNothing"/>
-        <activity
             android:name=".main.search.searchReviewMoreActivirt.SearchAppReviewMoreActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+
+        <activity
+            android:name=".main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity"
             android:windowSoftInputMode="adjustNothing"/>
 
     </application>
