@@ -1,10 +1,10 @@
-package com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO;
+package com.dev.eatjeong.main.search.searchRetrofitVO;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BookmarkNaverResponseVO {
+public class SearchPlaceListResponseVO {
 
     private String code;
     private String message;
@@ -97,17 +97,15 @@ public class BookmarkNaverResponseVO {
 
         private String app_review_count = "";
 
+
         @SerializedName("url")
 
         private String url = "";
 
 
+
         public String getPlace_name() {
             return place_name;
-        }
-
-        public void getPlace_name(String index) {
-            this.place_name = index;
         }
 
         public void setPlace_name(String place_name) {
@@ -242,7 +240,6 @@ public class BookmarkNaverResponseVO {
             this.url = url;
         }
     }
-
 
 }
 

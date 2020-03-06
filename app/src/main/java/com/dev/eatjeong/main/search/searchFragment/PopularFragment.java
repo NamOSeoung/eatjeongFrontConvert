@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.search;
+package com.dev.eatjeong.main.search.searchFragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +11,10 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.main.search.searchListVO.PopularVO;
+import com.dev.eatjeong.main.search.searchRetrofitVO.SearchResponseVO;
+import com.dev.eatjeong.main.search.SearchRetrofitAPI;
+import com.dev.eatjeong.main.search.searchListAdapter.PopularListAdapter;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;

@@ -41,6 +41,10 @@ public class BookmarkTistoryResponseVO {
 
         private String place_id = "";
 
+        @SerializedName("review_id")
+
+        private String review_id = "";
+
         @SerializedName("category_name")
 
         private String category_name = "";
@@ -116,6 +120,14 @@ public class BookmarkTistoryResponseVO {
 
         public void setPlace_id(String place_id) {
             this.place_id = place_id;
+        }
+
+        public String getReview_id() {
+            return review_id;
+        }
+
+        public void setReview_id(String review_id) {
+            this.review_id = review_id;
         }
 
         public String getCategory_name() {

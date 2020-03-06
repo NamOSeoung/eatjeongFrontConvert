@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.search;
+package com.dev.eatjeong.main.search.searchListVO;
 
 
 public class PopularVO {

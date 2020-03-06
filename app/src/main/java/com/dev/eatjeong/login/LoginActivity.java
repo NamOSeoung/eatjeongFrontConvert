@@ -3,26 +3,17 @@ package com.dev.eatjeong.login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.search.PopularListAdapter;
-import com.dev.eatjeong.main.search.PopularVO;
-import com.dev.eatjeong.main.search.SearchResponseVO;
-import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import retrofit2.Call;

@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkTistoryListAdapter;
 import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkTistoryListVO;
+import com.dev.eatjeong.main.bookmark.bookmarkListWebview.BookmarkNaverWebviewActivity;
 import com.dev.eatjeong.main.bookmark.bookmarkListWebview.BookmarkTistoryWebviewActivity;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkTistoryResponseVO;
@@ -77,6 +79,8 @@ public class TistoryFragment extends Fragment {
 
                 Intent tistoryWebview = new Intent(getContext(), BookmarkTistoryWebviewActivity.class);
                 tistoryWebview.putExtra("url",arrayList.get(position).getUrl());
+                tistoryWebview.putExtra("place_id",arrayList.get(position).getPlace_id());
+                tistoryWebview.putExtra("review_id",arrayList.get(position).getReview_id());
                 startActivityForResult(tistoryWebview,0);//액티비티 띄우기
                 getActivity().overridePendingTransition(R.anim.fadein,0);
 
@@ -120,12 +124,13 @@ public class TistoryFragment extends Fragment {
         public void onResponse(Call<BookmarkTistoryResponseVO> call, Response<BookmarkTistoryResponseVO> response) {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
-
+            arrayList.clear();
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
-                Log.e("dd",response.body().mDatalist.get(i).toString());
                 arrayList.add(new BookmarkTistoryListVO(
                         response.body().mDatalist.get(i).getPlace_name(),
-                        response.body().mDatalist.get(i).getUrl()
+                        response.body().mDatalist.get(i).getUrl(),
+                        response.body().mDatalist.get(i).getPlace_id(),
+                        response.body().mDatalist.get(i).getReview_id()
                 ));
 
             }
@@ -148,5 +153,21 @@ public class TistoryFragment extends Fragment {
         }
 
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+            if(resultCode == 1){
+                //레트로핏 연결하기위한 초기화 작업.
+                setRetrofitInit();
+
+                //재호출
+                callSearchResponse();
+
+            }
+
+        }
+    }
 
 }

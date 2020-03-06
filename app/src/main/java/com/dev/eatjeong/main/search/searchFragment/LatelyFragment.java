@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.search;
+package com.dev.eatjeong.main.search.searchFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

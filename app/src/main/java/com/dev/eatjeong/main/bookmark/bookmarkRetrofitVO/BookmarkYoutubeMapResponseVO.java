@@ -1,28 +1,16 @@
-package com.dev.eatjeong.login;
+package com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 import java.util.Map;
 
-public class LoginResponseVO {
+public class BookmarkYoutubeMapResponseVO {
 
-    private String error_message;
     private String code;
     private String message;
 
     private Map<String,String> dataList;
-
-
-
-    public String getError_message() {
-        return error_message;
-    }
-
-    public void setError_message(String error_message) {
-        this.error_message = error_message;
-    }
-
 
     public String getCode() {
         return code;
@@ -47,7 +35,5 @@ public class LoginResponseVO {
     public void setDataList(Map<String, String> dataList) {
         this.dataList = dataList;
     }
-
-
 }
 
