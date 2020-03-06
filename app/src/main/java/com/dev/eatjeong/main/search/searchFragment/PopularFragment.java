@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.search;
+package com.dev.eatjeong.main.search.searchFragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,10 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.main.search.searchListVO.PopularVO;
+import com.dev.eatjeong.main.search.searchRetrofitVO.SearchResponseVO;
+import com.dev.eatjeong.main.search.SearchRetrofitAPI;
+import com.dev.eatjeong.main.search.searchListAdapter.PopularListAdapter;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
@@ -34,6 +39,8 @@ public class PopularFragment extends Fragment {
     ListView listView;
 
     PopularListAdapter adapter;
+
+    ProgressBar popular_progress_bar;
     public static PopularFragment newInstance(){
         return new PopularFragment();
     }
@@ -47,6 +54,9 @@ public class PopularFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.search_popular_fragment, container, false);
+
+        popular_progress_bar = (ProgressBar)v.findViewById(R.id.popular_progress_bar);
+
 
 
         //레트로핏 연결하기위한 초기화 작업.
@@ -116,6 +126,7 @@ public class PopularFragment extends Fragment {
 
             adapter = new PopularListAdapter(getContext(),arrayList);
             listView.setAdapter(adapter);
+            popular_progress_bar.setVisibility(View.GONE);
 
         }
 

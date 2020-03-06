@@ -3,6 +3,7 @@ package com.dev.eatjeong.main.bookmark.bookmarkListVO;
 public class BookmarkTistoryListVO {
     private String place_name;
     private String place_id = "";
+    private String review_id = "";
     private String category_name = "";
     private String place_address = "";
     private String road_place_address = "";
@@ -18,9 +19,11 @@ public class BookmarkTistoryListVO {
     private String app_review_count = "";
     private String url = "";
 
-    public BookmarkTistoryListVO(String place_name, String url){
+    public BookmarkTistoryListVO(String place_name,String url,String place_id, String review_id){
         this.place_name = place_name;
         this.url = url;
+        this.place_id = place_id;
+        this.review_id = review_id;
     }
 
     public String getPlace_name() {
@@ -37,6 +40,14 @@ public class BookmarkTistoryListVO {
 
     public void setPlace_id(String place_id) {
         this.place_id = place_id;
+    }
+
+    public String getReview_id() {
+        return review_id;
+    }
+
+    public void setReview_id(String review_id) {
+        this.review_id = review_id;
     }
 
     public String getCategory_name() {

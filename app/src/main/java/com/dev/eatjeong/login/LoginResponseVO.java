@@ -47,52 +47,6 @@ public class LoginResponseVO {
     public void setDataList(Map<String, String> dataList) {
         this.dataList = dataList;
     }
-//    @SerializedName("dataList")
-//
-//    public List<DataList> mDatalist;
-//
-//
-//    public class DataList {
-//
-//
-//        @SerializedName("result")
-//
-//        private String result = "";
-//
-//
-//        @SerializedName("login90_flag")
-//
-//        private String login90_flag = "";
-//
-//        @SerializedName("result_message")
-//
-//        private String result_message = "";
-//
-//
-//        public String getResult() {
-//            return result;
-//        }
-//
-//        public void setResult(String result) {
-//            this.result = result;
-//        }
-//
-//        public String getLogin90_flag() {
-//            return login90_flag;
-//        }
-//
-//        public void setLogin90_flag(String login90_flag) {
-//            this.login90_flag = login90_flag;
-//        }
-//
-//        public String getResult_message() {
-//            return result_message;
-//        }
-//
-//        public void setResult_message(String result_message) {
-//            this.result_message = result_message;
-//        }
-//    }
 
 
 }

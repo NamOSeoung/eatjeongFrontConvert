@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -16,10 +18,13 @@ import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkNaverListAdapt
 import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkNaverListVO;
 import com.dev.eatjeong.main.bookmark.bookmarkListWebview.BookmarkNaverWebviewActivity;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
+import com.dev.eatjeong.main.bookmark.bookmarkListWebview.BookmarkYoutubeWebviewActivity;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkNaverResponseVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
+
+import javax.security.auth.login.LoginException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +50,8 @@ public class NaverFragment extends Fragment {
 
     BookmarkNaverListAdapter adapter;
 
+    ProgressBar bookmark_naver_progress_bar;
+
     public static NaverFragment newInstance(){
         return new NaverFragment();
     }
@@ -63,6 +70,8 @@ public class NaverFragment extends Fragment {
         user_id = ((MainWrapActivity)getActivity()).getUserInfo().get("user_id");
         sns_division = ((MainWrapActivity)getActivity()).getUserInfo().get("sns_division");
 
+        bookmark_naver_progress_bar = (ProgressBar)v.findViewById(R.id.bookmark_naver_progress_bar);
+
 
         //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
@@ -72,7 +81,19 @@ public class NaverFragment extends Fragment {
 
         listView = (ListView) v.findViewById(R.id.bookmark_naver_list);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Intent naverWebview = new Intent(getContext(), BookmarkNaverWebviewActivity.class);
+                naverWebview.putExtra("url",arrayList.get(position).getUrl());
+                naverWebview.putExtra("place_id",arrayList.get(position).getPlace_id());
+                naverWebview.putExtra("review_id",arrayList.get(position).getReview_id());
+                startActivityForResult(naverWebview,0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein,0);
+
+            }
+        });
 
         return v;
     }
@@ -112,11 +133,15 @@ public class NaverFragment extends Fragment {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
 
+            arrayList.clear();
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
-                Log.e("dd",response.body().mDatalist.get(i).toString());
+
+                Log.e("place_id",response.body().mDatalist.get(i).getPlace_id());
                 arrayList.add(new BookmarkNaverListVO(
                         response.body().mDatalist.get(i).getPlace_name(),
-                        response.body().mDatalist.get(i).getUrl()
+                        response.body().mDatalist.get(i).getUrl(),
+                        response.body().mDatalist.get(i).getPlace_id(),
+                        response.body().mDatalist.get(i).getReview_id()
                         //response.body().mDatalist.get(i).getCategory_name()
                 ));
 
@@ -125,17 +150,7 @@ public class NaverFragment extends Fragment {
             adapter = new BookmarkNaverListAdapter(getContext(),arrayList);
             listView.setAdapter(adapter);
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    Intent naverWebview = new Intent(getContext(), BookmarkNaverWebviewActivity.class);
-                    naverWebview.putExtra("url",arrayList.get(position).getUrl());
-                    startActivityForResult(naverWebview,0);//액티비티 띄우기
-                    getActivity().overridePendingTransition(R.anim.fadein,0);
-
-                }
-            });
+            bookmark_naver_progress_bar.setVisibility(View.GONE);
 
         }
 
@@ -152,4 +167,20 @@ public class NaverFragment extends Fragment {
         }
 
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+            if(resultCode == 1){
+                //레트로핏 연결하기위한 초기화 작업.
+                setRetrofitInit();
+
+                //재호출
+                callSearchResponse();
+
+            }
+
+        }
+    }
 }

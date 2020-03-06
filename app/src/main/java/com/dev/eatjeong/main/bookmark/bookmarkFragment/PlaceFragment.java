@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 
@@ -47,6 +48,7 @@ public class PlaceFragment extends Fragment {
 
     BookmarkPlaceListAdapter adapter;
 
+    ProgressBar bookmark_place_progress_bar;
     public static PlaceFragment newInstance(){
         return new PlaceFragment();
     }
@@ -61,6 +63,7 @@ public class PlaceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.bookmark_place_fragment, container, false);
 
+        bookmark_place_progress_bar = (ProgressBar)v.findViewById(R.id.bookmark_place_progress_bar);
         user_id = ((MainWrapActivity)getActivity()).getUserInfo().get("user_id");
         sns_division = ((MainWrapActivity)getActivity()).getUserInfo().get("sns_division");
 
@@ -114,12 +117,9 @@ public class PlaceFragment extends Fragment {
     private Callback<BookmarkPlaceResponseVO> mRetrofitCallback = new Callback<BookmarkPlaceResponseVO>() {
 
 
-
         @Override
 
         public void onResponse(Call<BookmarkPlaceResponseVO> call, Response<BookmarkPlaceResponseVO> response) {
-
-
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
                 arrayList.add(new BookmarkPlaceListVO(
                         response.body().mDatalist.get(i).getPlace_name(),
@@ -130,6 +130,8 @@ public class PlaceFragment extends Fragment {
 
             adapter = new BookmarkPlaceListAdapter(getContext(),arrayList);
             listView.setAdapter(adapter);
+
+            bookmark_place_progress_bar.setVisibility(View.GONE);
 
         }
 

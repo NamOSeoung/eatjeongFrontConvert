@@ -162,6 +162,12 @@ public class MainWrapActivity extends AppCompatActivity {
         Log.e("lately",sf.getString("keyword",null));
     }
 
+    public String getKeyword()
+    {
+        String keyword = searchTab.getKeyword();
+        return keyword;
+    }
+
     public void latelyKeywordSetting(){
         JSONArray array = new JSONArray();
         JSONArray array2;

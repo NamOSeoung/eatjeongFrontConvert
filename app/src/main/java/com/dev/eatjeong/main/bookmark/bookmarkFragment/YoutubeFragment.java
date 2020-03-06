@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -44,6 +46,8 @@ public class YoutubeFragment extends Fragment {
 
     BookmarkYoutubeListAdapter adapter;
 
+    ProgressBar bookmark_youtube_progress_bar;
+
     public static YoutubeFragment newInstance(){
         return new YoutubeFragment();
     }
@@ -62,6 +66,7 @@ public class YoutubeFragment extends Fragment {
         sns_division = ((MainWrapActivity)getActivity()).getUserInfo().get("sns_division");
 
 
+        bookmark_youtube_progress_bar = (ProgressBar)v.findViewById(R.id.bookmark_youtube_progress_bar);
         //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
 
@@ -76,6 +81,8 @@ public class YoutubeFragment extends Fragment {
 
                 Intent youtubeWebview = new Intent(getContext(), BookmarkYoutubeWebviewActivity.class);
                 youtubeWebview.putExtra("url",arrayList.get(position).getUrl());
+                youtubeWebview.putExtra("place_id",arrayList.get(position).getPlace_id());
+                youtubeWebview.putExtra("review_id",arrayList.get(position).getReview_id());
                 startActivityForResult(youtubeWebview,0);//액티비티 띄우기
                 getActivity().overridePendingTransition(R.anim.fadein,0);
 
@@ -120,19 +127,22 @@ public class YoutubeFragment extends Fragment {
         public void onResponse(Call<BookmarkYoutubeResponseVO> call, Response<BookmarkYoutubeResponseVO> response) {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
+            arrayList.clear();
 
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
-                Log.e("dd",response.body().mDatalist.get(i).toString());
                 arrayList.add(new BookmarkYoutubeListVO(
                         response.body().mDatalist.get(i).getPlace_name(),
-                        response.body().mDatalist.get(i).getUrl()
-                        //response.body().mDatalist.get(i).getCategory_name()
+                        response.body().mDatalist.get(i).getUrl(),
+                        response.body().mDatalist.get(i).getPlace_id(),
+                        response.body().mDatalist.get(i).getReview_id()
                 ));
 
             }
 
             adapter = new BookmarkYoutubeListAdapter(getContext(),arrayList);
             listView.setAdapter(adapter);
+
+            bookmark_youtube_progress_bar.setVisibility(View.GONE);
 
         }
 
@@ -149,4 +159,20 @@ public class YoutubeFragment extends Fragment {
         }
 
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+            if(resultCode == 1){
+                //레트로핏 연결하기위한 초기화 작업.
+                setRetrofitInit();
+
+                //재호출
+                callSearchResponse();
+
+            }
+
+        }
+    }
 }

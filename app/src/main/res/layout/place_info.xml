@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/place_name"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:textSize="40dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/address"/>
+            <RelativeLayout
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+            <fragment
+                android:name="com.dev.eatjeong.main.search.searchFragment.YoutubeReviewFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:id="@+id/youtube_review_fragment"
+                android:layout_height="100dp" />
+
+            <fragment
+                android:name="com.dev.eatjeong.main.search.searchFragment.NaverReviewFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:id="@+id/naver_review_fragment"
+                android:layout_height="100dp" />
+
+            <fragment
+                android:name="com.dev.eatjeong.main.search.searchFragment.TistoryReviewFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:id="@+id/tistory_review_fragment"
+                android:layout_height="100dp" />
+
+            <fragment
+                android:name="com.dev.eatjeong.main.search.searchFragment.GoogleReviewFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:id="@+id/google_review_fragment"
+                android:layout_height="100dp" />
+
+            <fragment
+                android:name="com.dev.eatjeong.main.search.searchFragment.AppReviewFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:id="@+id/app_review_fragment"
+                android:layout_height="100dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/review_add"
+                android:text="리뷰작성"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

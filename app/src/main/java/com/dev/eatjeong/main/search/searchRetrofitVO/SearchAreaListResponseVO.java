@@ -1,10 +1,10 @@
-package com.dev.eatjeong.main.search;
+package com.dev.eatjeong.main.search.searchRetrofitVO;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class SearchResponseVO {
+public class SearchAreaListResponseVO {
 
     private String code;
     private String message;
@@ -33,32 +33,31 @@ public class SearchResponseVO {
     public class DataList {
 
 
-        @SerializedName("index")
+        @SerializedName("area")
 
-        private String index = "";
+        private String area = "";
+
+        @SerializedName("area_name")
+
+        private String area_name = "";
 
 
-        @SerializedName("search_word")
-
-        private String search_word = "";
-
-        public String getIndex() {
-            return index;
+        public String getArea() {
+            return area;
         }
 
-        public void setIndex(String index) {
-            this.index = index;
+        public void setArea(String area) {
+            this.area = area;
         }
 
-        public String getSearch_word() {
-            return search_word;
+        public String getArea_name() {
+            return area_name;
         }
 
-        public void setSearch_word(String search_word) {
-            this.search_word = search_word;
+        public void setArea_name(String area_name) {
+            this.area_name = area_name;
         }
     }
-
 
 }
 

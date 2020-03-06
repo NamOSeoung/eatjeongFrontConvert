@@ -1,17 +1,13 @@
 package com.dev.eatjeong.main.search;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +15,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.mainWrap.MainWrapActivity;
+import com.dev.eatjeong.main.search.searchActivity.MapSearchActivity;
+import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
+import com.dev.eatjeong.main.search.searchFragment.PlaceListFragment;
+import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
 
 public class SearchTab extends Fragment implements View.OnClickListener{
     public static final int sub = 1002; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
-    Button search_map,search_lately_keyword,search_popular_keyword;
+    Button search_map,search_lately_keyword,search_popular_keyword,search_button;
     EditText search_keyword;
     @Nullable
     @Override
@@ -32,6 +31,8 @@ public class SearchTab extends Fragment implements View.OnClickListener{
         View v = inflater.inflate(R.layout.search_tab, container, false);
 
         initFragment(v);
+        search_button = (Button)v.findViewById(R.id.search_button);
+        search_button.setOnClickListener(this);
 
         search_map = (Button)v.findViewById(R.id.search_map);
         search_map.setOnClickListener(this);
@@ -73,6 +74,13 @@ public class SearchTab extends Fragment implements View.OnClickListener{
                 fg = PopularFragment.newInstance();
                 setChildFragment(fg);
                 break;
+            case R.id.search_button:
+                if(search_keyword.getText().toString().equals("")){
+                    return;
+                }
+                fg = PlaceListFragment.newInstance();
+                setChildFragment(fg);
+                break;
         }
     }
 
@@ -86,7 +94,6 @@ public class SearchTab extends Fragment implements View.OnClickListener{
     public void setChildFragment(Fragment fr) {
 
         FragmentTransaction childFt = getChildFragmentManager().beginTransaction();
-
 
         if (!fr.isAdded()) {
             childFt.replace(R.id.child_fragment_container, fr);
@@ -104,15 +111,25 @@ public class SearchTab extends Fragment implements View.OnClickListener{
                 Log.e("LOG", data.getStringExtra("keyword"));
                 Log.e("LOG", "결과 받기 성공");
                 search_keyword.setText(data.getStringExtra("keyword"));
+                Fragment fg;
+                fg = PlaceListFragment.newInstance();
+                setChildFragment(fg);
             }
 
-           // search_keyword.setText("23123");
         }
     }
 
     public void changeText(String text)
     {
         search_keyword.setText(text);
+        Fragment fg;
+        fg = PlaceListFragment.newInstance();
+        setChildFragment(fg);
+    }
+
+    public String getKeyword(){
+        String keyword = search_keyword.getText().toString();
+        return keyword;
     }
 
 

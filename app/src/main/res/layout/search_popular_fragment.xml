@@ -9,6 +9,13 @@
         android:gravity="center"
         android:text="인기검색어"/>
 
+    <ProgressBar
+        android:id="@+id/popular_progress_bar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,6 +26,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="#EEE"
-            android:dividerHeight="1dp" />
+            android:dividerHeight="1dp"
+            />
+
+
     </ScrollView>
+
+
 </LinearLayout>
