@@ -1,5 +1,9 @@
 package com.dev.eatjeong.main.search;
 
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkNaverMapResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkTistoryMapResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeMapResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAppListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchGoogleListResponseVO;
@@ -9,9 +13,12 @@ import com.dev.eatjeong.main.search.searchRetrofitVO.SearchPlaceListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchTistoryListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
+import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeMapResponseVO;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -79,5 +86,17 @@ public interface SearchRetrofitAPI {
     @GET("/v1/places/{place_id}/reviews/eatzeong")
     Call<SearchAppListResponseVO> getAppReviewMore(@Path("place_id")String place_id, @Query("user_id") String user_id, @Query("sns_division")String sns_division);
 
+
+    //북마크 삭제부분
+
+    //유튜브 북마크 삭제
+    @DELETE("/v1/bookmarks")
+    Call<SearchYoutubeMapResponseVO> deleteBookmarkYoutube(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+
+    //북마크 삽입부분
+
+    //유튜브 북마크 추가
+    @POST("/v1/bookmarks")
+    Call<SearchYoutubeMapResponseVO> setBookmarkYoutube(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
 }

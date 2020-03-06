@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeMapResponseVO;
+import com.dev.eatjeong.main.search.SearchRetrofitAPI;
+import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeMapResponseVO;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import retrofit2.Call;
@@ -45,9 +47,9 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
 
     private Retrofit mRetrofit;
 
-    private BookmarkRetrofitAPI mBookmarkRetrofitAPI;
+    private SearchRetrofitAPI mSearchRetrofitAPI;
 
-    private Call<BookmarkYoutubeMapResponseVO> mCallBookmarkYoutubeResponseVO;
+    private Call<SearchYoutubeMapResponseVO> mCallYoutubeMapResponseVO;
 
 
     private WebView webView;
@@ -192,30 +194,29 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
                 .build();
 
 
-        mBookmarkRetrofitAPI = mRetrofit.create(BookmarkRetrofitAPI.class);
+        mSearchRetrofitAPI = mRetrofit.create(SearchRetrofitAPI.class);
 
     }
 
     private void callSearchResponse() {
 
         if(bookmark_flag){ //북마크 추가 된 상태면 지워야하고 삭제 된 상태면 추가 가능하도록 조치
-            mCallBookmarkYoutubeResponseVO = mBookmarkRetrofitAPI.deleteBookmarkYoutube("youtube",place_id,review_id,user_id,sns_division);
+            mCallYoutubeMapResponseVO = mSearchRetrofitAPI.deleteBookmarkYoutube("youtube",place_id,review_id,user_id,sns_division);
         }else{
-            mCallBookmarkYoutubeResponseVO = mBookmarkRetrofitAPI.setBookmarkYoutube("youtube",place_id,review_id,user_id,sns_division);
+            mCallYoutubeMapResponseVO = mSearchRetrofitAPI.setBookmarkYoutube("youtube",place_id,review_id,user_id,sns_division);
         }
 
-
-        mCallBookmarkYoutubeResponseVO.enqueue(mRetrofitCallback);
+        mCallYoutubeMapResponseVO.enqueue(mRetrofitCallback);
 
     }
 
-    private Callback<BookmarkYoutubeMapResponseVO> mRetrofitCallback = new Callback<BookmarkYoutubeMapResponseVO>() {
+    private Callback<SearchYoutubeMapResponseVO> mRetrofitCallback = new Callback<SearchYoutubeMapResponseVO>() {
 
 
 
         @Override
 
-        public void onResponse(Call<BookmarkYoutubeMapResponseVO> call, Response<BookmarkYoutubeMapResponseVO> response) {
+        public void onResponse(Call<SearchYoutubeMapResponseVO> call, Response<SearchYoutubeMapResponseVO> response) {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
 
@@ -245,7 +246,7 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
 
         @Override
 
-        public void onFailure(Call<BookmarkYoutubeMapResponseVO> call, Throwable t) {
+        public void onFailure(Call<SearchYoutubeMapResponseVO> call, Throwable t) {
 
             Log.e("ss","asdasdasd");
             t.printStackTrace();
