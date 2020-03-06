@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.iml
 .gradle
 /local.properties
@@ -12,3 +13,10 @@
 /captures
 .externalNativeBuild
 .cxx
+=======
+eatjeong.iml
+local.properties
+.gradle/
+.idea/
+app/app.iml
+>>>>>>> origin/dev
