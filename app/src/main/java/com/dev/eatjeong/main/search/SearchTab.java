@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.main.search.searchActivity.MapSearchActivity;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PlaceListFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
@@ -94,7 +95,6 @@ public class SearchTab extends Fragment implements View.OnClickListener{
 
         FragmentTransaction childFt = getChildFragmentManager().beginTransaction();
 
-
         if (!fr.isAdded()) {
             childFt.replace(R.id.child_fragment_container, fr);
             childFt.addToBackStack(null);
@@ -111,6 +111,9 @@ public class SearchTab extends Fragment implements View.OnClickListener{
                 Log.e("LOG", data.getStringExtra("keyword"));
                 Log.e("LOG", "결과 받기 성공");
                 search_keyword.setText(data.getStringExtra("keyword"));
+                Fragment fg;
+                fg = PlaceListFragment.newInstance();
+                setChildFragment(fg);
             }
 
         }
@@ -119,6 +122,9 @@ public class SearchTab extends Fragment implements View.OnClickListener{
     public void changeText(String text)
     {
         search_keyword.setText(text);
+        Fragment fg;
+        fg = PlaceListFragment.newInstance();
+        setChildFragment(fg);
     }
 
     public String getKeyword(){

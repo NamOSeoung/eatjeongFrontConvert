@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -47,6 +48,8 @@ public class TistoryFragment extends Fragment {
 
     BookmarkTistoryListAdapter adapter;
 
+    ProgressBar bookmark_tistory_progress_bar;
+
     public static TistoryFragment newInstance(){
         return new TistoryFragment();
     }
@@ -65,6 +68,8 @@ public class TistoryFragment extends Fragment {
         user_id = ((MainWrapActivity)getActivity()).getUserInfo().get("user_id");
         sns_division = ((MainWrapActivity)getActivity()).getUserInfo().get("sns_division");
 
+
+        bookmark_tistory_progress_bar = (ProgressBar)v.findViewById(R.id.bookmark_tistory_progress_bar);
         //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
 
@@ -137,6 +142,8 @@ public class TistoryFragment extends Fragment {
 
             adapter = new BookmarkTistoryListAdapter(getContext(),arrayList);
             listView.setAdapter(adapter);
+
+            bookmark_tistory_progress_bar.setVisibility(View.GONE);
 
         }
 

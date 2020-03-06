@@ -1,5 +1,6 @@
 package com.dev.eatjeong.main.search.searchFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
+import com.dev.eatjeong.main.search.searchActivity.PlaceInfoActivity;
 import com.dev.eatjeong.main.search.searchListAdapter.PlaceListAdapter;
 import com.dev.eatjeong.main.search.searchListAdapter.PopularListAdapter;
 import com.dev.eatjeong.main.search.searchListVO.PlaceListVO;
@@ -42,6 +45,7 @@ public class PlaceListFragment extends Fragment {
 
     PlaceListAdapter adapter;
 
+    ProgressBar place_list_progress_bar;
     public static PlaceListFragment newInstance(){
         return new PlaceListFragment();
     }
@@ -57,6 +61,7 @@ public class PlaceListFragment extends Fragment {
         View v = inflater.inflate(R.layout.search_place_list_fragment, container, false);
 
 
+        place_list_progress_bar = (ProgressBar)v.findViewById(R.id.place_list_progress_bar);
         //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
 
@@ -64,6 +69,28 @@ public class PlaceListFragment extends Fragment {
         callSearchResponse();
 
         listView = (ListView) v.findViewById(R.id.place_list);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String place_name = arrayList.get(position).getPlace_name();
+                String place_id = arrayList.get(position).getPlace_id();
+                String latitude = arrayList.get(position).getLatitute();
+                String longitude = arrayList.get(position).getLongitude();
+                String place_address = arrayList.get(position).getPlace_address();
+
+
+
+                Intent goPlaceInfo = new Intent(getContext(), PlaceInfoActivity.class);
+                goPlaceInfo.putExtra("place_name",place_name);
+                goPlaceInfo.putExtra("place_id",place_id);
+                goPlaceInfo.putExtra("latitude",latitude);
+                goPlaceInfo.putExtra("longitude",longitude);
+                goPlaceInfo.putExtra("place_address",place_address);
+                startActivityForResult(goPlaceInfo, 1);//액티비티 띄우기
+//                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+            }
+        });
 
         return v;
     }
@@ -115,11 +142,18 @@ public class PlaceListFragment extends Fragment {
         public void onResponse(Call<SearchPlaceListResponseVO> call, Response<SearchPlaceListResponseVO> response) {
 
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
-                arrayList.add(new PlaceListVO(response.body().mDatalist.get(i).getPlace_name()));
+                arrayList.add(new PlaceListVO(
+                        response.body().mDatalist.get(i).getPlace_id(),
+                        response.body().mDatalist.get(i).getPlace_name(),
+                        response.body().mDatalist.get(i).getLatitude(),
+                        response.body().mDatalist.get(i).getLongitude(),
+                        response.body().mDatalist.get(i).getPlace_address()));
             }
 
             adapter = new PlaceListAdapter(getContext(),arrayList);
             listView.setAdapter(adapter);
+
+            place_list_progress_bar.setVisibility(View.GONE);
 
         }
 

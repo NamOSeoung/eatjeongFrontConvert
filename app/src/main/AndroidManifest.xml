@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dev.eatjeong">
+
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,11 @@
         android:supportsRtl="true"
         android:windowSoftInputMode="adjustNothing"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="68ab9da973a075def10b0a08972cdeee"/>
+
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/app_name"
@@ -21,13 +28,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".mainWrap.MainWrapActivity"
             android:windowSoftInputMode="adjustNothing"
             />
         <activity
-            android:name=".main.search.MapSearchActivity"
+            android:name=".main.search.searchActivity.MapSearchActivity"
             android:windowSoftInputMode="adjustNothing"/>
+
+        <activity
+            android:name=".main.search.searchActivity.PlaceInfoActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+
 
         <activity
             android:name=".main.bookmark.bookmarkListWebview.BookmarkPlaceWebviewActivity"
@@ -41,6 +54,23 @@
         <activity
             android:name=".main.bookmark.bookmarkListWebview.BookmarkTistoryWebviewActivity"
             android:windowSoftInputMode="adjustNothing"/>
+
+        <activity
+            android:name=".main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.search.searchReviewMoreActivirt.SearchNaverReviewMoreActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.search.searchReviewMoreActivirt.SearchTistoryReviewMoreActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.search.searchReviewMoreActivirt.SearchGoogleReviewMoreActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.search.searchReviewMoreActivirt.SearchAppReviewMoreActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+
     </application>
 
 </manifest>

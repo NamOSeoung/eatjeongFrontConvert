@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.search;
+package com.dev.eatjeong.main.search.searchActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
 
 import java.util.ArrayList;
@@ -50,6 +51,12 @@ public class MapSearchActivity extends AppCompatActivity {
     StableArrayAdapter adapter;
 
     boolean subSearchFlag = false;
+
+    private String main_area_name;
+
+    private String sub_area_name;
+
+    private String search_area_keyword = "";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,9 +107,13 @@ public class MapSearchActivity extends AppCompatActivity {
         area_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(search_area_keyword.equals("")){
+                    Toast.makeText(getApplicationContext(),"지역을 선택 해 주세요",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = getIntent(); // 객체 생성자의 인자에 아무 것도 넣지 않는다.
+                intent.putExtra("keyword",search_area_keyword);
 
-                intent.putExtra("keyword",area_keyword.getText().toString());
                 setResult(1,intent);
                 finish();
             }
@@ -112,10 +123,23 @@ public class MapSearchActivity extends AppCompatActivity {
         main_area_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                main_area_name = main_area_list.getAdapter().getItem(position).toString();
                 callSubAreaResponse(areaCodeList.get(position));
             }
         });
 
+        sub_area_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                sub_area_name = sub_area_list.getAdapter().getItem(position).toString();
+
+                search_area_keyword = main_area_name + ' ' + sub_area_name;
+
+                if(sub_area_name.indexOf(main_area_name) > -1){
+                    search_area_keyword = main_area_name; //ex)서울 전체 선택 시 -- 서울 서울 전체 가 되므로 서울 전체는 키워드에서 제외
+                }
+            }
+        });
 
     }
 

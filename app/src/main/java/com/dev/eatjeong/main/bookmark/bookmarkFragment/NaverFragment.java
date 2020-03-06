@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -49,6 +50,8 @@ public class NaverFragment extends Fragment {
 
     BookmarkNaverListAdapter adapter;
 
+    ProgressBar bookmark_naver_progress_bar;
+
     public static NaverFragment newInstance(){
         return new NaverFragment();
     }
@@ -66,6 +69,8 @@ public class NaverFragment extends Fragment {
 
         user_id = ((MainWrapActivity)getActivity()).getUserInfo().get("user_id");
         sns_division = ((MainWrapActivity)getActivity()).getUserInfo().get("sns_division");
+
+        bookmark_naver_progress_bar = (ProgressBar)v.findViewById(R.id.bookmark_naver_progress_bar);
 
 
         //레트로핏 연결하기위한 초기화 작업.
@@ -144,6 +149,8 @@ public class NaverFragment extends Fragment {
 
             adapter = new BookmarkNaverListAdapter(getContext(),arrayList);
             listView.setAdapter(adapter);
+
+            bookmark_naver_progress_bar.setVisibility(View.GONE);
 
         }
 

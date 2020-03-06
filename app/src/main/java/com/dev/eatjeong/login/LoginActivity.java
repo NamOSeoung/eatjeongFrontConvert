@@ -1,8 +1,14 @@
 package com.dev.eatjeong.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,11 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
+
+import java.security.MessageDigest;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final int sub = 1001; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
 
+    private Context mContext;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +60,12 @@ public class LoginActivity extends AppCompatActivity {
         Button menu_btn = findViewById(R.id.menu_btn);
         user_id = (EditText) findViewById(R.id.user_id);
         password = (EditText) findViewById(R.id.password);
+
+        mContext = getApplicationContext();
+
+
+
+        getHashKey(mContext);
 
         //자동로그인
         autoLogin();
@@ -87,6 +104,59 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    // 프로젝트의 해시키를 반환
+
+    @Nullable
+
+    public static String getHashKey(Context context) {
+
+        final String TAG = "KeyHash";
+
+        String keyHash = null;
+
+        try {
+
+            PackageInfo info =
+
+                    context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+
+
+
+            for (Signature signature : info.signatures) {
+
+                MessageDigest md;
+
+                md = MessageDigest.getInstance("SHA");
+
+                md.update(signature.toByteArray());
+
+                keyHash = new String(Base64.encode(md.digest(), 0));
+
+                Log.d(TAG, keyHash);
+
+            }
+
+        } catch (Exception e) {
+
+            Log.e("name not found", e.toString());
+
+        }
+
+
+
+        if (keyHash != null) {
+
+            return keyHash;
+
+        } else {
+
+            return null;
+
+        }
+
     }
 
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -45,6 +46,8 @@ public class YoutubeFragment extends Fragment {
 
     BookmarkYoutubeListAdapter adapter;
 
+    ProgressBar bookmark_youtube_progress_bar;
+
     public static YoutubeFragment newInstance(){
         return new YoutubeFragment();
     }
@@ -63,6 +66,7 @@ public class YoutubeFragment extends Fragment {
         sns_division = ((MainWrapActivity)getActivity()).getUserInfo().get("sns_division");
 
 
+        bookmark_youtube_progress_bar = (ProgressBar)v.findViewById(R.id.bookmark_youtube_progress_bar);
         //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
 
@@ -137,6 +141,8 @@ public class YoutubeFragment extends Fragment {
 
             adapter = new BookmarkYoutubeListAdapter(getContext(),arrayList);
             listView.setAdapter(adapter);
+
+            bookmark_youtube_progress_bar.setVisibility(View.GONE);
 
         }
 
