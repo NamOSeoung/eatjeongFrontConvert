@@ -1,28 +1,22 @@
 package com.dev.eatjeong.mainWrap;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.fragment.app.ListFragment;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.bookmark.BookmarkTab;
 import com.dev.eatjeong.main.home.HomeTab;
 import com.dev.eatjeong.main.search.SearchTab;
 import com.dev.eatjeong.main.settings.SettingsTab;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;

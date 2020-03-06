@@ -1,28 +1,30 @@
 package com.dev.eatjeong.login;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
-
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.util.Log;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.search.PopularListAdapter;
-import com.dev.eatjeong.main.search.PopularVO;
-import com.dev.eatjeong.main.search.SearchResponseVO;
-import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import retrofit2.Call;
@@ -54,10 +56,39 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        Button login_btn = findViewById(R.id.login_btn);
-        Button menu_btn = findViewById(R.id.menu_btn);
-        user_id = (EditText) findViewById(R.id.user_id);
-        password = (EditText) findViewById(R.id.password);
+        Button login_btn = findViewById(R.id.login_button);
+        LinearLayout menu_btn = findViewById(R.id.no_login_button);
+        user_id = (EditText) findViewById(R.id.login_id_text);
+        password = (EditText) findViewById(R.id.login_password_text);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        Activity activity = this;
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        float density = getResources().getDisplayMetrics().density;
+        int dpi = (int)(density * 160f);
+        display.getSize(size);
+        int width = size.x;
+        int widthDp = (int)(width * (160f / (float)dpi));
+        int height = size.y;
+
+        Log.i("density", "X " + density);
+        Log.i("device dpi", dpi + "");
+        Log.i("가로 dp", widthDp + "dp");
+        Log.i("width", width + "px");
+        Log.i("height", height + "px");
+        if (dpi<=160) { // mdpi
+            Log.i("device dpi", "mdpi");
+        } else if (dpi<=240) { // hdpi
+            Log.i("device dpi", "hdpi");
+        } else if (dpi<=320) { // xhdpi
+            Log.i("device dpi", "xhdpi");
+        } else if (dpi<=480) { // xxhdpi
+            Log.i("device dpi", "xxhdpi");
+        } else if (dpi<=640) { // xxxhdpi
+            Log.i("device dpi", "xxxhdpi");
+        }
 
         //자동로그인
         autoLogin();
