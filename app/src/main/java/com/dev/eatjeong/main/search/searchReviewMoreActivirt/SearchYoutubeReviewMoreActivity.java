@@ -33,6 +33,7 @@ import com.dev.eatjeong.main.search.searchListAdapter.YoutubeReviewListMoreAdapt
 import com.dev.eatjeong.main.search.searchListVO.YoutubeReviewVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
+import com.dev.eatjeong.main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,6 +85,22 @@ public class SearchYoutubeReviewMoreActivity extends AppCompatActivity {
 
         search_youtube_progress_bar = (ProgressBar)findViewById(R.id.search_youtube_progress_bar);
         listView = (ListView)findViewById(R.id.search_youtube_list);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent goWebview = new Intent(getApplicationContext(), SearchYoutubeReviewWebviewActivity.class);
+                goWebview.putExtra("user_id",user_id);
+                goWebview.putExtra("sns_division",sns_division);
+                goWebview.putExtra("place_id",place_id);
+                goWebview.putExtra("review_id",arrayList.get(position).getReview_id());
+                goWebview.putExtra("url",arrayList.get(position).getUrl());
+
+                startActivityForResult(goWebview,0);//액티비티 띄우기
+                SearchYoutubeReviewMoreActivity.this.overridePendingTransition(R.anim.fadein,0);
+            }
+        });
     }
 
 
