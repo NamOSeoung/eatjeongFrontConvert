@@ -1,51 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dev.eatjeong">
+        package="com.dev.eatjeong">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:windowSoftInputMode="adjustNothing"
-        android:theme="@style/AppTheme">
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
 
         <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="68ab9da973a075def10b0a08972cdeee"/>
+                android:name="com.kakao.sdk.AppKey"
+                android:value="68ab9da973a075def10b0a08972cdeee" />
 
         <activity
-            android:name=".login.LoginActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustNothing">
+                android:name=".login.LoginActivity"
+                android:label="@string/app_name"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
                 android:name=".mainWrap.MainWrapActivity"
+                android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".main.search.searchActivity.MapSearchActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+                android:name=".main.search.searchActivity.MapSearchActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
 
         <activity
-            android:name=".main.search.searchActivity.PlaceInfoActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+                android:name=".main.search.searchActivity.PlaceInfoActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
 
 
         <!-- 북마크 탭 리뷰 별 웹뷰 Activity 화면 -->
         <activity
-            android:name=".main.bookmark.bookmarkListWebview.BookmarkPlaceWebviewActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+                android:name=".main.bookmark.bookmarkListWebview.BookmarkPlaceWebviewActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
         <activity
                 android:name=".main.bookmark.bookmarkListWebview.BookmarkYoutubeWebviewActivity"
                 android:theme="@style/AppTheme.NoActionBar"
@@ -58,7 +61,6 @@
             android:name=".main.bookmark.bookmarkListWebview.BookmarkTistoryWebviewActivity"
             android:windowSoftInputMode="adjustNothing"/>
         <!-- END -->
-
         <!-- 검색 탭 매장 상세 후 리뷰 별 더보기 Activity 화면 -->
         <activity
                 android:name=".main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity"
@@ -88,7 +90,6 @@
             android:name=".main.search.searchReviewWebview.SearchTistoryReviewWebviewActivity"
             android:windowSoftInputMode="adjustNothing"/>
         <!-- END -->
-
     </application>
 
 </manifest>
