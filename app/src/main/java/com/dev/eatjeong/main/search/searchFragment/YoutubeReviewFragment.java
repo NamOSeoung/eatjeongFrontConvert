@@ -3,7 +3,9 @@ package com.dev.eatjeong.main.search.searchFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +32,7 @@ import com.dev.eatjeong.main.search.searchListVO.YoutubeReviewVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
 import com.dev.eatjeong.main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity;
+import com.dev.eatjeong.main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import org.w3c.dom.Text;
@@ -41,7 +45,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class YoutubeReviewFragment extends Fragment {
+public class YoutubeReviewFragment extends Fragment{
     String user_id,sns_division,place_id,place_address,place_name;
 
     private ArrayList<YoutubeReviewVO> arrayList = new ArrayList<YoutubeReviewVO>();
@@ -93,8 +97,6 @@ public class YoutubeReviewFragment extends Fragment {
 
         listView = (RecyclerView) v.findViewById(R.id.recycler_view);
 
-
-
         review_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,23 +112,49 @@ public class YoutubeReviewFragment extends Fragment {
             }
         });
 
-//
+        //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
+        final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
+        {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e)
+            {
+                return true;
+            }
+        });
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.e("as",arrayList.get(position).getKeyword());
-//
-//                //Fragment 끼리는 호출이 불가능하기에 연결 된 Activity를 통해서 호출함.
-//                ((MainWrapActivity)getActivity()).changeText(arrayList.get(position).getKeyword());
-//
-//
-//
-//            }
-//        });
+        listView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+                View child = listView.findChildViewUnder(e.getX(), e.getY());
+                int position = listView.getChildAdapterPosition(child);
+                if(child!=null&&gestureDetector.onTouchEvent(e))
+                {
+                    Intent goWebview = new Intent(getContext(), SearchYoutubeReviewWebviewActivity.class);
+                    goWebview.putExtra("user_id",user_id);
+                    goWebview.putExtra("sns_division",sns_division);
+                    goWebview.putExtra("place_id",place_id);
+                    goWebview.putExtra("review_id",arrayList.get(position).getReview_id());
+                    goWebview.putExtra("url",arrayList.get(position).getUrl());
+
+                    startActivityForResult(goWebview,0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.fadein,0);
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
 
 
+            }
 
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
         return v;
     }
@@ -209,4 +237,5 @@ public class YoutubeReviewFragment extends Fragment {
         }
 
     };
+
 }

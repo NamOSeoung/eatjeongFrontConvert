@@ -2,7 +2,9 @@ package com.dev.eatjeong.main.search.searchFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -10,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +30,8 @@ import com.dev.eatjeong.main.search.searchRetrofitVO.SearchNaverListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchResponseVO;
 import com.dev.eatjeong.main.search.searchReviewMoreActivirt.SearchNaverReviewMoreActivity;
 import com.dev.eatjeong.main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity;
+import com.dev.eatjeong.main.search.searchReviewWebview.SearchNaverReviewWebviewActivity;
+import com.dev.eatjeong.main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity;
 
 import java.util.ArrayList;
 
@@ -103,6 +108,50 @@ public class NaverReviewFragment extends Fragment {
             }
         });
 //
+
+        //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
+        final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
+        {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e)
+            {
+                return true;
+            }
+        });
+
+        listView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+                View child = listView.findChildViewUnder(e.getX(), e.getY());
+                int position = listView.getChildAdapterPosition(child);
+                if(child!=null&&gestureDetector.onTouchEvent(e))
+                {
+                    Intent goWebview = new Intent(getContext(), SearchNaverReviewWebviewActivity.class);
+                    goWebview.putExtra("user_id",user_id);
+                    goWebview.putExtra("sns_division",sns_division);
+                    goWebview.putExtra("place_id",place_id);
+                    goWebview.putExtra("review_id",arrayList.get(position).getReview_id());
+                    goWebview.putExtra("url",arrayList.get(position).getUrl());
+
+                    startActivityForResult(goWebview,0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.fadein,0);
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
 
 
