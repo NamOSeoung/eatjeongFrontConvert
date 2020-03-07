@@ -219,6 +219,7 @@ public class SearchYoutubeReviewMoreActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 0){
             if(resultCode == 1){
+                search_youtube_progress_bar.setVisibility(View.VISIBLE);
                 //레트로핏 연결하기위한 초기화 작업.
                 setRetrofitInit();
 

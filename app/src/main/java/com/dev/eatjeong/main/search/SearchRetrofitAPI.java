@@ -8,10 +8,12 @@ import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAppListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchGoogleListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchNaverListResponseVO;
+import com.dev.eatjeong.main.search.searchRetrofitVO.SearchNaverMapResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchPlaceInfoMapResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchPlaceListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchTistoryListResponseVO;
+import com.dev.eatjeong.main.search.searchRetrofitVO.SearchTistoryMapResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeMapResponseVO;
 
@@ -93,10 +95,27 @@ public interface SearchRetrofitAPI {
     @DELETE("/v1/bookmarks")
     Call<SearchYoutubeMapResponseVO> deleteBookmarkYoutube(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
+    //네이버 북마크 삭제
+    @DELETE("/v1/bookmarks")
+    Call<SearchNaverMapResponseVO> deleteBookmarkNaver(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+
+    //티스토리 북마크 삭제
+    @DELETE("/v1/bookmarks")
+    Call<SearchTistoryMapResponseVO> deleteBookmarkTistory(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+
+
     //북마크 삽입부분
 
     //유튜브 북마크 추가
     @POST("/v1/bookmarks")
     Call<SearchYoutubeMapResponseVO> setBookmarkYoutube(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+
+    //네이버 북마크 추가
+    @POST("/v1/bookmarks")
+    Call<SearchNaverMapResponseVO> setBookmarkNaver(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+
+    //티스토리 북마크 추가
+    @POST("/v1/bookmarks")
+    Call<SearchTistoryMapResponseVO> setBookmarkTistory(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
 }

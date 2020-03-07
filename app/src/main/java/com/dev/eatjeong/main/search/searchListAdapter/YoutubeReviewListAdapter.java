@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -65,6 +66,14 @@ public class YoutubeReviewListAdapter extends RecyclerView.Adapter<YoutubeReview
         public Holder(View view){
             super(view);
             review_id = (TextView) view.findViewById(R.id.review_id);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition() ;
+                    Toast.makeText(context,list.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+
+                }
+            });
         }
     }
 }

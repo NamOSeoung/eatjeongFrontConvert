@@ -32,6 +32,7 @@
 
         <activity
                 android:name=".mainWrap.MainWrapActivity"
+                android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".main.search.searchActivity.MapSearchActivity"
@@ -42,6 +43,7 @@
             android:windowSoftInputMode="adjustNothing"/>
 
 
+        <!-- 북마크 탭 리뷰 별 웹뷰 Activity 화면 -->
         <activity
             android:name=".main.bookmark.bookmarkListWebview.BookmarkPlaceWebviewActivity"
             android:windowSoftInputMode="adjustNothing"/>
@@ -54,7 +56,9 @@
         <activity
             android:name=".main.bookmark.bookmarkListWebview.BookmarkTistoryWebviewActivity"
             android:windowSoftInputMode="adjustNothing"/>
+        <!-- END -->
 
+        <!-- 검색 탭 매장 상세 후 리뷰 별 더보기 Activity 화면 -->
         <activity
             android:name=".main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity"
             android:windowSoftInputMode="adjustNothing"/>
@@ -68,9 +72,17 @@
             android:name=".main.search.searchReviewMoreActivirt.SearchAppReviewMoreActivity"
             android:windowSoftInputMode="adjustNothing"/>
 
+        <!-- 검색 탭 웹뷰 호출 Activity 화면 -->
         <activity
             android:name=".main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity"
             android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.search.searchReviewWebview.SearchNaverReviewWebviewActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.search.searchReviewWebview.SearchTistoryReviewWebviewActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <!-- END -->
 
     </application>
 

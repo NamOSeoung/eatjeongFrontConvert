@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,8 @@ import com.dev.eatjeong.main.search.searchListVO.TistoryReviewVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchNaverListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchTistoryListResponseVO;
+import com.dev.eatjeong.main.search.searchReviewWebview.SearchNaverReviewWebviewActivity;
+import com.dev.eatjeong.main.search.searchReviewWebview.SearchTistoryReviewWebviewActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,6 +83,21 @@ public class SearchTistoryReviewMoreActivity extends AppCompatActivity {
         search_tistory_progress_bar = (ProgressBar)findViewById(R.id.search_tistory_progress_bar);
         listView = (ListView)findViewById(R.id.search_tistory_list);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent goWebview = new Intent(getApplicationContext(), SearchTistoryReviewWebviewActivity.class);
+                goWebview.putExtra("user_id",user_id);
+                goWebview.putExtra("sns_division",sns_division);
+                goWebview.putExtra("place_id",place_id);
+                goWebview.putExtra("review_id",arrayList.get(position).getReview_id());
+                goWebview.putExtra("url",arrayList.get(position).getUrl());
+
+                startActivityForResult(goWebview,0);//액티비티 띄우기
+                SearchTistoryReviewMoreActivity.this.overridePendingTransition(R.anim.fadein,0);
+            }
+        });
     }
 
 
@@ -194,6 +212,8 @@ public class SearchTistoryReviewMoreActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 0){
             if(resultCode == 1){
+
+                search_tistory_progress_bar.setVisibility(View.VISIBLE);
                 //레트로핏 연결하기위한 초기화 작업.
                 setRetrofitInit();
 
