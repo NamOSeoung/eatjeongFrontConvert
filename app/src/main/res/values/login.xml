@@ -11,7 +11,7 @@
     <dimen name="find_text_fontsize">18dp</dimen>
     <dimen name="login_button_width">100dp</dimen>
     <dimen name="signup_button_fontsize">15dp</dimen>
-    <dimen name="signup_button_height">35dp</dimen>
+    <dimen name="signup_button_height">50dp</dimen>
     <dimen name="buttonLayoutMarginTop">10dp</dimen>
     <dimen name="login_button_margin_top">48dp</dimen>
 </resources>

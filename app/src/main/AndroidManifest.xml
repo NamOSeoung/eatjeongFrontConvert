@@ -32,7 +32,6 @@
 
         <activity
                 android:name=".mainWrap.MainWrapActivity"
-                android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".main.search.searchActivity.MapSearchActivity"
@@ -49,9 +48,11 @@
             android:windowSoftInputMode="adjustNothing"/>
         <activity
                 android:name=".main.bookmark.bookmarkListWebview.BookmarkYoutubeWebviewActivity"
+                android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustNothing" />
         <activity
                 android:name=".main.bookmark.bookmarkListWebview.BookmarkNaverWebviewActivity"
+                android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".main.bookmark.bookmarkListWebview.BookmarkTistoryWebviewActivity"
@@ -60,17 +61,21 @@
 
         <!-- 검색 탭 매장 상세 후 리뷰 별 더보기 Activity 화면 -->
         <activity
-            android:name=".main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+                android:name=".main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".main.search.searchReviewMoreActivirt.SearchNaverReviewMoreActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+                android:name=".main.search.searchReviewMoreActivirt.SearchNaverReviewMoreActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".main.search.searchReviewMoreActivirt.SearchTistoryReviewMoreActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+                android:name=".main.search.searchReviewMoreActivirt.SearchTistoryReviewMoreActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".main.search.searchReviewMoreActivirt.SearchAppReviewMoreActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+                android:name=".main.search.searchReviewMoreActivirt.SearchAppReviewMoreActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
 
         <!-- 검색 탭 웹뷰 호출 Activity 화면 -->
         <activity
