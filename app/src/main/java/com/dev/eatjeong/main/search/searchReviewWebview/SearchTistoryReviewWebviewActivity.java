@@ -1,7 +1,6 @@
 package com.dev.eatjeong.main.search.searchReviewWebview;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,10 +16,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeMapResponseVO;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeMapResponseVO;
+import com.dev.eatjeong.main.search.searchRetrofitVO.SearchTistoryMapResponseVO;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import retrofit2.Call;
@@ -30,7 +27,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
+public class SearchTistoryReviewWebviewActivity extends AppCompatActivity {
 
     String user_id;
     String sns_division;
@@ -41,15 +38,15 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
 
     private boolean bookmark_flag = true; //true : 북마크 추가상태, false: 북마크 헤제상태
 
-    private Button search_youtube_modal, search_youtube_cancel, search_youtube_add;
+    private Button search_tistory_modal, search_tistory_cancel, search_tistory_add;
 
-    private TextView search_youtube_cancel_text, search_youtube_add_text;
+    private TextView search_tistory_cancel_text, search_tistory_add_text;
 
     private Retrofit mRetrofit;
 
     private SearchRetrofitAPI mSearchRetrofitAPI;
 
-    private Call<SearchYoutubeMapResponseVO> mCallYoutubeMapResponseVO;
+    private Call<SearchTistoryMapResponseVO> mCallTistoryMapResponseVO;
 
 
     private WebView webView;
@@ -58,7 +55,7 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_youtube_webview);
+        setContentView(R.layout.search_tistory_webview);
 
 
         Intent intent = getIntent();
@@ -69,11 +66,11 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
         place_id = intent.getStringExtra("place_id");
         review_id = intent.getStringExtra("review_id");
 
-        search_youtube_modal = (Button)findViewById(R.id.search_youtube_modal);
+        search_tistory_modal = (Button)findViewById(R.id.search_tistory_modal);
 
 
         // 웹뷰 시작
-        webView = (WebView) findViewById(R.id.search_youtube_webview);
+        webView = (WebView) findViewById(R.id.search_tistory_webview);
 
         webView.setWebViewClient(new WebViewClient()); // 클릭시 새창 안뜨게
         webSettings = webView.getSettings(); //세부 세팅 등록
@@ -91,35 +88,35 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
         webView.loadUrl(url); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
 
 
-        search_youtube_modal.setOnClickListener(new View.OnClickListener() {
+        search_tistory_modal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(SearchYoutubeReviewWebviewActivity.this);
-                bottomSheetDialog.setContentView(R.layout.search_youtube_bottom_sheet);
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(SearchTistoryReviewWebviewActivity.this);
+                bottomSheetDialog.setContentView(R.layout.search_tistory_bottom_sheet);
 
 
-                search_youtube_cancel = (Button) bottomSheetDialog.findViewById(R.id.search_youtube_cancel);
-                search_youtube_add = (Button) bottomSheetDialog.findViewById(R.id.search_youtube_add);
+                search_tistory_cancel = (Button) bottomSheetDialog.findViewById(R.id.search_tistory_cancel);
+                search_tistory_add = (Button) bottomSheetDialog.findViewById(R.id.search_tistory_add);
 
-                search_youtube_add_text = (TextView) bottomSheetDialog.findViewById(R.id.search_youtube_add_text) ;
-                search_youtube_cancel_text = (TextView) bottomSheetDialog.findViewById(R.id.search_youtube_cancel_text) ;
+                search_tistory_add_text = (TextView) bottomSheetDialog.findViewById(R.id.search_tistory_add_text) ;
+                search_tistory_cancel_text = (TextView) bottomSheetDialog.findViewById(R.id.search_tistory_cancel_text) ;
 
                 if(bookmark_flag){
-                    search_youtube_add.setVisibility(View.GONE);
-                    search_youtube_cancel.setVisibility(View.VISIBLE);
+                    search_tistory_add.setVisibility(View.GONE);
+                    search_tistory_cancel.setVisibility(View.VISIBLE);
 
-                    search_youtube_add_text.setVisibility(View.GONE);
-                    search_youtube_cancel_text.setVisibility(View.VISIBLE);
+                    search_tistory_add_text.setVisibility(View.GONE);
+                    search_tistory_cancel_text.setVisibility(View.VISIBLE);
                 }else{
-                    search_youtube_add.setVisibility(View.VISIBLE);
-                    search_youtube_cancel.setVisibility(View.GONE);
+                    search_tistory_add.setVisibility(View.VISIBLE);
+                    search_tistory_cancel.setVisibility(View.GONE);
 
-                    search_youtube_add_text.setVisibility(View.VISIBLE);
-                    search_youtube_cancel_text.setVisibility(View.GONE);
+                    search_tistory_add_text.setVisibility(View.VISIBLE);
+                    search_tistory_cancel_text.setVisibility(View.GONE);
                 }
 
-                search_youtube_cancel.setOnClickListener(new View.OnClickListener() {
+                search_tistory_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -132,7 +129,7 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
                 });
 
 
-                search_youtube_add.setOnClickListener(new View.OnClickListener() {
+                search_tistory_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -201,43 +198,43 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
     private void callSearchResponse() {
 
         if(bookmark_flag){ //북마크 추가 된 상태면 지워야하고 삭제 된 상태면 추가 가능하도록 조치
-            mCallYoutubeMapResponseVO = mSearchRetrofitAPI.deleteBookmarkYoutube("youtube",place_id,review_id,user_id,sns_division);
+            mCallTistoryMapResponseVO = mSearchRetrofitAPI.deleteBookmarkTistory("tistory",place_id,review_id,user_id,sns_division);
         }else{
-            mCallYoutubeMapResponseVO = mSearchRetrofitAPI.setBookmarkYoutube("youtube",place_id,review_id,user_id,sns_division);
+            mCallTistoryMapResponseVO = mSearchRetrofitAPI.setBookmarkTistory("tistory",place_id,review_id,user_id,sns_division);
         }
 
-        mCallYoutubeMapResponseVO.enqueue(mRetrofitCallback);
+        mCallTistoryMapResponseVO.enqueue(mRetrofitCallback);
 
     }
 
-    private Callback<SearchYoutubeMapResponseVO> mRetrofitCallback = new Callback<SearchYoutubeMapResponseVO>() {
+    private Callback<SearchTistoryMapResponseVO> mRetrofitCallback = new Callback<SearchTistoryMapResponseVO>() {
 
 
 
         @Override
 
-        public void onResponse(Call<SearchYoutubeMapResponseVO> call, Response<SearchYoutubeMapResponseVO> response) {
+        public void onResponse(Call<SearchTistoryMapResponseVO> call, Response<SearchTistoryMapResponseVO> response) {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
 
             if(bookmark_flag){
                 bookmark_flag = false;
 
-                search_youtube_add.setVisibility(View.VISIBLE);
-                search_youtube_cancel.setVisibility(View.GONE);
+                search_tistory_add.setVisibility(View.VISIBLE);
+                search_tistory_cancel.setVisibility(View.GONE);
 
-                search_youtube_add_text.setVisibility(View.VISIBLE);
-                search_youtube_cancel_text.setVisibility(View.GONE);
+                search_tistory_add_text.setVisibility(View.VISIBLE);
+                search_tistory_cancel_text.setVisibility(View.GONE);
 
 
             }else{
                 bookmark_flag = true;
 
-                search_youtube_add.setVisibility(View.GONE);
-                search_youtube_cancel.setVisibility(View.VISIBLE);
+                search_tistory_add.setVisibility(View.GONE);
+                search_tistory_cancel.setVisibility(View.VISIBLE);
 
-                search_youtube_add_text.setVisibility(View.GONE);
-                search_youtube_cancel_text.setVisibility(View.VISIBLE);
+                search_tistory_add_text.setVisibility(View.GONE);
+                search_tistory_cancel_text.setVisibility(View.VISIBLE);
             }
 
         }
@@ -246,7 +243,7 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
 
         @Override
 
-        public void onFailure(Call<SearchYoutubeMapResponseVO> call, Throwable t) {
+        public void onFailure(Call<SearchTistoryMapResponseVO> call, Throwable t) {
 
             Log.e("ss","asdasdasd");
             t.printStackTrace();

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,8 @@ import com.dev.eatjeong.main.search.searchListVO.YoutubeReviewVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchNaverListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
+import com.dev.eatjeong.main.search.searchReviewWebview.SearchNaverReviewWebviewActivity;
+import com.dev.eatjeong.main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +57,7 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
 
     NaverReviewListMoreAdapter adapter;
 
-    ProgressBar search_youtube_progress_bar;
+    ProgressBar search_naver_progress_bar;
 
     TextView review_more;
 
@@ -75,9 +78,24 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
         //레트로핏 초기화 후 호출작업 진행.
         callSearchResponse();
 
-        search_youtube_progress_bar = (ProgressBar)findViewById(R.id.search_naver_progress_bar);
+        search_naver_progress_bar = (ProgressBar)findViewById(R.id.search_naver_progress_bar);
         listView = (ListView)findViewById(R.id.search_naver_list);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent goWebview = new Intent(getApplicationContext(), SearchNaverReviewWebviewActivity.class);
+                goWebview.putExtra("user_id",user_id);
+                goWebview.putExtra("sns_division",sns_division);
+                goWebview.putExtra("place_id",place_id);
+                goWebview.putExtra("review_id",arrayList.get(position).getReview_id());
+                goWebview.putExtra("url",arrayList.get(position).getUrl());
+
+                startActivityForResult(goWebview,0);//액티비티 띄우기
+                SearchNaverReviewMoreActivity.this.overridePendingTransition(R.anim.fadein,0);
+            }
+        });
     }
 
 
@@ -171,7 +189,7 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
             adapter = new NaverReviewListMoreAdapter(getApplicationContext(),arrayList);
             listView.setAdapter(adapter);
 
-            search_youtube_progress_bar.setVisibility(View.GONE);
+            search_naver_progress_bar.setVisibility(View.GONE);
 
         }
 
@@ -194,6 +212,9 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 0){
             if(resultCode == 1){
+
+                search_naver_progress_bar.setVisibility(View.VISIBLE);
+
                 //레트로핏 연결하기위한 초기화 작업.
                 setRetrofitInit();
 

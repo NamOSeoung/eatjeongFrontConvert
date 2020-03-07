@@ -132,6 +132,9 @@ public class PlaceInfoActivity extends AppCompatActivity {
     }
 
 
+    public void goWebview(){
+        Toast.makeText(getApplicationContext(),"asdas",Toast.LENGTH_SHORT).show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
