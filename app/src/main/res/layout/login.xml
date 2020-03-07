@@ -111,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanumsquareroundeb"
-                    android:text="Brand Logo"
+                    android:text="EatJeong"
                     android:textColor="@color/appColor"
                     android:textSize="@dimen/image_text4_fontsize"
                     android:textStyle="bold"
@@ -325,14 +325,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.2" />
+                    app:layout_constraintGuide_percent="0.15" />
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/loginButtonGuideLineBottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.8" />
+                    app:layout_constraintGuide_percent="0.85" />
 
             <Button
                     android:id="@+id/emailSignUp"
