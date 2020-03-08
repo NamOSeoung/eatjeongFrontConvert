@@ -48,7 +48,7 @@ public interface SearchRetrofitAPI {
 
     //매장 상세 정보 검색
     @GET("/v1/places/{place_id}")
-    Call<SearchPlaceInfoMapResponseVO> getPlaceInfo(@Path("place_id")String place_id, @Query("latitude") String latitude,@Query("longitude")String longitude);
+    Call<SearchPlaceInfoMapResponseVO> getPlaceInfo(@Path("place_id")String place_id,@Query("user_id")String user_id,@Query("sns_division")String sns_division, @Query("latitude") String latitude,@Query("longitude")String longitude);
 
     //매장상세 유튜브 리뷰 검색
     @GET("/v1/places/{place_id}/reviews/youtube")

@@ -1,5 +1,6 @@
 package com.dev.eatjeong.main.bookmark;
 
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkMapResponseVO;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkNaverMapResponseVO;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkNaverResponseVO;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkPlaceResponseVO;
@@ -38,6 +39,10 @@ public interface BookmarkRetrofitAPI {
 
     //북마크 삭제부분
 
+    //장소 북마크 삭제
+    @DELETE("/v1/bookmarks")
+    Call<BookmarkMapResponseVO> deleteBookmarkPlace(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+
     //유튜브 북마크 삭제
     @DELETE("/v1/bookmarks")
     Call<BookmarkYoutubeMapResponseVO> deleteBookmarkYoutube(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
@@ -53,6 +58,11 @@ public interface BookmarkRetrofitAPI {
 
 
     //북마크 삽입부분
+
+    //장소 북마크 추가
+    @POST("/v1/bookmarks")
+    Call<BookmarkMapResponseVO> setBookmarkPlace(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+
 
     //유튜브 북마크 추가
     @POST("/v1/bookmarks")
