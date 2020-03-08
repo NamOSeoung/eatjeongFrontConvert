@@ -15,8 +15,11 @@ import androidx.fragment.app.Fragment;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.bookmark.bookmarkListWebview.BookmarkPlaceWebviewActivity;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
+import com.dev.eatjeong.main.home.HomeTab;
+import com.dev.eatjeong.main.home.homeActivity.PlaceInfoActivity;
 import com.dev.eatjeong.main.home.homeListAdapter.MainPlaceListMoreAdapter;
 import com.dev.eatjeong.main.home.homeRetrofitVO.MainPlaceListResponseVO;
+import com.dev.eatjeong.main.home.homeReviewWebview.HomeReviewWebviewActivity;
 import com.dev.eatjeong.main.home.homeVO.MainPlaceVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
@@ -85,13 +88,19 @@ public class MainPlaceInfoMoreFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent goWebview = new Intent(getContext(), PlaceInfoActivity.class);
+                goWebview.putExtra("place_id",arrayList.get(position).getPlace_id());
+                goWebview.putExtra("place_name",arrayList.get(position).getPlace_name());
+                goWebview.putExtra("place_address",arrayList.get(position).getPlace_address());
+                goWebview.putExtra("latitude",arrayList.get(position).getLatitude());
+                goWebview.putExtra("longitude",arrayList.get(position).getLongitude());
+                goWebview.putExtra("call_division","MAIN");
 
-                Intent placeWebview = new Intent(getContext(), BookmarkPlaceWebviewActivity.class);
-                startActivityForResult(placeWebview,0);//액티비티 띄우기
+                startActivityForResult(goWebview,0);//액티비티 띄우기
                 getActivity().overridePendingTransition(R.anim.fadein,0);
-
             }
         });
+
 
         return v;
     }
@@ -140,7 +149,10 @@ public class MainPlaceInfoMoreFragment extends Fragment {
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
                 arrayList.add(new MainPlaceVO(
                         response.body().mDatalist.get(i).getPlace_id(),
-                        response.body().mDatalist.get(i).getPlace_name()
+                        response.body().mDatalist.get(i).getPlace_name(),
+                        response.body().mDatalist.get(i).getPlace_address(),
+                        response.body().mDatalist.get(i).getLatitude(),
+                        response.body().mDatalist.get(i).getLongitude()
                 ));
 
             }

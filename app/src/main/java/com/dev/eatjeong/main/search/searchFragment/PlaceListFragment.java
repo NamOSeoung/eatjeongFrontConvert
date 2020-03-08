@@ -87,6 +87,7 @@ public class PlaceListFragment extends Fragment {
                 goPlaceInfo.putExtra("latitude",latitude);
                 goPlaceInfo.putExtra("longitude",longitude);
                 goPlaceInfo.putExtra("place_address",place_address);
+                goPlaceInfo.putExtra("call_division","SEARCH");
                 startActivityForResult(goPlaceInfo, 1);//액티비티 띄우기
 //                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }

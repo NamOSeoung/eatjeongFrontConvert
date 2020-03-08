@@ -244,7 +244,6 @@ public class MainTistoryListFragment extends Fragment{
                 @Override
                 public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
 
-
                 }
 
                 @Override

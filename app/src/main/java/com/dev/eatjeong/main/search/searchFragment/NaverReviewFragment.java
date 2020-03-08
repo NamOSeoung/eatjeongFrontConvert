@@ -76,12 +76,21 @@ public class NaverReviewFragment extends Fragment {
 
 //        naver_progress_bar = (ProgressBar)v.findViewById(R.id.naver_progress_bar);
 
-        user_id = ((PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
-        sns_division = ((PlaceInfoActivity)getActivity()).getUserInfo().get("sns_division");
-        place_name = ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_name");
-        place_id =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_id");
-        place_address =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_address");
+        Intent intent = getActivity().getIntent();
 
+        if(intent.getStringExtra("call_division").equals("MAIN")){
+            user_id = ((com.dev.eatjeong.main.home.homeActivity.PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
+            sns_division = ((com.dev.eatjeong.main.home.homeActivity.PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
+            place_id = intent.getStringExtra("place_id");
+            place_name = intent.getStringExtra("place_name");
+            place_address = intent.getStringExtra("place_address");
+        }else{
+            user_id = ((PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
+            sns_division = ((PlaceInfoActivity)getActivity()).getUserInfo().get("sns_division");
+            place_name = ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_name");
+            place_id =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_id");
+            place_address =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_address");
+        }
 
         review_more = (TextView)v.findViewById(R.id.review_more);
 

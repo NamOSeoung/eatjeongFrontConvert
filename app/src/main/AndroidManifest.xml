@@ -98,10 +98,17 @@
         <!-- 홈 탭 매장, 리뷰별 더보기 시 공통화면 -->
         <activity
             android:name=".main.home.homeReviewMore.HomeReviewMoreActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing"/>
 
         <activity
             android:name=".main.home.homeReviewWebview.HomeReviewWebviewActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustNothing"/>
+
+        <activity
+            android:name=".main.home.homeActivity.PlaceInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing"/>
 
     </application>

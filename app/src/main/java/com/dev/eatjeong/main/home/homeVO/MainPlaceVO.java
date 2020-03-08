@@ -17,10 +17,12 @@ public class MainPlaceVO {
     private String blog_thumbnail;
     private String app_thumbnail;
 
-    public MainPlaceVO(String place_id, String place_name){
-
+    public MainPlaceVO(String place_id, String place_name, String place_address,String latitude,String longitude){
         this.place_id = place_id;
         this.place_name = place_name;
+        this.place_address = place_address;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getPlace_id() {

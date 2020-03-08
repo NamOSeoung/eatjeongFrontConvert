@@ -82,12 +82,21 @@ public class TistoryReviewFragment extends Fragment {
 
 //        tistory_progress_bar = (ProgressBar)v.findViewById(R.id.tistory_progress_bar);
 
-        user_id = ((PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
-        sns_division = ((PlaceInfoActivity)getActivity()).getUserInfo().get("sns_division");
-        place_name = ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_name");
-        place_id =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_id");
-        place_address =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_address");
+        Intent intent = getActivity().getIntent();
 
+        if(intent.getStringExtra("call_division").equals("MAIN")){
+            user_id = ((com.dev.eatjeong.main.home.homeActivity.PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
+            sns_division = ((com.dev.eatjeong.main.home.homeActivity.PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
+            place_id = intent.getStringExtra("place_id");
+            place_name = intent.getStringExtra("place_name");
+            place_address = intent.getStringExtra("place_address");
+        }else{
+            user_id = ((PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
+            sns_division = ((PlaceInfoActivity)getActivity()).getUserInfo().get("sns_division");
+            place_name = ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_name");
+            place_id =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_id");
+            place_address =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_address");
+        }
         //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
 

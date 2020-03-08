@@ -2,15 +2,11 @@ package com.dev.eatjeong.main.search.searchFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,21 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkNaverListAdapter;
-import com.dev.eatjeong.main.bookmark.bookmarkListWebview.BookmarkPlaceWebviewActivity;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchActivity.PlaceInfoActivity;
-import com.dev.eatjeong.main.search.searchListAdapter.PopularListAdapter;
 import com.dev.eatjeong.main.search.searchListAdapter.YoutubeReviewListAdapter;
-import com.dev.eatjeong.main.search.searchListVO.PopularVO;
 import com.dev.eatjeong.main.search.searchListVO.YoutubeReviewVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
 import com.dev.eatjeong.main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity;
 import com.dev.eatjeong.main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity;
-import com.dev.eatjeong.mainWrap.MainWrapActivity;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -80,11 +68,22 @@ public class YoutubeReviewFragment extends Fragment{
 
 //        youtube_progress_bar = (ProgressBar)v.findViewById(R.id.youtube_progress_bar);
 
-        user_id = ((PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
-        sns_division = ((PlaceInfoActivity)getActivity()).getUserInfo().get("sns_division");
-        place_name = ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_name");
-        place_id =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_id");
-        place_address =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_address");
+        Intent intent = getActivity().getIntent();
+
+        if(intent.getStringExtra("call_division").equals("MAIN")){
+            user_id = ((com.dev.eatjeong.main.home.homeActivity.PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
+            sns_division = ((com.dev.eatjeong.main.home.homeActivity.PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
+            place_id = intent.getStringExtra("place_id");
+            place_name = intent.getStringExtra("place_name");
+            place_address = intent.getStringExtra("place_address");
+        }else{
+            user_id = ((PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
+            sns_division = ((PlaceInfoActivity)getActivity()).getUserInfo().get("sns_division");
+            place_name = ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_name");
+            place_id =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_id");
+            place_address =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_address");
+        }
+
 
 
         review_more = (TextView)v.findViewById(R.id.review_more);

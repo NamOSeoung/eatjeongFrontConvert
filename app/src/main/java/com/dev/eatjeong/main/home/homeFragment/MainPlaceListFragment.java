@@ -3,21 +3,26 @@ package com.dev.eatjeong.main.home.homeFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
+import com.dev.eatjeong.main.home.homeActivity.PlaceInfoActivity;
 import com.dev.eatjeong.main.home.homeListAdapter.MainPlaceListAdapter;
 import com.dev.eatjeong.main.home.homeRetrofitVO.MainPlaceListResponseVO;
 import com.dev.eatjeong.main.home.homeReviewMore.HomeReviewMoreActivity;
+import com.dev.eatjeong.main.home.homeReviewWebview.HomeReviewWebviewActivity;
 import com.dev.eatjeong.main.home.homeVO.MainPlaceVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
@@ -94,60 +99,50 @@ public class MainPlaceListFragment extends Fragment{
         });
 
 
-//        review_more.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent goMore = new Intent(getContext(), SearchYoutubeReviewMoreActivity.class);
-//                goMore.putExtra("user_id",user_id);
-//                goMore.putExtra("sns_division",sns_division);
-//                goMore.putExtra("place_name",place_name);
-//                goMore.putExtra("place_id",place_id);
-//                goMore.putExtra("place_address",place_address);
-//
-//                startActivityForResult(goMore,0);//액티비티 띄우기
-//                getActivity().overridePendingTransition(R.anim.fadein,0);
-//            }
-//        });
-//
-//        //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
-//        final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
-//        {
-//            @Override
-//            public boolean onSingleTapUp(MotionEvent e)
-//            {
-//                return true;
-//            }
-//        });
+//터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
+        final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
+        {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e)
+            {
+                return true;
+            }
+        });
 
-//        listView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-//            @Override
-//            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-//
-//                View child = listView.findChildViewUnder(e.getX(), e.getY());
-//                int position = listView.getChildAdapterPosition(child);
-//                if(child!=null&&gestureDetector.onTouchEvent(e))
-//                {
-//                    Intent goWebview = new Intent(getContext(), SearchYoutubeReviewWebviewActivity.class);
-//
-//
-//                    startActivityForResult(goWebview,0);//액티비티 띄우기
-//                    getActivity().overridePendingTransition(R.anim.fadein,0);
-//                }
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-//
-//
-//            }
-//
-//            @Override
-//            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-//
-//            }
-//        });
+        listView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+                View child = listView.findChildViewUnder(e.getX(), e.getY());
+                int position = listView.getChildAdapterPosition(child);
+                if(child!=null&&gestureDetector.onTouchEvent(e))
+                {
+                    Intent goWebview = new Intent(getContext(), PlaceInfoActivity.class);
+                    goWebview.putExtra("place_id",arrayList.get(position).getPlace_id());
+                    goWebview.putExtra("place_name",arrayList.get(position).getPlace_name());
+                    goWebview.putExtra("place_address",arrayList.get(position).getPlace_address());
+                    goWebview.putExtra("latitude",arrayList.get(position).getLatitude());
+                    goWebview.putExtra("longitude",arrayList.get(position).getLongitude());
+                    goWebview.putExtra("call_division","MAIN");
+
+                    startActivityForResult(goWebview,0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.fadein,0);
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
         return v;
     }
@@ -196,7 +191,10 @@ public class MainPlaceListFragment extends Fragment{
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
                 arrayList.add(new MainPlaceVO(
                         response.body().mDatalist.get(i).getPlace_id(),
-                        response.body().mDatalist.get(i).getPlace_name()
+                        response.body().mDatalist.get(i).getPlace_name(),
+                        response.body().mDatalist.get(i).getPlace_address(),
+                        response.body().mDatalist.get(i).getLatitude(),
+                        response.body().mDatalist.get(i).getLongitude()
                 ));
             }
 
