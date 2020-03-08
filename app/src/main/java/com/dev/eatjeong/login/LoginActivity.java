@@ -18,8 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -29,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
+import com.dev.eatjeong.signUp.SignUpActivity;
 
 import java.security.MessageDigest;
 
@@ -64,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         Button login_btn = findViewById(R.id.login_button);
+        Button emailSignUp = findViewById(R.id.emailSignUp);
         LinearLayout menu_btn = findViewById(R.id.no_login_button);
         user_id = (EditText) findViewById(R.id.login_id_text);
         password = (EditText) findViewById(R.id.login_password_text);
@@ -138,6 +138,15 @@ public class LoginActivity extends AppCompatActivity {
                 //레트로핏 초기화 후 호출작업 진행.
                 callSearchResponse(user_id.getText().toString(), password.getText().toString());
 
+            }
+        });
+
+        emailSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goSignUpTerms = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivityForResult(goSignUpTerms,0);//액티비티 띄우기
+                LoginActivity.this.overridePendingTransition(R.anim.fadein,0);
             }
         });
     }

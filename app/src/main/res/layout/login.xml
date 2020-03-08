@@ -54,10 +54,10 @@
                 app:layout_constraintGuide_percent="0.9" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout1"
+                android:id="@+id/terms_constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintBottom_toTopOf="@+id/personal_terms_constraintLayout"
                 app:layout_constraintTop_toTopOf="@id/imageTextGuideLineTop"
                 app:layout_constraintVertical_chainStyle="packed"
                 app:layout_constraintVertical_weight="1.5">
@@ -99,11 +99,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
+                android:id="@+id/personal_terms_constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout1"
+                app:layout_constraintBottom_toTopOf="@+id/all_terms_constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/terms_constraintLayout"
                 app:layout_constraintVertical_weight="1.5">
 
             <TextView
@@ -111,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanumsquareroundeb"
-                    android:text="EatJeong"
+                    android:text="잇정"
                     android:textColor="@color/appColor"
                     android:textSize="@dimen/image_text4_fontsize"
                     android:textStyle="bold"
@@ -121,11 +121,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout3"
+                android:id="@+id/all_terms_constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@id/imageTextGuideLineBottom"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/personal_terms_constraintLayout"
                 app:layout_constraintVertical_weight="1">
 
             <TextView

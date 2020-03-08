@@ -34,5 +34,4 @@ public class HomeTab extends Fragment{
 
         return v;
     }
-
 }

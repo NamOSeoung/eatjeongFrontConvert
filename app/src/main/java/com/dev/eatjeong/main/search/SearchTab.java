@@ -24,6 +24,7 @@ public class SearchTab extends Fragment implements View.OnClickListener{
     public static final int sub = 1002; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
     Button search_map,search_lately_keyword,search_popular_keyword,search_button;
     EditText search_keyword;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -131,6 +132,4 @@ public class SearchTab extends Fragment implements View.OnClickListener{
         String keyword = search_keyword.getText().toString();
         return keyword;
     }
-
-
 }

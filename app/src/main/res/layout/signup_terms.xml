@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/terms_constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#ffffff"
+            app:layout_constraintBottom_toTopOf="@+id/personal_terms_constraintLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1">
+
+        <LinearLayout
+                android:id="@+id/service_terms_check_button"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@id/service_terms_appCompatTextView"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                    android:id="@+id/service_terms_correct_y"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="5dp"
+                    android:src="@drawable/correct_y"
+                    android:visibility="gone" />
+
+            <ImageView
+                    android:id="@+id/service_terms_correct_f"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="5dp"
+                    android:src="@drawable/correct_f"
+                    android:visibility="visible" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/service_terms_appCompatTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:gravity="center"
+                android:text="[필수] 서비스 이용약관"
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toStartOf="@id/service_terms_appCompatButton"
+                app:layout_constraintStart_toEndOf="@id/service_terms_check_button" />
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/service_terms_appCompatButton"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/terms_button"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:text="보기"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/service_terms_appCompatTextView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/personal_terms_constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#ffffff"
+            app:layout_constraintBottom_toTopOf="@+id/all_terms_constraintLayout"
+            app:layout_constraintTop_toBottomOf="@+id/terms_constraintLayout"
+            app:layout_constraintVertical_weight="1">
+
+        <LinearLayout
+                android:id="@+id/personal_terms_check_button"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@id/personal_terms_appCompatTextView"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                    android:id="@+id/personal_terms_correct_y"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="5dp"
+                    android:src="@drawable/correct_y"
+                    android:visibility="visible" />
+
+            <ImageView
+                    android:id="@+id/personal_terms_correct_f"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="5dp"
+                    android:src="@drawable/correct_f"
+                    android:visibility="gone" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/personal_terms_appCompatTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:gravity="center"
+                android:text="[필수] 개인정보 처리방침"
+                android:textAlignment="textStart"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toStartOf="@id/personal_terms_appCompatButton"
+                app:layout_constraintStart_toEndOf="@id/personal_terms_check_button" />
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/personal_terms_appCompatButton"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/terms_button"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:text="보기"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/personal_terms_appCompatTextView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/all_terms_constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#ffffff"
+            app:layout_constraintBottom_toTopOf="@+id/next_constraintLayout"
+            app:layout_constraintTop_toBottomOf="@+id/personal_terms_constraintLayout"
+            app:layout_constraintVertical_weight="1">
+
+        <LinearLayout
+                android:id="@+id/all_terms_check_button"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@id/all_terms_appCompatTextView"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                    android:id="@+id/all_terms_correct_y"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="5dp"
+                    android:src="@drawable/correct_y"
+                    android:visibility="visible" />
+
+            <ImageView
+                    android:id="@+id/all_terms_correct_f"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="5dp"
+                    android:src="@drawable/correct_f"
+                    android:visibility="gone" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/all_terms_appCompatTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:gravity="center"
+                android:text="전체 동의"
+                android:textAlignment="textStart"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/all_terms_check_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/next_constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/all_terms_constraintLayout"
+            app:layout_constraintVertical_weight="6">
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/next_appCompatButton_false"
+                android:layout_width="120dp"
+                android:layout_height="45dp"
+                android:background="@drawable/signup_next_button_false"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:text="다음"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/next_appCompatButton_true"
+                android:layout_width="120dp"
+                android:layout_height="45dp"
+                android:background="@drawable/signup_next_button_true"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:text="다음"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
