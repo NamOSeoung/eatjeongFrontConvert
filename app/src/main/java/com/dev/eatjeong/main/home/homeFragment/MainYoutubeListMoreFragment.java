@@ -6,24 +6,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkYoutubeListAdapter;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
-import com.dev.eatjeong.main.home.homeListAdapter.MainYoutubeListAdapter;
 import com.dev.eatjeong.main.home.homeListAdapter.MainYoutubeListMoreAdapter;
 import com.dev.eatjeong.main.home.homeRetrofitVO.MainReviewListResponseVO;
-import com.dev.eatjeong.main.home.homeReviewMore.HomeReviewMoreActivity;
+import com.dev.eatjeong.main.home.homeReviewWebview.HomeReviewWebviewActivity;
 import com.dev.eatjeong.main.home.homeVO.MainReviewVO;
-import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
 
@@ -83,6 +77,17 @@ public class MainYoutubeListMoreFragment extends Fragment{
 
         listView = (ListView) v.findViewById(R.id.home_youtube_list);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent goWebview = new Intent(getContext(), HomeReviewWebviewActivity.class);
+                goWebview.putExtra("url",arrayList.get(position).getUrl());
+
+                startActivityForResult(goWebview,0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein,0);
+            }
+        });
+
         return v;
     }
 
@@ -130,7 +135,8 @@ public class MainYoutubeListMoreFragment extends Fragment{
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
 
                 arrayList.add(new MainReviewVO(
-                        response.body().mDatalist.get(i).getTitle()
+                        response.body().mDatalist.get(i).getTitle(),
+                        response.body().mDatalist.get(i).getUrl()
                 ));
             }
 

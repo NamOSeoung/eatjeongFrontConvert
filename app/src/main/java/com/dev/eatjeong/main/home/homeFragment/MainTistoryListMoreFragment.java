@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -15,6 +16,7 @@ import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeListAdapter.MainTistoryListMoreAdapter;
 import com.dev.eatjeong.main.home.homeRetrofitVO.MainReviewListResponseVO;
+import com.dev.eatjeong.main.home.homeReviewWebview.HomeReviewWebviewActivity;
 import com.dev.eatjeong.main.home.homeVO.MainReviewVO;
 
 import java.util.ArrayList;
@@ -75,6 +77,18 @@ public class MainTistoryListMoreFragment extends Fragment{
 
         listView = (ListView) v.findViewById(R.id.home_tistory_list);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent goWebview = new Intent(getContext(), HomeReviewWebviewActivity.class);
+                goWebview.putExtra("url",arrayList.get(position).getUrl());
+
+                startActivityForResult(goWebview,0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein,0);
+            }
+        });
+
+
         return v;
     }
 
@@ -122,7 +136,8 @@ public class MainTistoryListMoreFragment extends Fragment{
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
 
                 arrayList.add(new MainReviewVO(
-                        response.body().mDatalist.get(i).getTitle()
+                        response.body().mDatalist.get(i).getTitle(),
+                        response.body().mDatalist.get(i).getUrl()
                 ));
             }
 

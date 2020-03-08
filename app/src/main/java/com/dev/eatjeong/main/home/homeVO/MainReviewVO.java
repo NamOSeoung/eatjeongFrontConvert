@@ -12,9 +12,10 @@ public class MainReviewVO {
     private String thumbnail_url;
     private String url;
 
-    public MainReviewVO(String title) {
+    public MainReviewVO(String title,String url) {
 
         this.title = title;
+        this.url = url;
     }
 
     public String getWrite_date() {
