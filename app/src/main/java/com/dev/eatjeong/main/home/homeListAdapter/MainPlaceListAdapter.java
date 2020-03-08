@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.homeVO.MainPlaceVO;
-import com.dev.eatjeong.main.search.searchListVO.YoutubeReviewVO;
+import com.dev.eatjeong.main.home.homeVO.MainReviewVO;
+import com.dev.eatjeong.main.search.searchListVO.PlaceListVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,6 @@ public class MainPlaceListAdapter extends RecyclerView.Adapter<MainPlaceListAdap
     public void onBindViewHolder(Holder holder, int position) {
         // 각 위치에 문자열 세팅
         int itemposition = position;
-        holder.place_id.setText(list.get(itemposition).getPlace_id());
         holder.place_name.setText(list.get(itemposition).getPlace_name());
 
     }
@@ -56,11 +56,10 @@ public class MainPlaceListAdapter extends RecyclerView.Adapter<MainPlaceListAdap
 
     // ViewHolder는 하나의 View를 보존하는 역할을 한다
     public class Holder extends RecyclerView.ViewHolder{
-        public TextView place_id,place_name;
+        public TextView place_name;
 
         public Holder(View view){
             super(view);
-            place_id = (TextView) view.findViewById(R.id.place_id);
             place_name = (TextView) view.findViewById(R.id.place_name);
         }
     }

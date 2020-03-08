@@ -3,15 +3,12 @@ package com.dev.eatjeong.main.home.homeFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,14 +17,8 @@ import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeListAdapter.MainPlaceListAdapter;
 import com.dev.eatjeong.main.home.homeRetrofitVO.MainPlaceListResponseVO;
+import com.dev.eatjeong.main.home.homeReviewMore.HomeReviewMoreActivity;
 import com.dev.eatjeong.main.home.homeVO.MainPlaceVO;
-import com.dev.eatjeong.main.search.SearchRetrofitAPI;
-import com.dev.eatjeong.main.search.searchActivity.PlaceInfoActivity;
-import com.dev.eatjeong.main.search.searchListAdapter.YoutubeReviewListAdapter;
-import com.dev.eatjeong.main.search.searchListVO.YoutubeReviewVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
-import com.dev.eatjeong.main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity;
-import com.dev.eatjeong.main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
@@ -89,6 +80,19 @@ public class MainPlaceListFragment extends Fragment{
         callSearchResponse();
 
         listView = (RecyclerView) v.findViewById(R.id.recycler_view);
+
+        review_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goMore = new Intent(getContext(), HomeReviewMoreActivity.class);
+                goMore.putExtra("address",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
+                goMore.putExtra("review_division","PLACE");
+
+                startActivityForResult(goMore,0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein,0);
+            }
+        });
+
 
 //        review_more.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -197,7 +201,7 @@ public class MainPlaceListFragment extends Fragment{
             }
 
             listView.setHasFixedSize(true);
-            adapter = new MainPlaceListAdapter(getActivity(), arrayList);
+            adapter = new MainPlaceListAdapter(getContext(), arrayList);
             listView.setLayoutManager(new LinearLayoutManager(getActivity()));
             listView.setAdapter(adapter);
 

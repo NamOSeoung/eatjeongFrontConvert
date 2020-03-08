@@ -94,6 +94,12 @@
             android:name=".main.search.searchReviewWebview.SearchTistoryReviewWebviewActivity"
             android:windowSoftInputMode="adjustNothing"/>
         <!-- END -->
+
+        <!-- 홈 탭 매장, 리뷰별 더보기 시 공통화면 -->
+        <activity
+            android:name=".main.home.homeReviewMore.HomeReviewMoreActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+
     </application>
 
 </manifest>

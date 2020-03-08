@@ -1,5 +1,6 @@
 package com.dev.eatjeong.main.home.homeFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeListAdapter.MainTistoryListAdapter;
 import com.dev.eatjeong.main.home.homeListAdapter.MainYoutubeListAdapter;
 import com.dev.eatjeong.main.home.homeRetrofitVO.MainReviewListResponseVO;
+import com.dev.eatjeong.main.home.homeReviewMore.HomeReviewMoreActivity;
 import com.dev.eatjeong.main.home.homeVO.MainReviewVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
@@ -77,6 +79,18 @@ public class MainTistoryListFragment extends Fragment{
         callSearchResponse();
 
         listView = (RecyclerView) v.findViewById(R.id.recycler_view);
+
+        review_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goMore = new Intent(getContext(), HomeReviewMoreActivity.class);
+                goMore.putExtra("address",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
+                goMore.putExtra("review_division","TISTORY");
+
+                startActivityForResult(goMore,0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein,0);
+            }
+        });
 
 //        review_more.setOnClickListener(new View.OnClickListener() {
 //            @Override
