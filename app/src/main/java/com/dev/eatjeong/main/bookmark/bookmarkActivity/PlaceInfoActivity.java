@@ -1,4 +1,4 @@
-package com.dev.eatjeong.main.search.searchActivity;
+package com.dev.eatjeong.main.bookmark.bookmarkActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -346,5 +346,17 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
             }
         };
+    }
+
+    @Override
+    public void onBackPressed() {
+        // 검색 동작
+        Intent intent = getIntent(); // 객체 생성자의 인자에 아무 것도 넣지 않는다.
+
+        setResult(1,intent);
+        // finish();
+        super.onBackPressed();
+
+
     }
 }

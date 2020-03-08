@@ -77,6 +77,10 @@ public class PlaceInfoActivity extends AppCompatActivity {
         latitude = Double.parseDouble(intent.getStringExtra("latitude"));
         longitude = Double.parseDouble(intent.getStringExtra("longitude"));
 
+        SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
+        user_id = sp.getString("user_id",null);
+        sns_division = sp.getString("sns_division",null);
+
         setContentView(R.layout.place_info);
 
         place_name = (TextView)findViewById(R.id.place_name);
@@ -87,9 +91,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
         place_info_progress = (ProgressBar)findViewById(R.id.place_info_progress);
 
-        SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
-        user_id = sp.getString("user_id",null);
-        sns_division = sp.getString("sns_division",null);
+
 
         place_bookmark_add.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -39,7 +39,8 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
     String review_id;
 
 
-    private boolean bookmark_flag = true; //true : 북마크 추가상태, false: 북마크 헤제상태
+
+    private String bookmark_flag = ""; //true : 북마크 추가상태, false: 북마크 헤제상태
 
     private Button search_youtube_modal, search_youtube_cancel, search_youtube_add;
 
@@ -68,7 +69,9 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
         sns_division = intent.getStringExtra("sns_division");
         place_id = intent.getStringExtra("place_id");
         review_id = intent.getStringExtra("review_id");
+        bookmark_flag = intent.getStringExtra("bookmark_flag");
 
+        Toast.makeText(getApplicationContext(),bookmark_flag,Toast.LENGTH_SHORT).show();
         search_youtube_modal = (Button)findViewById(R.id.search_youtube_modal);
 
 
@@ -105,7 +108,8 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
                 search_youtube_add_text = (TextView) bottomSheetDialog.findViewById(R.id.search_youtube_add_text) ;
                 search_youtube_cancel_text = (TextView) bottomSheetDialog.findViewById(R.id.search_youtube_cancel_text) ;
 
-                if(bookmark_flag){
+
+                if(bookmark_flag.equals("true")){
                     search_youtube_add.setVisibility(View.GONE);
                     search_youtube_cancel.setVisibility(View.VISIBLE);
 
@@ -200,7 +204,7 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
 
     private void callSearchResponse() {
 
-        if(bookmark_flag){ //북마크 추가 된 상태면 지워야하고 삭제 된 상태면 추가 가능하도록 조치
+        if(bookmark_flag.equals("true")){ //북마크 추가 된 상태면 지워야하고 삭제 된 상태면 추가 가능하도록 조치
             mCallYoutubeMapResponseVO = mSearchRetrofitAPI.deleteBookmarkYoutube("youtube",place_id,review_id,user_id,sns_division);
         }else{
             mCallYoutubeMapResponseVO = mSearchRetrofitAPI.setBookmarkYoutube("youtube",place_id,review_id,user_id,sns_division);
@@ -220,8 +224,8 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
 
-            if(bookmark_flag){
-                bookmark_flag = false;
+            if(bookmark_flag.equals("true")){
+                bookmark_flag = "false";
 
                 search_youtube_add.setVisibility(View.VISIBLE);
                 search_youtube_cancel.setVisibility(View.GONE);
@@ -231,7 +235,7 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity {
 
 
             }else{
-                bookmark_flag = true;
+                bookmark_flag = "true";
 
                 search_youtube_add.setVisibility(View.GONE);
                 search_youtube_cancel.setVisibility(View.VISIBLE);

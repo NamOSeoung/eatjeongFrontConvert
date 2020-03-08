@@ -76,6 +76,12 @@ public class YoutubeReviewFragment extends Fragment{
             place_id = intent.getStringExtra("place_id");
             place_name = intent.getStringExtra("place_name");
             place_address = intent.getStringExtra("place_address");
+        }else if(intent.getStringExtra("call_division").equals("BOOKMARK")){
+            user_id = intent.getStringExtra("user_id");
+            sns_division = intent.getStringExtra("sns_division");
+            place_id = intent.getStringExtra("place_id");
+            place_name = intent.getStringExtra("place_name");
+            place_address = intent.getStringExtra("place_address");
         }else{
             user_id = ((PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
             sns_division = ((PlaceInfoActivity)getActivity()).getUserInfo().get("sns_division");
@@ -135,6 +141,7 @@ public class YoutubeReviewFragment extends Fragment{
                     goWebview.putExtra("place_id",place_id);
                     goWebview.putExtra("review_id",arrayList.get(position).getReview_id());
                     goWebview.putExtra("url",arrayList.get(position).getUrl());
+                    goWebview.putExtra("bookmark_flag",arrayList.get(position).getBookmark_flag());
 
                     startActivityForResult(goWebview,0);//액티비티 띄우기
                     getActivity().overridePendingTransition(R.anim.fadein,0);
@@ -184,9 +191,9 @@ public class YoutubeReviewFragment extends Fragment{
         }
 
         if(user_id == null){
-            mCallSearchYoutubeListResponseVO = mSearchRetrofitAPI.getYoutubeReview(place_id,user_id,sns_division,place_address_arr[1] + " " + place_name_arr[0] + " " + "맛집","5");
-        }else{
             mCallSearchYoutubeListResponseVO = mSearchRetrofitAPI.getYoutubeReview(place_id,"temp","T",place_address_arr[1] + " " + place_name_arr[0] + " " + "맛집","5");
+        }else{
+            mCallSearchYoutubeListResponseVO = mSearchRetrofitAPI.getYoutubeReview(place_id,user_id,sns_division,place_address_arr[1] + " " + place_name_arr[0] + " " + "맛집","5");
         }
 
 
@@ -236,5 +243,21 @@ public class YoutubeReviewFragment extends Fragment{
         }
 
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+            if(resultCode == 1){
+                //레트로핏 연결하기위한 초기화 작업.
+                setRetrofitInit();
+
+                //재호출
+                callSearchResponse();
+
+            }
+
+        }
+    }
 
 }

@@ -110,6 +110,11 @@
             android:name=".main.home.homeActivity.PlaceInfoActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.bookmark.bookmarkActivity.PlaceInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustNothing"/>
+
 
     </application>
 

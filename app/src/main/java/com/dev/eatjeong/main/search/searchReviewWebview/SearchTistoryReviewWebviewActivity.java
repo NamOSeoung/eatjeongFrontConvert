@@ -36,7 +36,7 @@ public class SearchTistoryReviewWebviewActivity extends AppCompatActivity {
     String review_id;
 
 
-    private boolean bookmark_flag = true; //true : 북마크 추가상태, false: 북마크 헤제상태
+    private String bookmark_flag = ""; //true : 북마크 추가상태, false: 북마크 헤제상태
 
     private Button search_tistory_modal, search_tistory_cancel, search_tistory_add;
 
@@ -65,6 +65,7 @@ public class SearchTistoryReviewWebviewActivity extends AppCompatActivity {
         sns_division = intent.getStringExtra("sns_division");
         place_id = intent.getStringExtra("place_id");
         review_id = intent.getStringExtra("review_id");
+        bookmark_flag = intent.getStringExtra("bookmark_flag");
 
         search_tistory_modal = (Button)findViewById(R.id.search_tistory_modal);
 
@@ -102,7 +103,7 @@ public class SearchTistoryReviewWebviewActivity extends AppCompatActivity {
                 search_tistory_add_text = (TextView) bottomSheetDialog.findViewById(R.id.search_tistory_add_text) ;
                 search_tistory_cancel_text = (TextView) bottomSheetDialog.findViewById(R.id.search_tistory_cancel_text) ;
 
-                if(bookmark_flag){
+                if(bookmark_flag.equals("true")){
                     search_tistory_add.setVisibility(View.GONE);
                     search_tistory_cancel.setVisibility(View.VISIBLE);
 
@@ -197,7 +198,7 @@ public class SearchTistoryReviewWebviewActivity extends AppCompatActivity {
 
     private void callSearchResponse() {
 
-        if(bookmark_flag){ //북마크 추가 된 상태면 지워야하고 삭제 된 상태면 추가 가능하도록 조치
+        if(bookmark_flag.equals("true")){ //북마크 추가 된 상태면 지워야하고 삭제 된 상태면 추가 가능하도록 조치
             mCallTistoryMapResponseVO = mSearchRetrofitAPI.deleteBookmarkTistory("tistory",place_id,review_id,user_id,sns_division);
         }else{
             mCallTistoryMapResponseVO = mSearchRetrofitAPI.setBookmarkTistory("tistory",place_id,review_id,user_id,sns_division);
@@ -217,8 +218,8 @@ public class SearchTistoryReviewWebviewActivity extends AppCompatActivity {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
 
-            if(bookmark_flag){
-                bookmark_flag = false;
+            if(bookmark_flag.equals("true")){
+                bookmark_flag = "false";
 
                 search_tistory_add.setVisibility(View.VISIBLE);
                 search_tistory_cancel.setVisibility(View.GONE);
@@ -228,7 +229,7 @@ public class SearchTistoryReviewWebviewActivity extends AppCompatActivity {
 
 
             }else{
-                bookmark_flag = true;
+                bookmark_flag = "true";
 
                 search_tistory_add.setVisibility(View.GONE);
                 search_tistory_cancel.setVisibility(View.VISIBLE);

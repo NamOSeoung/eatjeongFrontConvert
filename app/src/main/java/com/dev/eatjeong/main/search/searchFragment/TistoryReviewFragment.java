@@ -90,6 +90,12 @@ public class TistoryReviewFragment extends Fragment {
             place_id = intent.getStringExtra("place_id");
             place_name = intent.getStringExtra("place_name");
             place_address = intent.getStringExtra("place_address");
+        }else if(intent.getStringExtra("call_division").equals("BOOKMARK")){
+            user_id = intent.getStringExtra("user_id");
+            sns_division = intent.getStringExtra("sns_division");
+            place_id = intent.getStringExtra("place_id");
+            place_name = intent.getStringExtra("place_name");
+            place_address = intent.getStringExtra("place_address");
         }else{
             user_id = ((PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
             sns_division = ((PlaceInfoActivity)getActivity()).getUserInfo().get("sns_division");
@@ -137,12 +143,14 @@ public class TistoryReviewFragment extends Fragment {
                 int position = listView.getChildAdapterPosition(child);
                 if(child!=null&&gestureDetector.onTouchEvent(e))
                 {
+
                     Intent goWebview = new Intent(getContext(), SearchTistoryReviewWebviewActivity.class);
                     goWebview.putExtra("user_id",user_id);
                     goWebview.putExtra("sns_division",sns_division);
                     goWebview.putExtra("place_id",place_id);
                     goWebview.putExtra("review_id",arrayList.get(position).getReview_id());
                     goWebview.putExtra("url",arrayList.get(position).getUrl());
+                    goWebview.putExtra("bookmark_flag",arrayList.get(position).getBookmark_flag());
 
                     startActivityForResult(goWebview,0);//액티비티 띄우기
                     getActivity().overridePendingTransition(R.anim.fadein,0);
@@ -185,9 +193,9 @@ public class TistoryReviewFragment extends Fragment {
         String place_address_arr[] = place_address.split(" ");
 
         if(user_id == null){
-            mCallSearchTistoryListResponseVO = mSearchRetrofitAPI.getDaumReview(place_id,user_id,sns_division,place_address_arr[0] + " " +place_address_arr[1] +" " + place_name + " " + "맛집","5");
-        }else{
             mCallSearchTistoryListResponseVO = mSearchRetrofitAPI.getDaumReview(place_id,"temp","T",place_address_arr[0] + " " +place_address_arr[1] +" " + place_name + " " + "맛집","5");
+        }else{
+            mCallSearchTistoryListResponseVO = mSearchRetrofitAPI.getDaumReview(place_id,user_id,sns_division,place_address_arr[0] + " " +place_address_arr[1] +" " + place_name + " " + "맛집","5");
         }
         mCallSearchTistoryListResponseVO.enqueue(mRetrofitCallback);
 
@@ -239,6 +247,22 @@ public class TistoryReviewFragment extends Fragment {
         }
 
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+            if(resultCode == 1){
+                //레트로핏 연결하기위한 초기화 작업.
+                setRetrofitInit();
+
+                //재호출
+                callSearchResponse();
+
+            }
+
+        }
+    }
 
 
 }

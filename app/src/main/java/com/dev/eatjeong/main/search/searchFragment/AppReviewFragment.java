@@ -83,6 +83,12 @@ public class AppReviewFragment extends Fragment {
             place_id = intent.getStringExtra("place_id");
             place_name = intent.getStringExtra("place_name");
             place_address = intent.getStringExtra("place_address");
+        }else if(intent.getStringExtra("call_division").equals("BOOKMARK")){
+            user_id = intent.getStringExtra("user_id");
+            sns_division = intent.getStringExtra("sns_division");
+            place_id = intent.getStringExtra("place_id");
+            place_name = intent.getStringExtra("place_name");
+            place_address = intent.getStringExtra("place_address");
         }else{
             user_id = ((PlaceInfoActivity)getActivity()).getUserInfo().get("user_id");
             sns_division = ((PlaceInfoActivity)getActivity()).getUserInfo().get("sns_division");
@@ -157,9 +163,10 @@ public class AppReviewFragment extends Fragment {
     private void callSearchResponse() {
 
         if(user_id == null){
-            mCallSearchAppListResponseVO = mSearchRetrofitAPI.getAppReview(place_id,user_id,sns_division,"5");
-        }else{
             mCallSearchAppListResponseVO = mSearchRetrofitAPI.getAppReview(place_id,"temp","T","5");
+        }else{
+            mCallSearchAppListResponseVO = mSearchRetrofitAPI.getAppReview(place_id,user_id,sns_division,"5");
+
         }
 
         mCallSearchAppListResponseVO.enqueue(mRetrofitCallback);
@@ -214,6 +221,22 @@ public class AppReviewFragment extends Fragment {
         }
 
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+            if(resultCode == 1){
+                //레트로핏 연결하기위한 초기화 작업.
+                setRetrofitInit();
+
+                //재호출
+                callSearchResponse();
+
+            }
+
+        }
+    }
 
 
 }

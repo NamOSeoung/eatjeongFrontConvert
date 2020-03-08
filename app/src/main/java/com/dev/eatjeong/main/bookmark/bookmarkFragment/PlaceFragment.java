@@ -9,15 +9,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkPlaceListAdapter;
 import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkPlaceListVO;
-import com.dev.eatjeong.main.bookmark.bookmarkListWebview.BookmarkPlaceWebviewActivity;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkPlaceResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkActivity.PlaceInfoActivity;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
@@ -78,11 +79,19 @@ public class PlaceFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent goWebview = new Intent(getContext(), PlaceInfoActivity.class);
+                goWebview.putExtra("place_id",arrayList.get(position).getPlace_id());
+                goWebview.putExtra("place_name",arrayList.get(position).getPlace_name());
+                goWebview.putExtra("place_address",arrayList.get(position).getPlace_address());
+                goWebview.putExtra("latitude",arrayList.get(position).getLatitude());
+                goWebview.putExtra("longitude",arrayList.get(position).getLongitude());
+                goWebview.putExtra("user_id",user_id);
+                goWebview.putExtra("sns_division",sns_division);
+                goWebview.putExtra("call_division","BOOKMARK");
 
-                Intent placeWebview = new Intent(getContext(), BookmarkPlaceWebviewActivity.class);
-                startActivityForResult(placeWebview,0);//액티비티 띄우기
+
+                startActivityForResult(goWebview,0);//액티비티 띄우기
                 getActivity().overridePendingTransition(R.anim.fadein,0);
-
             }
         });
 
@@ -120,12 +129,16 @@ public class PlaceFragment extends Fragment {
         @Override
 
         public void onResponse(Call<BookmarkPlaceResponseVO> call, Response<BookmarkPlaceResponseVO> response) {
+            arrayList.clear();
             for(int i = 0; i < response.body().mDatalist.size(); i ++){
                 arrayList.add(new BookmarkPlaceListVO(
+                        response.body().mDatalist.get(i).getPlace_id(),
                         response.body().mDatalist.get(i).getPlace_name(),
+                        response.body().mDatalist.get(i).getPlace_address(),
+                        response.body().mDatalist.get(i).getLatitude(),
+                        response.body().mDatalist.get(i).getLongitude(),
                         response.body().mDatalist.get(i).getCategory_name()
                 ));
-
             }
 
             adapter = new BookmarkPlaceListAdapter(getContext(),arrayList);
@@ -148,5 +161,22 @@ public class PlaceFragment extends Fragment {
         }
 
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+            if(resultCode == 1){
+                bookmark_place_progress_bar.setVisibility(View.VISIBLE);
+                //레트로핏 연결하기위한 초기화 작업.
+                setRetrofitInit();
+
+                //재호출
+                callSearchResponse();
+
+            }
+
+        }
+    }
 
 }
