@@ -24,11 +24,14 @@ public class HomeTab extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v =  inflater.inflate(R.layout.home_tab, container, false);
-
-        address_arr = ((MainWrapActivity)getActivity()).getCurrentLocationAddress().split(" ");
         address = (TextView)v.findViewById(R.id.address);
+        if(((MainWrapActivity)getActivity()).getCurrentLocationAddress().equals("")){
+            address.setText("서울 맛집");
+        }else{
+            address_arr = ((MainWrapActivity)getActivity()).getCurrentLocationAddress().split(" ");
+            address.setText(address_arr[1] + " " +address_arr[2] + " " +address_arr[3]);
+        }
 
-        address.setText(address_arr[1] + " " +address_arr[2] + " " +address_arr[3]);
         return v;
     }
 

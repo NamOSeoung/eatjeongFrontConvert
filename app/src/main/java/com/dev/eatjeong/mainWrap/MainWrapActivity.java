@@ -78,52 +78,7 @@ public class MainWrapActivity extends AppCompatActivity {
             checkRunTimePermission();
         }
 
-        gpsTracker = new GpsTracker(MainWrapActivity.this);
 
-        double latitude = gpsTracker.getLatitude();
-        double longitude = gpsTracker.getLongitude();
-
-        address = getCurrentAddress(latitude, longitude);
-        //textview_address.setText(address);
-        Toast.makeText(getApplicationContext(),address,Toast.LENGTH_SHORT).show();
-        //Toast.makeText(getApplicationContext(), "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-        // 첫 화면 지정
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_layout, homeTab).commitAllowingStateLoss();
-
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-                switch (menuItem.getItemId()) {
-                    case R.id.home: {
-                        transaction.replace(R.id.frame_layout, homeTab);
-                        transaction.commit();
-                        break;
-                    }
-                    case R.id.search: {
-                        transaction.replace(R.id.frame_layout, searchTab);
-                        transaction.commit();
-                        break;
-                    }
-                    case R.id.bookmark: {
-                        transaction.replace(R.id.frame_layout, bookmarkTab);
-                        transaction.commit();
-                        break;
-                    }
-                    case R.id.settings: {
-                        transaction.replace(R.id.frame_layout, settingsTab);
-                        transaction.commit();
-                        break;
-                    }
-                }
-                return true;
-            }
-        });
 
 
     }
@@ -268,7 +223,7 @@ public class MainWrapActivity extends AppCompatActivity {
 
 
             if ( check_result ) {
-
+                setFirstFragment();
                 //위치 값을 가져올 수 있음
                 ;
             }
@@ -278,8 +233,8 @@ public class MainWrapActivity extends AppCompatActivity {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
                         || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
 
-                    Toast.makeText(MainWrapActivity.this, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.", Toast.LENGTH_LONG).show();
-                    finish();
+                    Toast.makeText(MainWrapActivity.this, "위치 설정이 거부되었습니다. 앱 사용에 제약이 있을 수 있습니다.", Toast.LENGTH_LONG).show();
+                    //finish();
 
 
                 }else {
@@ -287,6 +242,7 @@ public class MainWrapActivity extends AppCompatActivity {
                     Toast.makeText(MainWrapActivity.this, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
 
                 }
+                setFirstFragment();
             }
 
         }
@@ -305,12 +261,12 @@ public class MainWrapActivity extends AppCompatActivity {
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
-            // 2. 이미 퍼미션을 가지고 있다면
+            //  이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
 
 
-            // 3.  위치 값을 가져올 수 있음
-
+            //이미 권한 가지고있으면 바로 호출함
+            setFirstFragment();
 
 
         } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
@@ -319,18 +275,18 @@ public class MainWrapActivity extends AppCompatActivity {
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainWrapActivity.this, REQUIRED_PERMISSIONS[0])) {
 
                 // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
-                Toast.makeText(MainWrapActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainWrapActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
                 // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(MainWrapActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
-
-
             } else {
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(MainWrapActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
             }
+
+
 
         }
 
@@ -363,8 +319,8 @@ public class MainWrapActivity extends AppCompatActivity {
 
 
         if (addresses == null || addresses.size() == 0) {
-            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
-            return "주소 미발견";
+//            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
+            return "";
 
         }
 
@@ -432,6 +388,55 @@ public class MainWrapActivity extends AppCompatActivity {
     //현재위치 가져오기위한 메소드
     public String getCurrentLocationAddress(){
         return address;
+    }
+
+    public void setFirstFragment(){
+        gpsTracker = new GpsTracker(MainWrapActivity.this);
+
+        double latitude = gpsTracker.getLatitude();
+        double longitude = gpsTracker.getLongitude();
+
+        address = getCurrentAddress(latitude, longitude);
+        //textview_address.setText(address);
+        Toast.makeText(getApplicationContext(),address,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        // 첫 화면 지정
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frame_layout, homeTab).commitAllowingStateLoss();
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                switch (menuItem.getItemId()) {
+                    case R.id.home: {
+                        transaction.replace(R.id.frame_layout, homeTab);
+                        transaction.commit();
+                        break;
+                    }
+                    case R.id.search: {
+                        transaction.replace(R.id.frame_layout, searchTab);
+                        transaction.commit();
+                        break;
+                    }
+                    case R.id.bookmark: {
+                        transaction.replace(R.id.frame_layout, bookmarkTab);
+                        transaction.commit();
+                        break;
+                    }
+                    case R.id.settings: {
+                        transaction.replace(R.id.frame_layout, settingsTab);
+                        transaction.commit();
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
     }
 
 

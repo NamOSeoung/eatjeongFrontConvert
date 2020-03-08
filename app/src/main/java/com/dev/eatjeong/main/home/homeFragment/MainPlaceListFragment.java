@@ -2,6 +2,7 @@ package com.dev.eatjeong.main.home.homeFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -166,7 +167,17 @@ public class MainPlaceListFragment extends Fragment{
 
     private void callSearchResponse() {
 
-        mCallMainPlaceListResponseVO = mHomeRetrofitAPI.getMainPlace((address_arr[1] + " " + address_arr[2] +" " +address_arr[3] + " " + "맛집"),"5");
+        String query = "";
+        Log.e("dd",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
+        if(((MainWrapActivity)getActivity()).getCurrentLocationAddress().equals("")){
+            query = "서울 맛집";
+        }else{
+            address_arr = ((MainWrapActivity)getActivity()).getCurrentLocationAddress().split(" ");
+            query = address_arr[1] + " " + address_arr[2] +" " +address_arr[3] + " " + "맛집";
+        }
+
+
+        mCallMainPlaceListResponseVO = mHomeRetrofitAPI.getMainPlace(query,"5");
 
         mCallMainPlaceListResponseVO.enqueue(mRetrofitCallback);
 

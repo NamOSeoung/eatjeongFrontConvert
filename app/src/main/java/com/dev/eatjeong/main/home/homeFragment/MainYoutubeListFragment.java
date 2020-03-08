@@ -155,8 +155,15 @@ public class MainYoutubeListFragment extends Fragment{
 
     private void callSearchResponse() {
 
-        Log.e("dd",(address_arr[1] + " " + address_arr[2] +" " +address_arr[3] + " " + "맛집"));
-        mCallMainReviewListResponseVO = mHomeRetrofitAPI.getMainReviews((address_arr[1] + " " + address_arr[2] +" " +address_arr[3] + " " + "맛집"),"YOUTUBE","5");
+        String query = "";
+        Log.e("dd",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
+        if(((MainWrapActivity)getActivity()).getCurrentLocationAddress().equals("")){
+            query = "서울 맛집";
+        }else{
+            address_arr = ((MainWrapActivity)getActivity()).getCurrentLocationAddress().split(" ");
+            query = address_arr[1] + " " + address_arr[2] +" " +address_arr[3] + " " + "맛집";
+        }
+        mCallMainReviewListResponseVO = mHomeRetrofitAPI.getMainReviews(query,"YOUTUBE","5");
 
         mCallMainReviewListResponseVO.enqueue(mRetrofitCallback);
 
