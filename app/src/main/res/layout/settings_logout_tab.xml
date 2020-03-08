@@ -8,4 +8,29 @@ android:layout_height="match_parent">
         android:layout_height="50dp"
         android:text="로그인하기"
         android:id="@+id/settings_login"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="공지사항"
+        android:id="@+id/notice"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="자주하는질문"
+        android:id="@+id/faq"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="약관 및 정책"
+        android:id="@+id/terms"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="앱정보"
+        android:id="@+id/app_info"/>
+
 </LinearLayout>

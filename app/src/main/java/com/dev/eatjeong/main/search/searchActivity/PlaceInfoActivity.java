@@ -45,8 +45,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
     String info_place_address = "";
     String bookmark_flag = "";
 
-    private ArrayList<PlaceListVO> arrayList = new ArrayList<PlaceListVO>();
-
     private Retrofit mRetrofit;
 
     private SearchRetrofitAPI mSearchRetrofitAPI;

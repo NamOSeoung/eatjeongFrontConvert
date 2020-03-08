@@ -3,6 +3,18 @@
 android:orientation="vertical" android:layout_width="match_parent"
 android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/nick_name"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="내 정보 관리"
+        android:id="@+id/my_info"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"

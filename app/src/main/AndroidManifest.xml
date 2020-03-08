@@ -115,6 +115,29 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing"/>
 
+        <activity
+            android:name=".main.settings.settingsActivity.UserInfoManagementActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustNothing"/>
+
+        <activity
+            android:name=".main.settings.settingsActivity.NickNameChangeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustNothing"/>
+
+        <activity
+            android:name=".main.settings.settingsActivity.AccountCloseActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustNothing"/>
+
+        <activity
+            android:name=".main.settings.settingsActivity.PhoneNumberChangeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".main.settings.settingsActivity.PasswordChangeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustNothing"/>
 
     </application>
 
