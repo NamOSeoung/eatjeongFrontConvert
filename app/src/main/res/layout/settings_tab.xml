@@ -18,6 +18,16 @@ android:layout_height="match_parent">
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:text="블랙리스트 관리"
+        android:id="@+id/my_black_list"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="내리뷰 관리"
+        android:id="@+id/my_review"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:text="로그아웃"
         android:id="@+id/settings_logout"/>
 </LinearLayout>

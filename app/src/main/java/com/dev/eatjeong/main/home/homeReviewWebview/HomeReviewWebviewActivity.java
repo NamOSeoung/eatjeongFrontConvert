@@ -80,6 +80,7 @@ public class HomeReviewWebviewActivity extends AppCompatActivity {
 
         setResult(1,intent);
         finish();
+        overridePendingTransition(R.anim.stay, R.anim.sliding_down);
 //        super.onBackPressed();
 
 

@@ -16,13 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkMapResponseVO;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
 import com.dev.eatjeong.main.search.searchListVO.PlaceListVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchPlaceInfoMapResponseVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +50,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
     private SearchRetrofitAPI mSearchRetrofitAPI;
 
-    private Call<SearchPlaceInfoMapResponseVO> mCallSearchPlaceInfoMapResponseVO;
+    private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
     TextView place_name, category ,address;
 
@@ -203,14 +202,14 @@ public class PlaceInfoActivity extends AppCompatActivity {
             user_id = "temp";
             sns_division = "T";
         }
-        mCallSearchPlaceInfoMapResponseVO = mSearchRetrofitAPI.getPlaceInfo(info_place_id,user_id,sns_division,String.valueOf(latitude),String.valueOf(longitude));
-        mCallSearchPlaceInfoMapResponseVO.enqueue(mRetrofitCallback);
+        mCallCommonMapResponseVO = mSearchRetrofitAPI.getPlaceInfo(info_place_id,user_id,sns_division,String.valueOf(latitude),String.valueOf(longitude));
+        mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
 
     }
 
-    private Callback<SearchPlaceInfoMapResponseVO> mRetrofitCallback = new Callback<SearchPlaceInfoMapResponseVO>() {
+    private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
         @Override
-        public void onResponse(Call<SearchPlaceInfoMapResponseVO> call, Response<SearchPlaceInfoMapResponseVO> response) {
+        public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
             Log.e("dd", response.body().getCode());
             Log.e("dd", response.body().getMessage());
             Log.e("dd", response.body().getDataList().get("road_address"));
@@ -235,7 +234,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
         @Override
 
-        public void onFailure(Call<SearchPlaceInfoMapResponseVO> call, Throwable t) {
+        public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
 
             Log.e("ss", "asdasdasd");
             t.printStackTrace();
@@ -272,7 +271,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
         private BookmarkRetrofitAPI mBookmarkRetrofitAPI;
 
-        private Call<BookmarkMapResponseVO> mCallSearchPlaceInfoMapResponseVO;
+        private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
         public String getCode() {
             return code;
@@ -306,18 +305,18 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
         private void callPlaceInfoResponse() {
             if(bookmark_flag.equals("true")){
-                mCallSearchPlaceInfoMapResponseVO = mBookmarkRetrofitAPI.deleteBookmarkPlace("place",info_place_id,user_id,sns_division);
+                mCallCommonMapResponseVO = mBookmarkRetrofitAPI.deleteBookmarkPlace("place",info_place_id,user_id,sns_division);
             }else {
-                mCallSearchPlaceInfoMapResponseVO = mBookmarkRetrofitAPI.setBookmarkPlace("place",info_place_id,user_id,sns_division);
+                mCallCommonMapResponseVO = mBookmarkRetrofitAPI.setBookmarkPlace("place",info_place_id,user_id,sns_division);
             }
 
-            mCallSearchPlaceInfoMapResponseVO.enqueue(mRetrofitCallback);
+            mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
 
         }
 
-        private Callback<BookmarkMapResponseVO> mRetrofitCallback = new Callback<BookmarkMapResponseVO>() {
+        private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
             @Override
-            public void onResponse(Call<BookmarkMapResponseVO> call, Response<BookmarkMapResponseVO> response) {
+            public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
 
                 Log.e("code : ", response.body().getCode());
                 Log.e("code : ", response.body().getMessage());
@@ -339,7 +338,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
             @Override
 
-            public void onFailure(Call<BookmarkMapResponseVO> call, Throwable t) {
+            public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
 
 //            Log.e("asdasdasd", "asdasdasd");
                 t.printStackTrace();

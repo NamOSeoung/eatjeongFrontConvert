@@ -84,72 +84,43 @@ public class MainTistoryListFragment extends Fragment{
 
         listView = (RecyclerView) v.findViewById(R.id.recycler_view);
 
-        review_more.setOnClickListener(new View.OnClickListener() {
+        //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
+        final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
+        {
             @Override
-            public void onClick(View v) {
-                Intent goMore = new Intent(getContext(), HomeReviewMoreActivity.class);
-                goMore.putExtra("address",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
-                goMore.putExtra("review_division","TISTORY");
-
-                startActivityForResult(goMore,0);//액티비티 띄우기
-                getActivity().overridePendingTransition(R.anim.fadein,0);
+            public boolean onSingleTapUp(MotionEvent e)
+            {
+                return true;
             }
         });
 
-//        review_more.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent goMore = new Intent(getContext(), SearchYoutubeReviewMoreActivity.class);
-//                goMore.putExtra("user_id",user_id);
-//                goMore.putExtra("sns_division",sns_division);
-//                goMore.putExtra("place_name",place_name);
-//                goMore.putExtra("place_id",place_id);
-//                goMore.putExtra("place_address",place_address);
-//
-//                startActivityForResult(goMore,0);//액티비티 띄우기
-//                getActivity().overridePendingTransition(R.anim.fadein,0);
-//            }
-//        });
-//
-//        //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
-//        final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
-//        {
-//            @Override
-//            public boolean onSingleTapUp(MotionEvent e)
-//            {
-//                return true;
-//            }
-//        });
+        listView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
 
-//        listView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-//            @Override
-//            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-//
-//                View child = listView.findChildViewUnder(e.getX(), e.getY());
-//                int position = listView.getChildAdapterPosition(child);
-//                if(child!=null&&gestureDetector.onTouchEvent(e))
-//                {
-//                    Intent goWebview = new Intent(getContext(), SearchYoutubeReviewWebviewActivity.class);
-//
-//
-//                    startActivityForResult(goWebview,0);//액티비티 띄우기
-//                    getActivity().overridePendingTransition(R.anim.fadein,0);
-//                }
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-//
-//
-//            }
-//
-//            @Override
-//            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-//
-//            }
-//        });
+                View child = listView.findChildViewUnder(e.getX(), e.getY());
+                int position = listView.getChildAdapterPosition(child);
+                if(child!=null&&gestureDetector.onTouchEvent(e))
+                {
+                    Intent goWebview = new Intent(getContext(), HomeReviewWebviewActivity.class);
+                    goWebview.putExtra("url",arrayList.get(position).getUrl());
+                    startActivityForResult(goWebview,0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.sliding_up,R.anim.stay);
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
         return v;
     }
@@ -214,43 +185,7 @@ public class MainTistoryListFragment extends Fragment{
 
             listView.setLayoutManager(horizonalLayoutManager);
 
-            //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
-            final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
-            {
-                @Override
-                public boolean onSingleTapUp(MotionEvent e)
-                {
-                    return true;
-                }
-            });
 
-            listView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-                @Override
-                public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-
-                    View child = listView.findChildViewUnder(e.getX(), e.getY());
-                    int position = listView.getChildAdapterPosition(child);
-                    if(child!=null&&gestureDetector.onTouchEvent(e))
-                    {
-                        Intent goWebview = new Intent(getContext(), HomeReviewWebviewActivity.class);
-                        goWebview.putExtra("url",arrayList.get(position).getUrl());
-                        startActivityForResult(goWebview,0);//액티비티 띄우기
-                        getActivity().overridePendingTransition(R.anim.fadein,0);
-                    }
-
-                    return false;
-                }
-
-                @Override
-                public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-
-                }
-
-                @Override
-                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-                }
-            });
         }
 
 

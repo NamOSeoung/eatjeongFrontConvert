@@ -119,7 +119,7 @@ public class MainYoutubeListFragment extends Fragment{
                     Intent goWebview = new Intent(getContext(), HomeReviewWebviewActivity.class);
                     goWebview.putExtra("url",arrayList.get(position).getUrl());
                     startActivityForResult(goWebview,0);//액티비티 띄우기
-                    getActivity().overridePendingTransition(R.anim.fadein,0);
+                    getActivity().overridePendingTransition(R.anim.sliding_up,R.anim.stay);
                 }
 
                 return false;

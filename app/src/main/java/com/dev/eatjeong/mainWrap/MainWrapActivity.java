@@ -133,6 +133,8 @@ public class MainWrapActivity extends AppCompatActivity {
 
         if(user_id == null){
             super.onBackPressed();
+            finish();
+            overridePendingTransition(R.anim.stay, R.anim.slide_in_left);
         }else{
             long tempTime = System.currentTimeMillis();
             long intervalTime = tempTime - backPressedTime;

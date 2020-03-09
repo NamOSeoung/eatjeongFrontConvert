@@ -1,21 +1,14 @@
 package com.dev.eatjeong.main.search;
 
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkNaverMapResponseVO;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkTistoryMapResponseVO;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeMapResponseVO;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeResponseVO;
+import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAppListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchGoogleListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchNaverListResponseVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchNaverMapResponseVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchPlaceInfoMapResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchPlaceListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchTistoryListResponseVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchTistoryMapResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeMapResponseVO;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -48,7 +41,7 @@ public interface SearchRetrofitAPI {
 
     //매장 상세 정보 검색
     @GET("/v1/places/{place_id}")
-    Call<SearchPlaceInfoMapResponseVO> getPlaceInfo(@Path("place_id")String place_id,@Query("user_id")String user_id,@Query("sns_division")String sns_division, @Query("latitude") String latitude,@Query("longitude")String longitude);
+    Call<CommonMapResponseVO> getPlaceInfo(@Path("place_id")String place_id, @Query("user_id")String user_id, @Query("sns_division")String sns_division, @Query("latitude") String latitude, @Query("longitude")String longitude);
 
     //매장상세 유튜브 리뷰 검색
     @GET("/v1/places/{place_id}/reviews/youtube")
@@ -89,33 +82,44 @@ public interface SearchRetrofitAPI {
     Call<SearchAppListResponseVO> getAppReviewMore(@Path("place_id")String place_id, @Query("user_id") String user_id, @Query("sns_division")String sns_division);
 
 
-    //북마크 삭제부분
+    /* 북마크 삭제부분 */
 
     //유튜브 북마크 삭제
     @DELETE("/v1/bookmarks")
-    Call<SearchYoutubeMapResponseVO> deleteBookmarkYoutube(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+    Call<CommonMapResponseVO> deleteBookmarkYoutube(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
     //네이버 북마크 삭제
     @DELETE("/v1/bookmarks")
-    Call<SearchNaverMapResponseVO> deleteBookmarkNaver(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+    Call<CommonMapResponseVO> deleteBookmarkNaver(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
     //티스토리 북마크 삭제
     @DELETE("/v1/bookmarks")
-    Call<SearchTistoryMapResponseVO> deleteBookmarkTistory(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+    Call<CommonMapResponseVO> deleteBookmarkTistory(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
 
-    //북마크 삽입부분
+    /* 북마크 삽입부분 */
 
     //유튜브 북마크 추가
     @POST("/v1/bookmarks")
-    Call<SearchYoutubeMapResponseVO> setBookmarkYoutube(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+    Call<CommonMapResponseVO> setBookmarkYoutube(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
     //네이버 북마크 추가
     @POST("/v1/bookmarks")
-    Call<SearchNaverMapResponseVO> setBookmarkNaver(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+    Call<CommonMapResponseVO> setBookmarkNaver(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
     //티스토리 북마크 추가
     @POST("/v1/bookmarks")
-    Call<SearchTistoryMapResponseVO> setBookmarkTistory(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+    Call<CommonMapResponseVO> setBookmarkTistory(@Query("gubun")String gubun, @Query("place_id")String place_id, @Query("id")String id, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+
+
+    /* 블랙리스트 추가/삭제 부분 */
+
+    //유튜브/네이버/티스토리 (게시자/게시물) 공용 블랙리스트 추가
+    @POST("/v1/reviews/{review_id}/blacklist")
+    Call<CommonMapResponseVO> setBlackList(@Path("review_id") String review_id,@Query("place_id")String place_id, @Query("user_id")String user_id, @Query("sns_division")String sns_division, @Query("portal")String portal, @Query("author")String author,@Query("blacklist_division")String blacklist_division);
+
+    //유튜브/네이버/티스토리 (게시자/게시물) 공용 블랙리스트 삭제
+    @DELETE("/v1/reviews/blacklist")
+    Call<CommonMapResponseVO> deleteBlackList(@Query("place_id")String place_id,@Query("user_id") String user_id, @Query("sns_division")String sns_division, @Query("portal")String portal, @Query("author")String author, @Query("blacklist_division")String blacklist_division,@Query("review_id")String review_id);
 
 }

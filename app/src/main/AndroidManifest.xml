@@ -146,6 +146,11 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing"/>
 
+        <activity
+            android:name=".main.settings.settingsActivity.BlackListActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustNothing"/>
+
     </application>
 
 </manifest>

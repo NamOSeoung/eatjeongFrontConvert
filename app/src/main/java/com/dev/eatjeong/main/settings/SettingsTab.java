@@ -14,10 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
+import com.dev.eatjeong.main.settings.settingsActivity.BlackListActivity;
 import com.dev.eatjeong.main.settings.settingsActivity.UserInfoManagementActivity;
-import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsUserInfoMapResponseVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import retrofit2.Call;
@@ -37,14 +38,14 @@ public class SettingsTab extends Fragment {
 
     private SettingsRetrofitAPI mSettingsRetrofitAPI;
 
-    private Call<SettingsUserInfoMapResponseVO> mCallSettingsUserInfoMapResponseVO;
+    private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
     TextView nick_name;
 
     private PopularFragment popularFragment = new PopularFragment();
     private LatelyFragment latelyFragment = new LatelyFragment();
 
-    private Button my_info;
+    private Button my_info,my_black_list,my_review;
 
 
     @Nullable
@@ -64,6 +65,8 @@ public class SettingsTab extends Fragment {
 
             nick_name = (TextView)v.findViewById(R.id.nick_name) ;
             my_info = (Button)v.findViewById(R.id.my_info);
+            my_black_list = (Button)v.findViewById(R.id.my_black_list);
+            my_review = (Button)v.findViewById(R.id.my_review);
 
             //로그인 됬을 경우만 회원 정보 가지고옴
             setRetrofitInit();
@@ -85,6 +88,18 @@ public class SettingsTab extends Fragment {
                     userInfoManagement.putExtra("sns_division",sns_division);
 
                     startActivityForResult(userInfoManagement,0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.fadein,0);
+                }
+            });
+
+            my_black_list.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent blackList = new Intent(getContext(), BlackListActivity.class);
+                    blackList.putExtra("user_id",user_id);
+                    blackList.putExtra("sns_division",sns_division);
+
+                    startActivityForResult(blackList,0);//액티비티 띄우기
                     getActivity().overridePendingTransition(R.anim.fadein,0);
                 }
             });
@@ -124,14 +139,14 @@ public class SettingsTab extends Fragment {
     }
 
     private void callPlaceInfoResponse() {
-        mCallSettingsUserInfoMapResponseVO = mSettingsRetrofitAPI.getUserInfo(user_id,sns_division);
-        mCallSettingsUserInfoMapResponseVO.enqueue(mRetrofitCallback);
+        mCallCommonMapResponseVO = mSettingsRetrofitAPI.getUserInfo(user_id,sns_division);
+        mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
 
     }
 
-    private Callback<SettingsUserInfoMapResponseVO> mRetrofitCallback = new Callback<SettingsUserInfoMapResponseVO>() {
+    private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
         @Override
-        public void onResponse(Call<SettingsUserInfoMapResponseVO> call, Response<SettingsUserInfoMapResponseVO> response) {
+        public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
             Log.e("dd", response.body().getCode());
             Log.e("dd", response.body().getMessage());
             Log.e("dd", response.body().getDataList().get("nickname"));
@@ -145,7 +160,7 @@ public class SettingsTab extends Fragment {
 
         @Override
 
-        public void onFailure(Call<SettingsUserInfoMapResponseVO> call, Throwable t) {
+        public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
 
             Log.e("ss", "asdasdasd");
             t.printStackTrace();

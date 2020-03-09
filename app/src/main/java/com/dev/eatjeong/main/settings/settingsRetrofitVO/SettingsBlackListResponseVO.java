@@ -1,13 +1,14 @@
-package com.dev.eatjeong.main.search.searchRetrofitVO;
+package com.dev.eatjeong.main.settings.settingsRetrofitVO;
 
+import java.util.List;
 import java.util.Map;
 
-public class SearchNaverMapResponseVO {
+public class SettingsBlackListResponseVO {
 
     private String code;
     private String message;
 
-    private Map<String,String> dataList;
+    private Map<String, List<Map<String,String>>> dataList;
 
     public String getCode() {
         return code;
@@ -25,11 +26,11 @@ public class SearchNaverMapResponseVO {
         this.message = message;
     }
 
-    public Map<String, String> getDataList() {
+    public Map<String, List<Map<String,String>>> getDataList() {
         return dataList;
     }
 
-    public void setDataList(Map<String, String> dataList) {
+    public void setDataList(Map<String, List<Map<String,String>>> dataList) {
         this.dataList = dataList;
     }
 }

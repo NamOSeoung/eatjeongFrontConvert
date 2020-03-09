@@ -1,8 +1,8 @@
-package com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO;
+package com.dev.eatjeong.common.retrofitVO;
 
 import java.util.Map;
 
-public class BookmarkMapResponseVO {
+public class CommonMapResponseVO {
 
     private String code;
     private String message;

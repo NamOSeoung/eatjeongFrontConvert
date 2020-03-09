@@ -1,40 +1,20 @@
 package com.dev.eatjeong.main.settings.settingsActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.login.LoginActivity;
-import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkMapResponseVO;
-import com.dev.eatjeong.main.search.SearchRetrofitAPI;
-import com.dev.eatjeong.main.search.searchActivity.MapSearchActivity;
+import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
-import com.dev.eatjeong.main.search.searchFragment.PlaceListFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
-import com.dev.eatjeong.main.search.searchListVO.PlaceListVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchPlaceInfoMapResponseVO;
 import com.dev.eatjeong.main.settings.SettingsRetrofitAPI;
-import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsUserInfoMapResponseVO;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,7 +33,7 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
 
     private SettingsRetrofitAPI mSettingsRetrofitAPI;
 
-    private Call<SettingsUserInfoMapResponseVO> mCallSettingsUserInfoMapResponseVO;
+    private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
     TextView nick_name,email,phone_number,password,account_close;
 
@@ -122,14 +102,14 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
     }
 
     private void callPlaceInfoResponse() {
-        mCallSettingsUserInfoMapResponseVO = mSettingsRetrofitAPI.getUserInfo(user_id,sns_division);
-        mCallSettingsUserInfoMapResponseVO.enqueue(mRetrofitCallback);
+        mCallCommonMapResponseVO = mSettingsRetrofitAPI.getUserInfo(user_id,sns_division);
+        mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
 
     }
 
-    private Callback<SettingsUserInfoMapResponseVO> mRetrofitCallback = new Callback<SettingsUserInfoMapResponseVO>() {
+    private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
         @Override
-        public void onResponse(Call<SettingsUserInfoMapResponseVO> call, Response<SettingsUserInfoMapResponseVO> response) {
+        public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
             Log.e("dd", response.body().getCode());
             Log.e("dd", response.body().getMessage());
             Log.e("dd", response.body().getDataList().get("nickname"));
@@ -145,7 +125,7 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
 
         @Override
 
-        public void onFailure(Call<SettingsUserInfoMapResponseVO> call, Throwable t) {
+        public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
 
             Log.e("ss", "asdasdasd");
             t.printStackTrace();

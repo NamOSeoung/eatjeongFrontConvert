@@ -12,9 +12,9 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
 import com.dev.eatjeong.login.LoginActivity;
 import com.dev.eatjeong.main.settings.SettingsRetrofitAPI;
-import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsUserInfoMapResponseVO;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +29,7 @@ public class AccountCloseActivity extends AppCompatActivity {
 
     private SettingsRetrofitAPI mSettingsRetrofitAPI;
 
-    private Call<SettingsUserInfoMapResponseVO> mCallSettingsUserInfoMapResponseVO;
+    private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
     EditText password;
     Button confirm;
@@ -90,14 +90,14 @@ public class AccountCloseActivity extends AppCompatActivity {
     }
 
     private void callPlaceInfoResponse() {
-        mCallSettingsUserInfoMapResponseVO = mSettingsRetrofitAPI.setAccountClose(user_id,password.getText().toString());
-        mCallSettingsUserInfoMapResponseVO.enqueue(mRetrofitCallback);
+        mCallCommonMapResponseVO = mSettingsRetrofitAPI.setAccountClose(user_id,password.getText().toString());
+        mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
 
     }
 
-    private Callback<SettingsUserInfoMapResponseVO> mRetrofitCallback = new Callback<SettingsUserInfoMapResponseVO>() {
+    private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
         @Override
-        public void onResponse(Call<SettingsUserInfoMapResponseVO> call, Response<SettingsUserInfoMapResponseVO> response) {
+        public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
             Log.e("dd", response.body().getCode());
             Log.e("dd", response.body().getMessage());
 
@@ -124,7 +124,7 @@ public class AccountCloseActivity extends AppCompatActivity {
 
         @Override
 
-        public void onFailure(Call<SettingsUserInfoMapResponseVO> call, Throwable t) {
+        public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
 
             Log.e("ss", "asdasdasd");
             t.printStackTrace();

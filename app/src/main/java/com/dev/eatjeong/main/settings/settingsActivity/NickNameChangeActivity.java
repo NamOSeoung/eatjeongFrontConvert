@@ -12,10 +12,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
 import com.dev.eatjeong.main.settings.SettingsRetrofitAPI;
-import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsUserInfoMapResponseVO;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +30,7 @@ public class NickNameChangeActivity extends AppCompatActivity {
 
     private SettingsRetrofitAPI mSettingsRetrofitAPI;
 
-    private Call<SettingsUserInfoMapResponseVO> mCallSettingsUserInfoMapResponseVO;
+    private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
     EditText nick_name;
     Button confirm;
@@ -92,14 +92,14 @@ public class NickNameChangeActivity extends AppCompatActivity {
     }
 
     private void callPlaceInfoResponse() {
-        mCallSettingsUserInfoMapResponseVO = mSettingsRetrofitAPI.updateNickName(user_id,nick_name.getText().toString());
-        mCallSettingsUserInfoMapResponseVO.enqueue(mRetrofitCallback);
+        mCallCommonMapResponseVO = mSettingsRetrofitAPI.updateNickName(user_id,nick_name.getText().toString());
+        mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
 
     }
 
-    private Callback<SettingsUserInfoMapResponseVO> mRetrofitCallback = new Callback<SettingsUserInfoMapResponseVO>() {
+    private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
         @Override
-        public void onResponse(Call<SettingsUserInfoMapResponseVO> call, Response<SettingsUserInfoMapResponseVO> response) {
+        public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
             Log.e("dd", response.body().getCode());
             Log.e("dd", response.body().getMessage());
 
@@ -111,7 +111,7 @@ public class NickNameChangeActivity extends AppCompatActivity {
 
         @Override
 
-        public void onFailure(Call<SettingsUserInfoMapResponseVO> call, Throwable t) {
+        public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
 
             Log.e("ss", "asdasdasd");
             t.printStackTrace();

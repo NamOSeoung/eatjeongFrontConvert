@@ -111,7 +111,7 @@ public class TistoryReviewFragment extends Fragment {
         listView = (RecyclerView) v.findViewById(R.id.recycler_view);
 
         review_more = (TextView)v.findViewById(R.id.review_more);
-
+        //더보기
         review_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,6 +151,7 @@ public class TistoryReviewFragment extends Fragment {
                     goWebview.putExtra("review_id",arrayList.get(position).getReview_id());
                     goWebview.putExtra("url",arrayList.get(position).getUrl());
                     goWebview.putExtra("bookmark_flag",arrayList.get(position).getBookmark_flag());
+                    goWebview.putExtra("author",arrayList.get(position).getAuthor());
 
                     startActivityForResult(goWebview,0);//액티비티 띄우기
                     getActivity().overridePendingTransition(R.anim.fadein,0);

@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeListAdapter.MainNaverListAdapter;
-import com.dev.eatjeong.main.home.homeListAdapter.MainYoutubeListAdapter;
 import com.dev.eatjeong.main.home.homeRetrofitVO.MainReviewListResponseVO;
 import com.dev.eatjeong.main.home.homeReviewMore.HomeReviewMoreActivity;
 import com.dev.eatjeong.main.home.homeReviewWebview.HomeReviewWebviewActivity;
@@ -96,6 +95,7 @@ public class MainNaverListFragment extends Fragment{
             }
         });
 
+
         //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
         final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
         {
@@ -117,7 +117,7 @@ public class MainNaverListFragment extends Fragment{
                     Intent goWebview = new Intent(getContext(), HomeReviewWebviewActivity.class);
                     goWebview.putExtra("url",arrayList.get(position).getUrl());
                     startActivityForResult(goWebview,0);//액티비티 띄우기
-                    getActivity().overridePendingTransition(R.anim.fadein,0);
+                    getActivity().overridePendingTransition(R.anim.sliding_up,R.anim.stay);
                 }
 
                 return false;

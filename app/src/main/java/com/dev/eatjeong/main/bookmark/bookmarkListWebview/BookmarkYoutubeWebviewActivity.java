@@ -17,10 +17,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
 import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkYoutubeListAdapter;
 import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkYoutubeListVO;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeMapResponseVO;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeResponseVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -51,7 +51,7 @@ public class BookmarkYoutubeWebviewActivity extends AppCompatActivity {
 
     private BookmarkRetrofitAPI mBookmarkRetrofitAPI;
 
-    private Call<BookmarkYoutubeMapResponseVO> mCallBookmarkYoutubeResponseVO;
+    private Call<CommonMapResponseVO> mCallBookmarkYoutubeResponseVO;
 
 
     private WebView webView;
@@ -216,13 +216,13 @@ public class BookmarkYoutubeWebviewActivity extends AppCompatActivity {
 
     }
 
-    private Callback<BookmarkYoutubeMapResponseVO> mRetrofitCallback = new Callback<BookmarkYoutubeMapResponseVO>() {
+    private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
 
 
 
         @Override
 
-        public void onResponse(Call<BookmarkYoutubeMapResponseVO> call, Response<BookmarkYoutubeMapResponseVO> response) {
+        public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
 
@@ -252,7 +252,7 @@ public class BookmarkYoutubeWebviewActivity extends AppCompatActivity {
 
         @Override
 
-        public void onFailure(Call<BookmarkYoutubeMapResponseVO> call, Throwable t) {
+        public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
 
             Log.e("ss","asdasdasd");
             t.printStackTrace();

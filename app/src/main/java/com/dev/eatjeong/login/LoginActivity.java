@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goHome = new Intent(getApplicationContext(), MainWrapActivity.class);
                 startActivityForResult(goHome, sub);//액티비티 띄우기
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                overridePendingTransition(R.anim.slide_out_right, R.anim.stay);
             }
         });
 
@@ -326,7 +326,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         Intent goHome = new Intent(getApplicationContext(), MainWrapActivity.class);
                         startActivityForResult(goHome, sub);//액티비티 띄우기
-                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                        //overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                        LoginActivity.this.overridePendingTransition(R.anim.slide_out_right, R.anim.stay);
                     }
                 }
             }

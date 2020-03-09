@@ -16,9 +16,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkNaverMapResponseVO;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeMapResponseVO;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import retrofit2.Call;
@@ -47,7 +46,7 @@ public class BookmarkNaverWebviewActivity extends AppCompatActivity {
 
     private BookmarkRetrofitAPI mBookmarkRetrofitAPI;
 
-    private Call<BookmarkNaverMapResponseVO> mCallBookmarkNaverResponseVO;
+    private Call<CommonMapResponseVO> mCallBookmarkNaverResponseVO;
 
 
 
@@ -208,12 +207,12 @@ public class BookmarkNaverWebviewActivity extends AppCompatActivity {
 
     }
 
-    private Callback<BookmarkNaverMapResponseVO> mRetrofitCallback = new Callback<BookmarkNaverMapResponseVO>() {
+    private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
 
 
         @Override
 
-        public void onResponse(Call<BookmarkNaverMapResponseVO> call, Response<BookmarkNaverMapResponseVO> response) {
+        public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
             Log.e("dd", response.body().getCode());
             Log.e("dd", response.body().getMessage());
 
@@ -242,7 +241,7 @@ public class BookmarkNaverWebviewActivity extends AppCompatActivity {
 
         @Override
 
-        public void onFailure(Call<BookmarkNaverMapResponseVO> call, Throwable t) {
+        public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
 
             Log.e("ss", "asdasdasd");
             t.printStackTrace();
