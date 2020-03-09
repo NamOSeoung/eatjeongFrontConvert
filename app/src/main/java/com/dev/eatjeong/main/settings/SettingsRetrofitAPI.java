@@ -4,6 +4,7 @@ import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsBlackListResponseVO;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -33,6 +34,16 @@ public interface SettingsRetrofitAPI {
     //리뷰별 블랙리스트 조회
     @GET("/v1/blacklist")
     Call<SettingsBlackListResponseVO> getBlackList(@Query("user_id") String user_id, @Query("sns_division") String sns_division);
+
+    //내 블랙리스트 관리 블랙리스트 삭제
+    @DELETE("/v1/reviews/blacklist")
+    Call<SettingsBlackListResponseVO> deleteBlackList(
+            @Query("user_id") String user_id,
+            @Query("sns_division") String sns_division,
+            @Query("portal") String portal,
+            @Query("author")String author,
+            @Query("blacklist_division")String blacklist_division,
+            @Query("review_id")String review_id);
 
 
 }

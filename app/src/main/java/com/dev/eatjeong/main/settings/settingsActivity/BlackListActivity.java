@@ -1,17 +1,25 @@
 package com.dev.eatjeong.main.settings.settingsActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.main.home.homeListAdapter.MainNaverListAdapter;
+import com.dev.eatjeong.main.home.homeReviewWebview.HomeReviewWebviewActivity;
 import com.dev.eatjeong.main.settings.SettingsListAdapter.SettingsListAdapter;
 import com.dev.eatjeong.main.settings.SettingsRetrofitAPI;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsBlackListResponseVO;
@@ -25,15 +33,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 public class BlackListActivity extends AppCompatActivity implements View.OnClickListener {
 
 
+    int listPosition;
+    private String portal,write_author,division,review_id;
     private String user_id, sns_division;
 
     Button youtube_btn,naver_btn,tistory_btn,post_btn,author_btn;
 
-    ListView listView;
+    RecyclerView listView;
 
     ProgressBar progressBar;
 
@@ -46,8 +55,6 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
     ArrayList<Map<String,String>> postBlackListTistory = new ArrayList<>();
 
     SettingsListAdapter adapter;
-
-
 
     /*
     *
@@ -71,7 +78,16 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
     int WRITE_TYPE_DIVISION = 0;
     int PORTAR_DIVISIONT = 0;
 
+    /*
+    *
+    *
+    * DELETE_FLAG = 0 : 미삭제 , 1 : 삭제
+    *
+    *  */
+    int DELETE_FLAG = 0;
+
     BlackListControll blackListControll = new BlackListControll();
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -91,8 +107,6 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
 
         progressBar = (ProgressBar)findViewById(R.id.progress);
 
-
-
         blackListControll.setRetrofitInit();
 
         youtube_btn.setOnClickListener(this);
@@ -102,7 +116,10 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
         post_btn.setOnClickListener(this);
         author_btn.setOnClickListener(this);
 
+        listView = (RecyclerView) findViewById(R.id.recycler_view);
+
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -125,7 +142,6 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
         setResult(1,intent);
         // finish();
         super.onBackPressed();
-
 
     }
 
@@ -226,7 +242,45 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
 
         private void callResponse() {
 
-            mCallSettingsBlackListResponseVO = mSettingsRetrofitAPI.getBlackList(user_id,sns_division);
+            if(DELETE_FLAG == 0){
+                mCallSettingsBlackListResponseVO = mSettingsRetrofitAPI.getBlackList(user_id,sns_division);
+            }else if(DELETE_FLAG == 1){
+
+                if(SET_CODE == 0){
+                    review_id = postBlackListYoutube.get(listPosition).get("review_id");
+                    write_author = postBlackListYoutube.get(listPosition).get("author");
+                }else if(SET_CODE == 1){
+                    review_id = authorBlackListYoutube.get(listPosition).get("review_id");
+                    write_author = authorBlackListYoutube.get(listPosition).get("author");
+                }else if(SET_CODE == 2){
+                    review_id = postBlackListNaver.get(listPosition).get("review_id");
+                    write_author = postBlackListNaver.get(listPosition).get("author");
+                }else if(SET_CODE == 3){
+                    review_id = authorBlackListNaver.get(listPosition).get("review_id");
+                    write_author = authorBlackListNaver.get(listPosition).get("author");
+                }else if(SET_CODE == 4){
+                    review_id = postBlackListTistory.get(listPosition).get("review_id");
+                    write_author = postBlackListTistory.get(listPosition).get("author");
+                }else if(SET_CODE == 5){
+                    review_id = authorBlackListTistory.get(listPosition).get("review_id");
+                    write_author = authorBlackListTistory.get(listPosition).get("author");
+                }
+                if(PORTAR_DIVISIONT == 0){
+                    portal = "youtube";
+                }else if(PORTAR_DIVISIONT == 1){
+                    portal = "naver";
+                }else if(PORTAR_DIVISIONT == 2){
+                    portal = "daum";
+                }
+
+                if(WRITE_TYPE_DIVISION == 0){ //게시글
+                    division = "post";
+                }else if(WRITE_TYPE_DIVISION == 1){ //게시자
+                    division = "author";
+                }
+
+                mCallSettingsBlackListResponseVO = mSettingsRetrofitAPI.deleteBlackList(user_id,sns_division,portal,write_author,division,review_id);
+            }
 
             mCallSettingsBlackListResponseVO.enqueue(mRetrofitCallback);
 
@@ -238,62 +292,76 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
 
                 Log.e("code : ", response.body().getCode());
                 Log.e("message : ", response.body().getMessage());
-                Log.e("message : ", String.valueOf(response.body().getDataList().size()));
 
-                progressBar.setVisibility(View.GONE);
-                if(response.body().getCode().equals("200")){
-                    authorBlackListYoutube.clear();
-                    authorBlackListNaver.clear();
-                    authorBlackListTistory.clear();
-                    postBlackListYoutube.clear();
-                    postBlackListNaver.clear();
-                    postBlackListTistory.clear();
-                    listView = (ListView)findViewById(R.id.listView);
+                if(DELETE_FLAG == 1){
+                    DELETE_FLAG = 0;
+                    progressBar.setVisibility(View.VISIBLE);
+                    blackListControll.setRetrofitInit();
+                }else {
+                    progressBar.setVisibility(View.GONE);
+                    if(response.body().getCode().equals("200")){
+                        authorBlackListYoutube.clear();
+                        authorBlackListNaver.clear();
+                        authorBlackListTistory.clear();
+                        postBlackListYoutube.clear();
+                        postBlackListNaver.clear();
+                        postBlackListTistory.clear();
 
-                    if(response.body().getDataList().get("author_blacklist_youtube").size()>0){
-                        authorBlackListYoutube.addAll(response.body().getDataList().get("author_blacklist_youtube"));
+
+                        if(response.body().getDataList().get("author_blacklist_youtube").size()>0){
+                            authorBlackListYoutube.addAll(response.body().getDataList().get("author_blacklist_youtube"));
+                        }
+                        if(response.body().getDataList().get("author_blacklist_naver").size()>0){
+                            authorBlackListNaver.addAll(response.body().getDataList().get("author_blacklist_naver"));
+                        }
+                        if(response.body().getDataList().get("author_blacklist_tistory").size()>0){
+                            authorBlackListTistory.addAll(response.body().getDataList().get("author_blacklist_tistory"));
+                        }
+                        if(response.body().getDataList().get("post_blacklist_youtube").size()>0){
+                            postBlackListYoutube.addAll(response.body().getDataList().get("post_blacklist_youtube"));
+                        }
+                        if(response.body().getDataList().get("post_blacklist_naver").size()>0){
+                            postBlackListNaver.addAll(response.body().getDataList().get("post_blacklist_naver"));
+                        }
+                        if(response.body().getDataList().get("post_blacklist_tistory").size()>0){
+                            postBlackListTistory.addAll(response.body().getDataList().get("post_blacklist_tistory"));
+                        }
+
+
                     }
-                    if(response.body().getDataList().get("author_blacklist_naver").size()>0){
-                        authorBlackListNaver.addAll(response.body().getDataList().get("author_blacklist_naver"));
+
+                    Log.e("set_code : ", String.valueOf(SET_CODE));
+                    if(SET_CODE == 0 ){
+                        adapter = new SettingsListAdapter(getApplicationContext(),postBlackListYoutube,"post");
+                    }else if(SET_CODE == 1){
+                        adapter = new SettingsListAdapter(getApplicationContext(),authorBlackListYoutube,"author");
+                    }else if(SET_CODE == 2){
+                        adapter = new SettingsListAdapter(getApplicationContext(),postBlackListNaver,"post");
+                    }else if(SET_CODE == 3){
+                        adapter = new SettingsListAdapter(getApplicationContext(),authorBlackListNaver,"author");
+                    }else if(SET_CODE == 4){
+                        adapter = new SettingsListAdapter(getApplicationContext(),postBlackListTistory,"post");
+                    }else if(SET_CODE == 5){
+                        adapter = new SettingsListAdapter(getApplicationContext(),authorBlackListTistory,"author");
                     }
-                    if(response.body().getDataList().get("author_blacklist_tistory").size()>0){
-                        authorBlackListTistory.addAll(response.body().getDataList().get("author_blacklist_tistory"));
-                    }
-                    if(response.body().getDataList().get("post_blacklist_youtube").size()>0){
-                        postBlackListYoutube.addAll(response.body().getDataList().get("post_blacklist_youtube"));
-                    }
-                    if(response.body().getDataList().get("post_blacklist_naver").size()>0){
-                        postBlackListNaver.addAll(response.body().getDataList().get("post_blacklist_naver"));
-                    }
-                    if(response.body().getDataList().get("post_blacklist_tistory").size()>0){
-                        postBlackListTistory.addAll(response.body().getDataList().get("post_blacklist_tistory"));
-                    }
+
+
+
+                    listView.setHasFixedSize(true);
+                    listView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    listView.setAdapter(adapter);
+
+                    adapter.setItemClick(new SettingsListAdapter.ItemClick() {
+                        @Override
+                        public void onClick(View view, int position) {
+                            //클릭시 실행될 함수 작성
+                            Log.e("position",String.valueOf(position));
+                            listPosition = position;
+                            DELETE_FLAG = 1;
+                            blackListControll.setRetrofitInit();
+                        }
+                    });
                 }
-
-                Log.e("set_code : ", String.valueOf(SET_CODE));
-                if(SET_CODE == 0 ){
-                    adapter = new SettingsListAdapter(getApplicationContext(),postBlackListYoutube,"post");
-                }else if(SET_CODE == 1){
-                    adapter = new SettingsListAdapter(getApplicationContext(),authorBlackListYoutube,"author");
-                }else if(SET_CODE == 2){
-                    adapter = new SettingsListAdapter(getApplicationContext(),postBlackListNaver,"post");
-                }else if(SET_CODE == 3){
-                    adapter = new SettingsListAdapter(getApplicationContext(),authorBlackListNaver,"author");
-                }else if(SET_CODE == 4){
-                    adapter = new SettingsListAdapter(getApplicationContext(),postBlackListTistory,"post");
-                }else if(SET_CODE == 5){
-                    adapter = new SettingsListAdapter(getApplicationContext(),authorBlackListTistory,"author");
-                }
-
-                listView.setAdapter(adapter);
-                Log.e("check1 : ",String.valueOf(authorBlackListYoutube.size()));
-                Log.e("check2 : ",String.valueOf(authorBlackListNaver.size()));
-                Log.e("check2 : ",String.valueOf(authorBlackListNaver.size()));
-                Log.e("check3 : ",String.valueOf(authorBlackListTistory.size()));
-                Log.e("check4 : ",String.valueOf(postBlackListYoutube.size()));
-                Log.e("check5 : ",String.valueOf(postBlackListNaver.size()));
-                Log.e("check6 : ",String.valueOf(postBlackListTistory.size()));
-
             }
 
             @Override
