@@ -9,33 +9,19 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.layout.ClearEditText;
 
-import java.util.Objects;
+public class UserInfoSetUp extends Fragment {
 
-public class PhoneAuthentication extends Fragment {
-
-    private String TAG = "PhoneAuthFragment 생명주기";
-    private ClearEditText phone_number_edittext;
-    private AppCompatButton next_appCompatButton_true;
+    private String TAG = "UserInfoSetUp 생명주기";
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.signup_phone_authentication, container, false);
-        next_appCompatButton_true = v.findViewById(R.id.phone_next_appCompatButton_true);
-
-        next_appCompatButton_true.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((SignUpActivity) Objects.requireNonNull(getActivity())).changeFragment("userInfoSetUp", PhoneAuthentication.this);
-            }
-        });
+        View v = inflater.inflate(R.layout.user_info_setup, container, false);
 
         return v;
     }

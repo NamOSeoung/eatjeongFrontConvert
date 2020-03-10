@@ -201,6 +201,7 @@
                 android:background="@drawable/signup_next_button_false"
                 android:fontFamily="@font/nanumsquareroundr"
                 android:text="다음"
+                android:textColor="#ffffff"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -14,14 +14,22 @@
 
     <include
             android:id="@+id/action_bar"
-            layout="@layout/custom_actionbar_singup"/>
+            layout="@layout/custom_actionbar_singup" />
 
-    <FrameLayout
-            android:id="@+id/frame_wrap"
+    <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineActionbarBottom">
-    </FrameLayout>
+            app:layout_constraintTop_toBottomOf="@+id/guidelineActionbarBottom"
+            android:fillViewport="true">
+
+        <FrameLayout
+                android:id="@+id/frame_wrap"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"/>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

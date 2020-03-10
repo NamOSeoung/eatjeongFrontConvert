@@ -1,6 +1,7 @@
 package com.dev.eatjeong.layout;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,17 +25,17 @@ public class ClearEditText extends androidx.appcompat.widget.AppCompatEditText i
 
     public ClearEditText(Context context) {
         super(context);
-        init(context);
+        init();
     }
 
     public ClearEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init();
     }
 
     public ClearEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init();
     }
 
     /**
@@ -43,17 +44,15 @@ public class ClearEditText extends androidx.appcompat.widget.AppCompatEditText i
      * DrawableCompat을 이용해서 X이미지를 hint의 색깔에 맞춰서 같은 색으로 맞출수 있도록 Tint를 적용해줍니다.
      * getIntrinsicWidth()와 getIntrinsicHeight()를 이용해서 크기를 지정해 줍니다.
      */
-    private void init(Context context) {
+    private void init() {
+        Log.d(Tag, "init()");
+
         Drawable tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.clear_text);
         clearDrawable = DrawableCompat.wrap(Objects.requireNonNull(tempDrawable));
         DrawableCompat.setTintList(clearDrawable, getHintTextColors());
-        clearDrawable.setBounds(0, 0, clearDrawable.getIntrinsicWidth(), clearDrawable.getIntrinsicHeight());
-
-        Log.d("getIntrinsicWidth", ""+clearDrawable.getIntrinsicWidth());
-        Log.d("getIntrinsicHeight", ""+clearDrawable.getIntrinsicHeight());
-        Log.d("this width", ""+super.getWidth());
-        Log.d("this height", ""+super.getHeight());
-        Log.d("this hint", ""+this.getHint());
+        clearDrawable.setBounds(0, 0
+                , getResources().getDimensionPixelOffset(R.dimen.clear_edit_text_fontsize)
+                , getResources().getDimensionPixelOffset(R.dimen.clear_edit_text_fontsize));
 
         setClearIconVisible(false);
 
@@ -153,5 +152,57 @@ public class ClearEditText extends androidx.appcompat.widget.AppCompatEditText i
     @Override
     public void setOnTouchListener(OnTouchListener onTouchListener) {
         this.onTouchListener = onTouchListener;
+    }
+
+
+    /*  View 생명주기 */
+    String Tag = "ClearEditText 생명주기";
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Log.d(Tag, "onAttachedToWindow()");
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.d(Tag, "onMeasure()");
+    }
+
+    @Override
+    public void layout(int l, int t, int r, int b) {
+        super.layout(l, t, r, b);
+        Log.d(Tag, "layout()");
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        Log.d(Tag, "onLayout()");
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        Log.d(Tag, "dispatchDraw()");
+    }
+
+    @Override
+    public void requestLayout() {
+        super.requestLayout();
+        Log.d(Tag, "requestLayout()");
+    }
+
+    @Override
+    public void invalidate() {
+        super.invalidate();
+        Log.d(Tag, "invalidate()");
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        Log.d(Tag, "onDraw()");
     }
 }

@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/email_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이메일"
+                android:textSize="13dp"
+                android:textColor="#555555"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toTopOf="@+id/email_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <com.dev.eatjeong.layout.ClearEditText
+                android:id="@+id/email_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/signup_edit_text1"
+                android:imeOptions="actionNext"
+                android:inputType="textWebEmailAddress"
+                android:maxLines="1"
+                android:textColor="#494949"
+                android:textSize="@dimen/clear_edit_text_fontsize"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toTopOf="@+id/email_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_textview" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/email_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이미 가입된 이메일입니다."
+                android:textSize="10dp"
+                android:textColor="#888888"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_edittext" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout1"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout1"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout1">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/nickname_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textSize="13dp"
+                android:textColor="#555555"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toTopOf="@+id/nickname_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <com.dev.eatjeong.layout.ClearEditText
+                android:id="@+id/nickname_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/signup_edit_text1"
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:textColor="#494949"
+                android:textSize="@dimen/clear_edit_text_fontsize"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toTopOf="@+id/nickname_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nickname_textview" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/nickname_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="한글, 영문, 숫자 2 ~ 10자"
+                android:textSize="10dp"
+                android:textColor="#888888"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nickname_edittext" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/birth_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/birth_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/birth_texatview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:text="생년월일(6자리)"
+                    android:textSize="13dp"
+                    android:textColor="#555555"
+                    app:fontFamily="@font/nanumsquareroundr"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/birth_wraning_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                    android:id="@+id/birth_wraning_image"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:background="@drawable/warning_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/birth_texatview"
+                    app:layout_constraintEnd_toStartOf="@id/birth_warning_message"
+                    app:layout_constraintStart_toEndOf="@id/birth_texatview"
+                    app:layout_constraintTop_toTopOf="@id/birth_texatview" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/birth_warning_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="만 14세 미만은 가입할 수 없습니다."
+                    android:textSize="13dp"
+                    android:textColor="#555555"
+                    app:fontFamily="@font/nanumsquareroundr"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/birth_wraning_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.dev.eatjeong.layout.ClearEditText
+                android:id="@+id/birth_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/signup_edit_text1"
+                android:hint="00/00/00"
+                android:imeOptions="actionNext"
+                android:inputType="numberSigned"
+                android:maxLength="8"
+                android:textColor="#494949"
+                android:textSize="@dimen/clear_edit_text_fontsize"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toTopOf="@+id/birth_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birth_text_layout" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/birth_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="아이디 찾기 시 필요한 정보입니다."
+                android:textSize="10dp"
+                android:textColor="#888888"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birth_edittext" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout3"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/password_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="비밀번호"
+                android:textSize="13dp"
+                android:textColor="#555555"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toTopOf="@+id/password_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <com.dev.eatjeong.layout.ClearEditText
+                android:id="@+id/password_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/signup_edit_text1"
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions|textPassword"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:textColor="#494949"
+                android:textSize="@dimen/clear_edit_text_fontsize"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toTopOf="@+id/password_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_textview" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/password_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8~15자 이내로 영문, 숫자, 특수문자 중 2가지 이상 조합으로 입력해주세요."
+                android:textSize="10dp"
+                android:textColor="#888888"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_edittext" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout4"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/password_check_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="비밀번호 확인"
+                android:textSize="13dp"
+                android:textColor="#555555"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toTopOf="@+id/password_check_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <com.dev.eatjeong.layout.ClearEditText
+                android:id="@+id/password_check_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/signup_edit_text1"
+                android:imeOptions="actionDone"
+                android:inputType="textNoSuggestions|textPassword"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:textColor="#494949"
+                android:textSize="@dimen/clear_edit_text_fontsize"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toTopOf="@+id/password_check_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_check_textview" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/password_check_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="비밀번호가 일치하지 않습니다."
+                android:textColor="#db522b"
+                android:textSize="10dp"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_check_edittext" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout5"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout5"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/gender_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="성별 선택"
+                android:textSize="13dp"
+                android:textColor="#555555"
+                app:fontFamily="@font/nanumsquareroundr"
+                app:layout_constraintBottom_toTopOf="@+id/gender_radio_group"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+                android:id="@+id/gender_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gender_textview">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/not_check_gender_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/appColor"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    android:text="선택 안함"
+                    android:textColor="#494949"
+                    android:textSize="14dp" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/female_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:buttonTint="@color/appColor"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    android:text="여자"
+                    android:textColor="#494949"
+                    android:textSize="14dp" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/male_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:buttonTint="@color/appColor"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    android:text="남자"
+                    android:textColor="#494949"
+                    android:textSize="14dp" />
+
+        </RadioGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout6"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout6"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signup_button_false"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/signup_next_button_false"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:text="가입하기"
+                android:textColor="#ffffff"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signup_button_true"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/signup_next_button_true"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:text="가입하기"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
