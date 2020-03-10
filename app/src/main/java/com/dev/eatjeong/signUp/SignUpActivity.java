@@ -1,16 +1,13 @@
 package com.dev.eatjeong.signUp;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -26,6 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private TermsFragment termsFragment = new TermsFragment();
     private PhoneAuthentication phoneFragment = new PhoneAuthentication();
+    private UserInfoSetUp userInfoSetUp = new UserInfoSetUp();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_wrap);
         setFragment();
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
 
@@ -139,6 +137,12 @@ public class SignUpActivity extends AppCompatActivity {
             case "phoneAuthentication": {
                 title_text.setText("휴대폰인증");
                 transaction.replace(R.id.frame_wrap, phoneFragment);
+                transaction.commit();
+                break;
+            }
+            case "userInfoSetUp":{
+                title_text.setText("정보입력");
+                transaction.replace(R.id.frame_wrap, userInfoSetUp);
                 transaction.commit();
                 break;
             }

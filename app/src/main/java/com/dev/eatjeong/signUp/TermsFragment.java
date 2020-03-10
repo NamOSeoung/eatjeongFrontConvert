@@ -18,12 +18,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.Objects;
 
 public class TermsFragment extends Fragment {
 
     private String TAG = "TermsFragment 생명주기";
+    private AppCompatButton service_terms_button, personal_terms_button;
+
 
     @Nullable
     @Override
@@ -33,20 +36,31 @@ public class TermsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.signup_terms, container, false);
         AppCompatButton next_appCompatButton_true = v.findViewById(R.id.next_appCompatButton_true);
+        service_terms_button = v.findViewById(R.id.service_terms_appCompatButton);
+        personal_terms_button = v.findViewById(R.id.personal_terms_appCompatButton);
 
         next_appCompatButton_true.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ( (SignUpActivity) Objects.requireNonNull(getActivity())).changeFragment("phoneAuthentication",TermsFragment.this);
+                ((SignUpActivity) Objects.requireNonNull(getActivity())).changeFragment("phoneAuthentication", TermsFragment.this);
             }
         });
-//        address = (TextView)v.findViewById(R.id.address);
-//        if(((MainWrapActivity)getActivity()).getCurrentLocationAddress().equals("")){
-//            address.setText("서울 맛집");
-//        }else{
-//            address_arr = ((MainWrapActivity)getActivity()).getCurrentLocationAddress().split(" ");
-//            address.setText(address_arr[1] + " " +address_arr[2] + " " +address_arr[3]);
-//        }
+
+        service_terms_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent service_terms = new Intent(getActivity(), ServiceTermsPopupActivity.class);
+                startActivityForResult(service_terms, 0);//액티비티 띄우기
+            }
+        });
+
+        personal_terms_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent personal_terms = new Intent(getActivity(), PersonalTermsPopupActivity.class);
+                startActivityForResult(personal_terms, 0);//액티비티 띄우기
+            }
+        });
 
         return v;
     }
