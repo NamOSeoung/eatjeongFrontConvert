@@ -1,13 +1,18 @@
 package com.dev.eatjeong.main.search;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +30,10 @@ public class SearchTab extends Fragment implements View.OnClickListener{
     Button search_map,search_lately_keyword,search_popular_keyword,search_button;
     EditText search_keyword;
 
+    //키보드 관련
+    InputMethodManager imm;
+
+    FrameLayout child_fragment_container;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,18 +49,16 @@ public class SearchTab extends Fragment implements View.OnClickListener{
 
         search_keyword = (EditText)v.findViewById(R.id.search_keyword) ;
 
-        search_keyword.requestFocus();
+        imm = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE); //키보드 관
 
-        //자동키보드 적용소스
-//        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//
-//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
+        search_keyword.setOnClickListener(this);
 
         search_lately_keyword = (Button) v.findViewById(R.id.search_lately_keyword) ;
         search_lately_keyword.setOnClickListener(this);
         search_popular_keyword = (Button)v.findViewById(R.id.search_popular_keyword) ;
         search_popular_keyword.setOnClickListener(this);
+
+
 
 
         return v;
@@ -60,6 +67,7 @@ public class SearchTab extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        Toast.makeText(getContext(),"awdadsxxxx",Toast.LENGTH_SHORT).show();
         Fragment fg;
         switch (v.getId()) {
             case R.id.search_map:
@@ -75,12 +83,19 @@ public class SearchTab extends Fragment implements View.OnClickListener{
                 fg = PopularFragment.newInstance();
                 setChildFragment(fg);
                 break;
+
             case R.id.search_button:
                 if(search_keyword.getText().toString().equals("")){
                     return;
                 }
+
+                search_keyword.setCursorVisible(false); //키보드 관련 해당 EditText focus out 시킴
+                hideKeyboard(); //키보드 관련련 (키보드 지워줌 )
                 fg = PlaceListFragment.newInstance();
                 setChildFragment(fg);
+                break;
+            case R.id.search_keyword:
+                search_keyword.setCursorVisible(true); //키보드 관련 해당 EditText focus in
                 break;
         }
     }
@@ -132,4 +147,11 @@ public class SearchTab extends Fragment implements View.OnClickListener{
         String keyword = search_keyword.getText().toString();
         return keyword;
     }
+
+    //키보드 관련
+    private void hideKeyboard()
+    {
+        imm.hideSoftInputFromWindow(search_keyword.getWindowToken(), 0);
+    }
+
 }
