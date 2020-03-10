@@ -310,11 +310,13 @@ public class MainWrapActivity extends AppCompatActivity {
                     7);
         } catch (IOException ioException) {
             //네트워크 문제
-            Toast.makeText(this, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show();
-            return "지오코더 서비스 사용불가";
+//            Toast.makeText(this, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show();
+            //네트워크 문제 발생하면 address return ""으로 뱉어서 서울 맛집으로 검색 되도록 설정.
+            return "";
         } catch (IllegalArgumentException illegalArgumentException) {
-            Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show();
-            return "잘못된 GPS 좌표";
+//            Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show();
+            //네트워크 문제 발생하면 address return ""으로 뱉어서 서울 맛집으로 검색 되도록 설정.
+            return "";
 
         }
 

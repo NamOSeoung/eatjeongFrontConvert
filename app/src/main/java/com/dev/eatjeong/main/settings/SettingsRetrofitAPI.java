@@ -1,7 +1,8 @@
 package com.dev.eatjeong.main.settings;
 
-import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
+import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsBlackListResponseVO;
+import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewListResponseVO;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -45,5 +46,8 @@ public interface SettingsRetrofitAPI {
             @Query("blacklist_division")String blacklist_division,
             @Query("review_id")String review_id);
 
+    //내가 작성한 리뷰 조회
+    @GET("/v1/myreviews")
+    Call<SettingsMyReviewListResponseVO> getMyReviews(@Query("user_id") String user_id, @Query("sns_division") String sns_division);
 
 }

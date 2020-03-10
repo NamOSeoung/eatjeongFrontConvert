@@ -1,4 +1,4 @@
-package com.dev.eatjeong.common.retrofitVO;
+package com.dev.eatjeong.common;
 
 import java.util.Map;
 

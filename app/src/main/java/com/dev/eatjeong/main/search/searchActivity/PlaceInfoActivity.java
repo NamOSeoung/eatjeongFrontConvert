@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,14 +17,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
+import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
-import com.dev.eatjeong.main.search.searchListVO.PlaceListVO;
 
-import java.util.ArrayList;
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +58,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
     private PopularFragment popularFragment = new PopularFragment();
     private LatelyFragment latelyFragment = new LatelyFragment();
 
-    private Button place_bookmark_add, place_bookmark_delete;
+    private Button place_bookmark_add, place_bookmark_delete,review_add;
 
     private ProgressBar place_info_progress;
 
@@ -85,8 +88,10 @@ public class PlaceInfoActivity extends AppCompatActivity {
         address = (TextView)findViewById(R.id.address);
         place_bookmark_add = (Button)findViewById(R.id.place_bookmark_add);
         place_bookmark_delete = (Button)findViewById(R.id.place_bookmark_delete);
+        review_add = (Button)findViewById(R.id.review_add);
 
         place_info_progress = (ProgressBar)findViewById(R.id.place_info_progress);
+
 
 
 
@@ -108,6 +113,15 @@ public class PlaceInfoActivity extends AppCompatActivity {
             }
         });
 
+        review_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ReviewWriteActivity.class);
+                intent.putExtra("place_id",info_place_id);
+                startActivityForResult(intent,0);//액티비티 띄우기
+                overridePendingTransition(R.anim.sliding_up, R.anim.stay);
+            }
+        });
 //        FragmentTransaction transaction = fragmentManager.beginTransaction();
 //        transaction.replace(R.id.youtube_frame_layout, popularFragment).commitAllowingStateLoss();
 //        transaction.replace(R.id.naver_frame_layout, latelyFragment).commitAllowingStateLoss();
@@ -119,34 +133,34 @@ public class PlaceInfoActivity extends AppCompatActivity {
         //레트로핏 초기화 후 호출작업 진행.
         callPlaceInfoResponse();
 
-//        MapView mapView = new MapView(this);
-//
-//        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-//        mapViewContainer.addView(mapView);
-//
-//
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
-//
-//// 줌 레벨 변경
-//        mapView.setZoomLevel(3, true);
-//
-//// 중심점 변경 + 줌 레벨 변경
-//        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 3, true);
-//
-//// 줌 인
-//        mapView.zoomIn(true);
-//
-//// 줌 아웃
-//        mapView.zoomOut(true);
-//
-//        MapPOIItem marker = new MapPOIItem();
-//        marker.setItemName("Default Marker");
-//        marker.setTag(0);
-//        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
-//        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
-//        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-//
-//        mapView.addPOIItem(marker);
+        MapView mapView = new MapView(this);
+
+        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
+
+
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+
+// 줌 레벨 변경
+        mapView.setZoomLevel(3, true);
+
+// 중심점 변경 + 줌 레벨 변경
+        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 3, true);
+
+// 줌 인
+        mapView.zoomIn(true);
+
+// 줌 아웃
+        mapView.zoomOut(true);
+
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName("Default Marker");
+        marker.setTag(0);
+        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
+        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+
+        mapView.addPOIItem(marker);
 
     }
 

@@ -14,10 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
+import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
 import com.dev.eatjeong.main.settings.settingsActivity.BlackListActivity;
+import com.dev.eatjeong.main.settings.settingsActivity.MyAppReviewListActivity;
 import com.dev.eatjeong.main.settings.settingsActivity.UserInfoManagementActivity;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
@@ -103,6 +104,18 @@ public class SettingsTab extends Fragment {
                     getActivity().overridePendingTransition(R.anim.fadein,0);
                 }
             });
+
+            my_review.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myAppList = new Intent(getContext(), MyAppReviewListActivity.class);
+                    myAppList.putExtra("user_id",user_id);
+                    myAppList.putExtra("sns_division",sns_division);
+
+                    startActivityForResult(myAppList,0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.fadein,0);
+                }
+            });
         }else {
             v = inflater.inflate(R.layout.settings_logout_tab, container, false);
 
@@ -116,6 +129,8 @@ public class SettingsTab extends Fragment {
             });
 
         }
+
+
 
 
         return v;

@@ -16,7 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
+import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 

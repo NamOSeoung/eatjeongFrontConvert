@@ -17,12 +17,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
+import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
-import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkYoutubeListAdapter;
-import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkYoutubeListVO;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeResponseVO;
-import com.dev.eatjeong.mainWrap.MainWrapActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import retrofit2.Call;

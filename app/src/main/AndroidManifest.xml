@@ -8,6 +8,13 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- 사진 첨부를 위한 권한 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+
 
     <application
             android:allowBackup="true"
@@ -147,9 +154,19 @@
             android:windowSoftInputMode="adjustNothing"/>
 
         <activity
-            android:name=".main.settings.settingsActivity.BlackListActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustNothing"/>
+        android:name=".main.settings.settingsActivity.BlackListActivity"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:windowSoftInputMode="adjustNothing"/>
+
+        <activity
+            android:name=".main.search.searchActivity.ReviewWriteActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".main.settings.settingsActivity.MyAppReviewListActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 

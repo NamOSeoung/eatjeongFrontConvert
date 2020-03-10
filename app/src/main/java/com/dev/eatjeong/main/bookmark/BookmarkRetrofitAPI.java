@@ -1,6 +1,6 @@
 package com.dev.eatjeong.main.bookmark;
 
-import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
+import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkNaverResponseVO;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkPlaceResponseVO;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkTistoryResponseVO;

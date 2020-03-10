@@ -56,26 +56,8 @@
         android:id="@+id/child_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorAccent"
         android:layout_weight="0.25">
 
     </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.75"
-        >
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/search_area_back"
-            android:text="지역검색취소"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/search_area_button"
-            android:text="검색하기"/>
-    </LinearLayout>
 </LinearLayout>

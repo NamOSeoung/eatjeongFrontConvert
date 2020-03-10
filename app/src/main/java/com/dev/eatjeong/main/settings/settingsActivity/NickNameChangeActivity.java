@@ -7,14 +7,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
-import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
-import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
+import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.settings.SettingsRetrofitAPI;
 
 import retrofit2.Call;

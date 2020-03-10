@@ -1,6 +1,6 @@
 package com.dev.eatjeong.main.search;
 
-import com.dev.eatjeong.common.retrofitVO.CommonMapResponseVO;
+import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAppListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchGoogleListResponseVO;
@@ -9,11 +9,21 @@ import com.dev.eatjeong.main.search.searchRetrofitVO.SearchPlaceListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchTistoryListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
+import com.google.gson.JsonObject;
 
+import java.util.List;
+import java.util.Map;
+
+import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -121,5 +131,15 @@ public interface SearchRetrofitAPI {
     //유튜브/네이버/티스토리 (게시자/게시물) 공용 블랙리스트 삭제
     @DELETE("/v1/reviews/blacklist")
     Call<CommonMapResponseVO> deleteBlackList(@Query("place_id")String place_id,@Query("user_id") String user_id, @Query("sns_division")String sns_division, @Query("portal")String portal, @Query("author")String author, @Query("blacklist_division")String blacklist_division,@Query("review_id")String review_id);
+
+
+    /* 잇정 리뷰 부분 */
+    //잇정 리뷰 추가
+    @Multipart
+    @POST("/v1/places/{place_id}/reviews")
+
+    Call<CommonMapResponseVO> addAppReview(@Path("place_id")String place_id,@Query("review_user_id")String review_user_id, @Query("sns_division")String sns_division, @Query("review_contents")String review_contents, @Query("rating_point")String rating_point, @Part List<MultipartBody.Part> fileList);
+
+//    Call<CommonMapResponseVO> addAppReview(@Path("place_id") String place_id,@Query("review_user_id")String review_user_id, @Query("sns_division")String sns_division, @Query("review_contents")String review_contents, @Query("rating_point")String rating_point, @Query("file")String file);
 
 }
