@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "25778723047",
+    "firebase_url": "https://jangchinso.firebaseio.com",
+    "project_id": "jangchinso",
+    "storage_bucket": "jangchinso.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25778723047:android:05bd2753d23655cec0aa42",
+        "android_client_info": {
+          "package_name": "com.dev.eatjeong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "25778723047-7neq5oclnjfgunfctukmo8t70i112n9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGYpxwgF_LgG9y2amxQUV39ByDbjL0_og"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "25778723047-7neq5oclnjfgunfctukmo8t70i112n9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25778723047:android:b682d60f34f75236c0aa42",
+        "android_client_info": {
+          "package_name": "org.nativescript.matitzung"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "25778723047-f9bpp429ibjni6obskgnbb078pa62qkn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.nativescript.matitzung",
+            "certificate_hash": "2c32b21be2e131562d811cedf14c2c136b20e5ff"
+          }
+        },
+        {
+          "client_id": "25778723047-7neq5oclnjfgunfctukmo8t70i112n9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGYpxwgF_LgG9y2amxQUV39ByDbjL0_og"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "25778723047-7neq5oclnjfgunfctukmo8t70i112n9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -28,6 +29,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 import com.dev.eatjeong.signUp.SignUpActivity;
+import com.kakao.auth.AuthType;
+import com.kakao.auth.ISessionCallback;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.ApiErrorCode;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.MeV2ResponseCallback;
+import com.kakao.usermgmt.response.MeV2Response;
+import com.kakao.usermgmt.response.model.UserAccount;
+import com.kakao.util.exception.KakaoException;
+import com.nhn.android.naverlogin.OAuthLogin;
+import com.nhn.android.naverlogin.OAuthLoginHandler;
+import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
 
 import java.security.MessageDigest;
 
@@ -39,6 +52,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LoginActivity extends AppCompatActivity {
+
+    /* 카카오 로그인 */
+    private SessionCallback sessionCallback;
+    private final Handler handler = new Handler();
+    public static OAuthLogin mOAuthLoginModule;
+    OAuthLoginButton mOAuthLoginButton;
+    String accessToken = "";
+    String refreshToken = "";
+    String deviceToken = "";
 
 
     private final long FINISH_INTERVAL_TIME = 2000;
@@ -64,6 +86,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
         Button login_btn = findViewById(R.id.login_button);
         Button emailSignUp = findViewById(R.id.emailSignUp);
+        Button kakaoSignUp = findViewById(R.id.kakaoSignUp);
+        Button naverSignUp = findViewById(R.id.naverSignUp);
         LinearLayout menu_btn = findViewById(R.id.no_login_button);
         user_id = (EditText) findViewById(R.id.login_id_text);
         password = (EditText) findViewById(R.id.login_password_text);
@@ -115,6 +139,25 @@ public class LoginActivity extends AppCompatActivity {
                 Intent goHome = new Intent(getApplicationContext(), MainWrapActivity.class);
                 startActivityForResult(goHome, sub);//액티비티 띄우기
                 overridePendingTransition(R.anim.slide_out_right, R.anim.stay);
+            }
+        });
+
+        kakaoSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sessionCallback = new SessionCallback();
+                com.kakao.auth.Session.getCurrentSession().addCallback(sessionCallback);
+                com.kakao.auth.Session.getCurrentSession().checkAndImplicitOpen();
+                com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK, LoginActivity.this);
+            }
+        });
+
+        naverSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOAuthLoginModule = OAuthLogin.getInstance();
+                mOAuthLoginModule.init(getApplicationContext(), "a5jfHfWkZg_Fn8sIdjYD", "UV5L3wTZiT", "장친소");
+                naverLogin();
             }
         });
 
@@ -343,5 +386,99 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     };
+
+    public class SessionCallback implements ISessionCallback {
+        MeV2Response finalResult = null;
+        @Override
+        public void onSessionOpened() {
+            UserManagement.getInstance().me(new MeV2ResponseCallback() {
+                @Override
+                public void onFailure(ErrorResult errorResult) {
+                    int result = errorResult.getErrorCode();
+
+                    if(result == ApiErrorCode.CLIENT_ERROR_CODE) {
+                        Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(),"로그인 도중 오류가 발생했습니다: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onSessionClosed(ErrorResult errorResult) {
+                    Toast.makeText(getApplicationContext(),"세션이 닫혔습니다. 다시 시도해 주세요: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(MeV2Response result) {
+                    finalResult = result;
+                    final String access_token = com.kakao.auth.Session.getCurrentSession().getTokenInfo().getAccessToken();
+                    final String refresh_token = com.kakao.auth.Session.getCurrentSession().getTokenInfo().getRefreshToken();
+                    UserAccount kakaoAccount = result.getKakaoAccount();
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext,  kakaoAccount.getEmail(), Toast.LENGTH_SHORT).show();
+                            // 가져온 데이터 javascript 메인페이지로 전달
+//                            mwv.loadUrl("javascript:setKakaoData("+finalResult+",'"+access_token+"','"+refresh_token+"','"+deviceToken+"')");
+                        }
+
+                    });
+
+                    // finish();
+                }
+            });
+        }
+
+        @Override
+        public void onSessionOpenFailed(KakaoException e) {
+            Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: "+e.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void naverLogin(){
+
+
+        runOnUiThread(new Runnable() {
+            public void run(){
+                mOAuthLoginModule.startOauthLoginActivity(LoginActivity.this,mOAuthLoginHandler);
+            }
+        });
+
+    }
+    private OAuthLoginHandler mOAuthLoginHandler = new OAuthLoginHandler() {
+        @Override
+        public void run(boolean success) {
+            if (success) {
+                accessToken = mOAuthLoginModule.getAccessToken(mContext); //naver Access token
+                refreshToken = mOAuthLoginModule.getRefreshToken(mContext); //naver refresh token
+                long expiresAt = mOAuthLoginModule.getExpiresAt(mContext); //naver expire time
+                String tokenType = mOAuthLoginModule.getTokenType(mContext); //naver token type (Bearer)
+                //Toast.makeText(mContext, "accessToken:" + accessToken
+                //      + ", refreshToken:" + refreshToken, Toast.LENGTH_SHORT).show();
+
+
+                // 원래 하고싶었던 일들 (UI변경작업 등...)
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),accessToken,Toast.LENGTH_SHORT).show();
+                        // 가져온 데이터 javascript 메인페이지로 전달
+                       //mwv.loadUrl("javascript:setNaverData('"+accessToken+"','"+refreshToken+"','"+deviceToken+"')");
+                    }
+
+                });
+
+            } else {
+                String errorCode = mOAuthLoginModule.getLastErrorCode(mContext).getCode();
+                String errorDesc = mOAuthLoginModule.getLastErrorDesc(mContext);
+                Toast.makeText(mContext, "errorCode:" + errorCode
+                        + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT).show();
+            }
+        };
+    };
+
 
 }

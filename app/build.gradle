@@ -45,6 +45,17 @@ android {
 
 }
 
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven{
+            url "https://maven.google.com"
+        }
+        /*카카오*/
+        maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/'}
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -82,6 +93,12 @@ dependencies {
 
     implementation "io.reactivex.rxjava2:rxjava:2.2.6"
     implementation project(path: ':tedbottompicker')
-
-
+    /*카카오로그인*/
+    implementation 'com.kakao.sdk:usermgmt:1.16.0'
+    /*네이버로그인*/
+    implementation ('com.naver.nid:naveridlogin-android-sdk:4.2.5')
+    // 카카오 로그인 sdk를 사용하기 위해 필요.
+//    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
+//// 카카오톡 sdk를 사용하기 위해 필요.
+//    implementation group: 'com.kakao.sdk', name: 'kakaotalk', version: project.KAKAO_SDK_VERSION
 }
