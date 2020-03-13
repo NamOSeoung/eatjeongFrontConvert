@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeListAdapter.MainNaverListAdapter;
@@ -53,6 +54,8 @@ public class MainNaverListFragment extends Fragment{
 
     String address_arr[];
 
+    public RequestManager mGlideRequestManager;
+
     public static MainNaverListFragment newInstance(){
         return new MainNaverListFragment();
     }
@@ -60,6 +63,7 @@ public class MainNaverListFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mGlideRequestManager = Glide.with(getActivity());
     }
 
 
@@ -193,7 +197,7 @@ public class MainNaverListFragment extends Fragment{
             }
 
             listView.setHasFixedSize(true);
-            adapter = new MainNaverListAdapter(getActivity(), arrayList, Glide.with(((MainWrapActivity) Objects.requireNonNull(getActivity())).getApplicationContext()));
+            adapter = new MainNaverListAdapter(getActivity(), arrayList, mGlideRequestManager);
             listView.setLayoutManager(new LinearLayoutManager(getActivity()));
             listView.setAdapter(adapter);
 
