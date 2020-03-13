@@ -155,6 +155,8 @@ public class ClearEditText extends androidx.appcompat.widget.AppCompatEditText i
     }
 
 
+
+
     /*  View 생명주기 */
     String Tag = "ClearEditText 생명주기";
 

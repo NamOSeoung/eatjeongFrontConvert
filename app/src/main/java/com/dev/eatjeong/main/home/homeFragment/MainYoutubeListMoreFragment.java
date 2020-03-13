@@ -136,7 +136,11 @@ public class MainYoutubeListMoreFragment extends Fragment{
 
                 arrayList.add(new MainReviewVO(
                         response.body().mDatalist.get(i).getTitle(),
-                        response.body().mDatalist.get(i).getUrl()
+                        response.body().mDatalist.get(i).getUrl(),
+                        response.body().mDatalist.get(i).getThumbnail_url(),
+                        response.body().mDatalist.get(i).getDescription(),
+                        response.body().mDatalist.get(i).getAuthor(),
+                        response.body().mDatalist.get(i).getWrite_date()
                 ));
             }
 

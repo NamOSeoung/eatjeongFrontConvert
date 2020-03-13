@@ -40,10 +40,10 @@
                 app:layout_constraintTop_toBottomOf="@id/authentication_phone_number_textview">
 
             <com.dev.eatjeong.layout.ClearEditText
-                    android:id="@+id/phone_number_edtitext"
+                    android:id="@+id/phone_number_edittext"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/phone_edit_text1"
                     android:digits="0123456789-"
                     android:fontFamily="@font/nanumsquareroundr"
@@ -61,45 +61,49 @@
                     android:id="@+id/phone_number_apply_button_true"
                     android:layout_width="120dp"
                     android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/phone_number_apply_button_true"
                     android:fontFamily="@font/nanumsquareroundb"
-                    android:maxLength="11"
                     android:text="인증번호 받기"
                     android:textColor="#ffffff"
                     android:textSize="15dp"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/phone_number_edtitext"
+                    app:layout_constraintStart_toEndOf="@id/phone_number_edittext"
                     app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/phone_number_apply_button_false"
                     android:layout_width="120dp"
                     android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/phone_number_apply_button_false"
                     android:fontFamily="@font/nanumsquareroundb"
                     android:text="인증번호 받기"
                     android:textColor="#ffffff"
                     android:textSize="15dp"
-                    android:visibility="invisible"
-                    app:layout_constraintBaseline_toBaselineOf="@id/phone_number_apply_button_true"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/phone_number_edtitext" />
+                    app:layout_constraintStart_toStartOf="@id/phone_number_apply_button_true"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/phone_number_reapply_button"
                     android:layout_width="120dp"
                     android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/phone_number_apply_button_true"
                     android:fontFamily="@font/nanumsquareroundb"
                     android:text="재전송"
                     android:textColor="#ffffff"
                     android:textSize="15dp"
-                    android:visibility="visible"
-                    app:layout_constraintBaseline_toBaselineOf="@id/phone_number_apply_button_true"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/phone_number_edtitext" />
+                    app:layout_constraintStart_toStartOf="@id/phone_number_apply_button_true"
+                    app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatTextView

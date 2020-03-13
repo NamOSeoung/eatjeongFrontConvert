@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeListAdapter.MainTistoryListAdapter;
@@ -26,6 +27,7 @@ import com.dev.eatjeong.main.home.homeVO.MainReviewVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -170,12 +172,16 @@ public class MainTistoryListFragment extends Fragment{
 
                 arrayList.add(new MainReviewVO(
                         response.body().mDatalist.get(i).getTitle(),
-                        response.body().mDatalist.get(i).getUrl()
+                        response.body().mDatalist.get(i).getUrl(),
+                        response.body().mDatalist.get(i).getThumbnail_url(),
+                        response.body().mDatalist.get(i).getDescription(),
+                        response.body().mDatalist.get(i).getAuthor(),
+                        response.body().mDatalist.get(i).getWrite_date()
                 ));
             }
 
             listView.setHasFixedSize(true);
-            adapter = new MainTistoryListAdapter(getActivity(), arrayList);
+            adapter = new MainTistoryListAdapter(getActivity(), arrayList, Glide.with(((MainWrapActivity) Objects.requireNonNull(getActivity())).getApplicationContext()));
             listView.setLayoutManager(new LinearLayoutManager(getActivity()));
             listView.setAdapter(adapter);
 

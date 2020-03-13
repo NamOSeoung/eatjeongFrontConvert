@@ -3,6 +3,7 @@ package com.dev.eatjeong.social.kakao;
 import android.app.Application;
 import android.content.Context;
 
+import com.bumptech.glide.Glide;
 import com.kakao.auth.ApprovalType;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.IApplicationConfig;
@@ -13,6 +14,18 @@ import com.kakao.auth.KakaoSDK;
 public class App extends Application {
 
     private static volatile App instance = null;
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        Glide.get(this).trimMemory(level);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Glide.get(this).clearMemory();
+    }
 
     private static class KakaoSDKAdapter extends KakaoAdapter {
         /**

@@ -71,7 +71,7 @@ public class MainNaverListMoreFragment extends Fragment{
 
 //        //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
-        
+
 //        //레트로핏 초기화 후 호출작업 진행.
         callSearchResponse();
 //
@@ -139,7 +139,11 @@ public class MainNaverListMoreFragment extends Fragment{
 
                 arrayList.add(new MainReviewVO(
                         response.body().mDatalist.get(i).getTitle(),
-                        response.body().mDatalist.get(i).getUrl()
+                        response.body().mDatalist.get(i).getUrl(),
+                        response.body().mDatalist.get(i).getThumbnail_url(),
+                        response.body().mDatalist.get(i).getDescription(),
+                        response.body().mDatalist.get(i).getAuthor(),
+                        response.body().mDatalist.get(i).getWrite_date()
                 ));
             }
 

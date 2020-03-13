@@ -152,7 +152,10 @@ public class MainPlaceInfoMoreFragment extends Fragment {
                         response.body().mDatalist.get(i).getPlace_name(),
                         response.body().mDatalist.get(i).getPlace_address(),
                         response.body().mDatalist.get(i).getLatitude(),
-                        response.body().mDatalist.get(i).getLongitude()
+                        response.body().mDatalist.get(i).getLongitude(),
+                        response.body().mDatalist.get(i).getBlog_thumbnail(),
+                        response.body().mDatalist.get(i).getApp_thumbnail(),
+                        response.body().mDatalist.get(i).getCategory_name()
                 ));
 
             }

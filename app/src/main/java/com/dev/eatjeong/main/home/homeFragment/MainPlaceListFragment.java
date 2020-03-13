@@ -16,17 +16,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeActivity.PlaceInfoActivity;
 import com.dev.eatjeong.main.home.homeListAdapter.MainPlaceListAdapter;
 import com.dev.eatjeong.main.home.homeRetrofitVO.MainPlaceListResponseVO;
 import com.dev.eatjeong.main.home.homeReviewMore.HomeReviewMoreActivity;
-import com.dev.eatjeong.main.home.homeReviewWebview.HomeReviewWebviewActivity;
 import com.dev.eatjeong.main.home.homeVO.MainPlaceVO;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainPlaceListFragment extends Fragment{
+public class MainPlaceListFragment extends Fragment {
 
     private ArrayList<MainPlaceVO> arrayList = new ArrayList<MainPlaceVO>();
 
@@ -54,7 +55,7 @@ public class MainPlaceListFragment extends Fragment{
 
     String address_arr[];
 
-    public static MainPlaceListFragment newInstance(){
+    public static MainPlaceListFragment newInstance() {
         return new MainPlaceListFragment();
     }
 
@@ -71,10 +72,10 @@ public class MainPlaceListFragment extends Fragment{
 //        youtube_progress_bar = (ProgressBar)v.findViewById(R.id.youtube_progress_bar);
 
 
-        review_more = (TextView)v.findViewById(R.id.review_more);
+        review_more = (TextView) v.findViewById(R.id.review_more);
 
 
-        address_arr = ((MainWrapActivity)getActivity()).getCurrentLocationAddress().split(" ");
+        address_arr = ((MainWrapActivity) getActivity()).getCurrentLocationAddress().split(" ");
 
 
 //
@@ -90,21 +91,19 @@ public class MainPlaceListFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Intent goMore = new Intent(getContext(), HomeReviewMoreActivity.class);
-                goMore.putExtra("address",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
-                goMore.putExtra("review_division","PLACE");
+                goMore.putExtra("address", ((MainWrapActivity) getActivity()).getCurrentLocationAddress());
+                goMore.putExtra("review_division", "PLACE");
 
-                startActivityForResult(goMore,0);//액티비티 띄우기
-                getActivity().overridePendingTransition(R.anim.fadein,0);
+                startActivityForResult(goMore, 0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein, 0);
             }
         });
 
 
 //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
-        final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
-        {
+        final GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onSingleTapUp(MotionEvent e)
-            {
+            public boolean onSingleTapUp(MotionEvent e) {
                 return true;
             }
         });
@@ -115,18 +114,17 @@ public class MainPlaceListFragment extends Fragment{
 
                 View child = listView.findChildViewUnder(e.getX(), e.getY());
                 int position = listView.getChildAdapterPosition(child);
-                if(child!=null&&gestureDetector.onTouchEvent(e))
-                {
+                if (child != null && gestureDetector.onTouchEvent(e)) {
                     Intent goWebview = new Intent(getContext(), PlaceInfoActivity.class);
-                    goWebview.putExtra("place_id",arrayList.get(position).getPlace_id());
-                    goWebview.putExtra("place_name",arrayList.get(position).getPlace_name());
-                    goWebview.putExtra("place_address",arrayList.get(position).getPlace_address());
-                    goWebview.putExtra("latitude",arrayList.get(position).getLatitude());
-                    goWebview.putExtra("longitude",arrayList.get(position).getLongitude());
-                    goWebview.putExtra("call_division","MAIN");
+                    goWebview.putExtra("place_id", arrayList.get(position).getPlace_id());
+                    goWebview.putExtra("place_name", arrayList.get(position).getPlace_name());
+                    goWebview.putExtra("place_address", arrayList.get(position).getPlace_address());
+                    goWebview.putExtra("latitude", arrayList.get(position).getLatitude());
+                    goWebview.putExtra("longitude", arrayList.get(position).getLongitude());
+                    goWebview.putExtra("call_division", "MAIN");
 
-                    startActivityForResult(goWebview,0);//액티비티 띄우기
-                    getActivity().overridePendingTransition(R.anim.fadein,0);
+                    startActivityForResult(goWebview, 0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.fadein, 0);
                 }
 
                 return false;
@@ -167,16 +165,16 @@ public class MainPlaceListFragment extends Fragment{
     private void callSearchResponse() {
 
         String query = "";
-        Log.e("dd",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
-        if(((MainWrapActivity)getActivity()).getCurrentLocationAddress().equals("")){
+        Log.e("dd", ((MainWrapActivity) getActivity()).getCurrentLocationAddress());
+        if (((MainWrapActivity) getActivity()).getCurrentLocationAddress().equals("")) {
             query = "서울 맛집";
-        }else{
-            address_arr = ((MainWrapActivity)getActivity()).getCurrentLocationAddress().split(" ");
-            query = address_arr[1] + " " + address_arr[2] +" " +address_arr[3] + " " + "맛집";
+        } else {
+            address_arr = ((MainWrapActivity) getActivity()).getCurrentLocationAddress().split(" ");
+            query = address_arr[1] + " " + address_arr[2] + " " + address_arr[3] + " " + "맛집";
         }
 
 
-        mCallMainPlaceListResponseVO = mHomeRetrofitAPI.getMainPlace(query,"5");
+        mCallMainPlaceListResponseVO = mHomeRetrofitAPI.getMainPlace(query, "5");
 
         mCallMainPlaceListResponseVO.enqueue(mRetrofitCallback);
 
@@ -188,18 +186,22 @@ public class MainPlaceListFragment extends Fragment{
 
         public void onResponse(Call<MainPlaceListResponseVO> call, Response<MainPlaceListResponseVO> response) {
             arrayList.clear();
-            for(int i = 0; i < response.body().mDatalist.size(); i ++){
+            for (int i = 0; i < response.body().mDatalist.size(); i++) {
                 arrayList.add(new MainPlaceVO(
                         response.body().mDatalist.get(i).getPlace_id(),
                         response.body().mDatalist.get(i).getPlace_name(),
                         response.body().mDatalist.get(i).getPlace_address(),
                         response.body().mDatalist.get(i).getLatitude(),
-                        response.body().mDatalist.get(i).getLongitude()
+                        response.body().mDatalist.get(i).getLongitude(),
+                        response.body().mDatalist.get(i).getBlog_thumbnail(),
+                        response.body().mDatalist.get(i).getApp_thumbnail(),
+                        response.body().mDatalist.get(i).getCategory_name()
+
                 ));
             }
 
             listView.setHasFixedSize(true);
-            adapter = new MainPlaceListAdapter(getContext(), arrayList);
+            adapter = new MainPlaceListAdapter(getContext(), arrayList, Glide.with(((MainWrapActivity) Objects.requireNonNull(getActivity())).getApplicationContext()));
             listView.setLayoutManager(new LinearLayoutManager(getActivity()));
             listView.setAdapter(adapter);
 
@@ -209,7 +211,6 @@ public class MainPlaceListFragment extends Fragment{
 
             listView.setLayoutManager(horizonalLayoutManager);
         }
-
 
 
         @Override
