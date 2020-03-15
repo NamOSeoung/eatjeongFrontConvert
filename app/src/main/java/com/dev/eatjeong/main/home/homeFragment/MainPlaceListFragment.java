@@ -12,11 +12,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeActivity.PlaceInfoActivity;
@@ -46,7 +48,7 @@ public class MainPlaceListFragment extends Fragment {
     ProgressBar youtube_progress_bar;
     TextView review_more;
     String address_arr[];
-
+    public RequestManager mGlideRequestManager;
     public static MainPlaceListFragment newInstance() {
         return new MainPlaceListFragment();
     }
@@ -54,10 +56,11 @@ public class MainPlaceListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mGlideRequestManager = Glide.with(getActivity());
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.home_place_list_fragment, container, false);
 //        youtube_progress_bar = (ProgressBar)v.findViewById(R.id.youtube_progress_bar);
 
@@ -177,7 +180,7 @@ public class MainPlaceListFragment extends Fragment {
             }
 
             listView.setHasFixedSize(true);
-            adapter = new MainPlaceListAdapter(getContext(), arrayList, Glide.with(((MainWrapActivity) Objects.requireNonNull(getActivity())).getApplicationContext()));
+            adapter = new MainPlaceListAdapter(getContext(), arrayList, mGlideRequestManager);
             listView.setLayoutManager(new LinearLayoutManager(getActivity()));
             listView.setAdapter(adapter);
 

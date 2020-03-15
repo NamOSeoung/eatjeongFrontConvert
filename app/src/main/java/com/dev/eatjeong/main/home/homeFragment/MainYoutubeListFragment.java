@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeListAdapter.MainYoutubeListAdapter;
@@ -54,7 +55,7 @@ public class MainYoutubeListFragment extends Fragment {
     TextView review_more;
 
     String address_arr[];
-
+    public RequestManager mGlideRequestManager;
     public static MainYoutubeListFragment newInstance() {
         return new MainYoutubeListFragment();
     }
@@ -62,6 +63,7 @@ public class MainYoutubeListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mGlideRequestManager = Glide.with(getActivity());
     }
 
 
@@ -194,7 +196,7 @@ public class MainYoutubeListFragment extends Fragment {
             }
 
             listView.setHasFixedSize(true);
-            adapter = new MainYoutubeListAdapter(getActivity(), arrayList, Glide.with(((MainWrapActivity) Objects.requireNonNull(getActivity())).getApplicationContext()));
+            adapter = new MainYoutubeListAdapter(getActivity(), arrayList, mGlideRequestManager);
             listView.setLayoutManager(new LinearLayoutManager(getActivity()));
             listView.setAdapter(adapter);
 

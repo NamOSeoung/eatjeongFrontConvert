@@ -52,6 +52,7 @@ public class MainTistoryListFragment extends Fragment{
 
     MainTistoryListAdapter adapter;
 
+
     TextView review_more;
 
     String address_arr[];
