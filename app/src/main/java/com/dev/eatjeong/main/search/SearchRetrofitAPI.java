@@ -1,5 +1,6 @@
 package com.dev.eatjeong.main.search;
 
+import com.dev.eatjeong.common.CommonMapListResponseVO;
 import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAppListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
@@ -48,6 +49,10 @@ public interface SearchRetrofitAPI {
     //중분류 지역 검섹
     @GET("/v1/area/second")
     Call<SearchAreaListResponseVO> getSubAreaList(@Query("area") String area);
+
+    //지역 자동 완성을 위한 검색어 db검색
+    @GET("/v1/area/suggest")
+    Call<CommonMapListResponseVO> getAllArea();
 
     //매장 상세 정보 검색
     @GET("/v1/places/{place_id}")

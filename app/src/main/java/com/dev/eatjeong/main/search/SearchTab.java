@@ -67,7 +67,6 @@ public class SearchTab extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(getContext(),"awdadsxxxx",Toast.LENGTH_SHORT).show();
         Fragment fg;
         switch (v.getId()) {
             case R.id.search_map:
