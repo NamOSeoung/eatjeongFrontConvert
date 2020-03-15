@@ -1,4 +1,4 @@
-package com.dev.eatjeong.signUp;
+package com.dev.eatjeong.signUp.signUpActivity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -15,6 +16,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dev.eatjeong.R;
+import com.dev.eatjeong.signUp.signUpFragment.PhoneAuthentication;
+import com.dev.eatjeong.signUp.signUpFragment.TermsFragment;
+import com.dev.eatjeong.signUp.signUpFragment.UserInfoSetUp;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -24,6 +28,8 @@ public class SignUpActivity extends AppCompatActivity {
     private TermsFragment termsFragment = new TermsFragment();
     private PhoneAuthentication phoneFragment = new PhoneAuthentication();
     private UserInfoSetUp userInfoSetUp = new UserInfoSetUp();
+
+    private String phone_number= "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,11 +77,12 @@ public class SignUpActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy()");
     }
 
+
     @Override
     public void onBackPressed() {
+        overridePendingTransition(R.anim.stay, R.anim.sliding_down);
         finish();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -123,7 +130,7 @@ public class SignUpActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_wrap, termsFragment).commitAllowingStateLoss();
     }
 
-    public void changeFragment(String display_division, Fragment fragment) {
+    public void changeFragment(String display_division, String phone_number ,Fragment fragment) {
         View action_bar = findViewById(R.id.action_bar);
         ConstraintLayout exit_button = action_bar.findViewById(R.id.exit_button);
         ConstraintLayout back_button = action_bar.findViewById(R.id.back_button);
@@ -141,6 +148,7 @@ public class SignUpActivity extends AppCompatActivity {
                 break;
             }
             case "userInfoSetUp":{
+                this.phone_number = phone_number;
                 title_text.setText("정보입력");
                 transaction.replace(R.id.frame_wrap, userInfoSetUp);
                 transaction.commit();
@@ -148,5 +156,13 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
         }
+    }
+    public void backLogin(){
+        Toast.makeText(getApplicationContext(),"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show();
+        onBackPressed();
+    }
+
+    public String getPhone_number(){
+        return phone_number;
     }
 }

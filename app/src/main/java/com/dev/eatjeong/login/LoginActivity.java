@@ -1,6 +1,7 @@
 package com.dev.eatjeong.login;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,7 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
-import com.dev.eatjeong.signUp.SignUpActivity;
+import com.dev.eatjeong.signUp.signUpActivity.SignUpActivity;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
@@ -62,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     String refreshToken = "";
     String deviceToken = "";
 
-
+    ProgressDialog progressDialog;
     private final long FINISH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
 
@@ -91,6 +92,9 @@ public class LoginActivity extends AppCompatActivity {
         LinearLayout menu_btn = findViewById(R.id.no_login_button);
         user_id = (EditText) findViewById(R.id.login_id_text);
         password = (EditText) findViewById(R.id.login_password_text);
+
+        progressDialog = new ProgressDialog(this);
+
 
         DisplayMetrics metrics = new DisplayMetrics();
         Activity activity = this;
@@ -189,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goSignUpTerms = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivityForResult(goSignUpTerms,0);//액티비티 띄우기
-                LoginActivity.this.overridePendingTransition(R.anim.fadein,0);
+                overridePendingTransition(R.anim.slide_out_right, R.anim.stay);
             }
         });
     }
@@ -318,6 +322,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void callSearchResponse(String user_id, String password) {
 
+        progressDialog.setMessage("로그인 처리중입니다.");
+        progressDialog.setCancelable(true);
+        progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
+        progressDialog.show();
+
         mCallLoginResponseVO = mLoginRetrofitAPI.getGeneralUserCheck(user_id, password);
 
         mCallLoginResponseVO.enqueue(mRetrofitCallback);
@@ -374,13 +383,15 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             }
+
+            progressDialog.dismiss();
         }
 
 
         @Override
 
         public void onFailure(Call<LoginResponseVO> call, Throwable t) {
-
+            progressDialog.dismiss();
             t.printStackTrace();
 
         }

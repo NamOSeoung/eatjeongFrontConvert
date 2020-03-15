@@ -1,4 +1,4 @@
-package com.dev.eatjeong.signUp;
+package com.dev.eatjeong.signUp.signUpActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -44,7 +44,6 @@ public class ServiceTermsPopupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-                finish();
             }
         });
     }
@@ -52,6 +51,7 @@ public class ServiceTermsPopupActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+        overridePendingTransition(R.anim.stay, R.anim.sliding_down);
     }
 
     @Override

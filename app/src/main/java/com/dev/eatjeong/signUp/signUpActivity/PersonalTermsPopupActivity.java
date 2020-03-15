@@ -1,4 +1,4 @@
-package com.dev.eatjeong.signUp;
+package com.dev.eatjeong.signUp.signUpActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.dev.eatjeong.R;
+
+import java.util.Objects;
 
 public class PersonalTermsPopupActivity extends AppCompatActivity {
 
@@ -40,11 +42,11 @@ public class PersonalTermsPopupActivity extends AppCompatActivity {
         String service_terms = getString(R.string.personal_terms);
         tv.setText(Html.fromHtml(service_terms));
 
+
         exit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-                finish();
             }
         });
     }
@@ -52,6 +54,7 @@ public class PersonalTermsPopupActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+        overridePendingTransition(R.anim.stay, R.anim.sliding_down);
     }
 
     @Override
