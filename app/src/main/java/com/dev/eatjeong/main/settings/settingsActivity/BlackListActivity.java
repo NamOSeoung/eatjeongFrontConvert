@@ -1,14 +1,19 @@
 package com.dev.eatjeong.main.settings.settingsActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +38,8 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
     private String portal,write_author,division,review_id;
     private String user_id, sns_division;
 
-    Button youtube_btn,naver_btn,tistory_btn,post_btn,author_btn;
+//    Button youtube_btn,naver_btn,tistory_btn,post_btn,author_btn;
+    AppCompatTextView youtube_btn,naver_btn,tistory_btn,post_btn,author_btn;
 
     RecyclerView listView;
 
@@ -86,17 +92,20 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
 
         setContentView(R.layout.settings_black_list);
 
-
+        View action_bar = findViewById(R.id.action_bar);
+        TextView back_text = (TextView) action_bar.findViewById(R.id.back_text);
+        TextView title_text = action_bar.findViewById(R.id.textview1);
+        ConstraintLayout back_button = action_bar.findViewById(R.id.back_button);
         Intent intent = getIntent();
         user_id = intent.getStringExtra("user_id");
         sns_division = intent.getStringExtra("sns_division");
 
-        youtube_btn = (Button)findViewById(R.id.youtube_btn);
-        naver_btn = (Button)findViewById(R.id.naver_btn);
-        tistory_btn = (Button)findViewById(R.id.tistory_btn);
+        youtube_btn = findViewById(R.id.youtube_btn);
+        naver_btn = findViewById(R.id.naver_btn);
+        tistory_btn = findViewById(R.id.tistory_btn);
 
-        post_btn = (Button)findViewById(R.id.post_btn);
-        author_btn = (Button)findViewById(R.id.author_btn);
+        post_btn = findViewById(R.id.post_btn);
+        author_btn = findViewById(R.id.author_btn);
 
         progressBar = (ProgressBar)findViewById(R.id.progress);
 
@@ -111,6 +120,15 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
 
         listView = (RecyclerView) findViewById(R.id.recycler_view);
 
+        title_text.setText("블랙리스트");
+        back_text.setText("내정보");
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -149,6 +167,9 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
                 }else {
                     SET_CODE = 1;
                 }
+                youtube_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.blacklist_btn_radius));
+                naver_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.blacklist_btn_default_radius));
+                tistory_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.blacklist_btn_default_radius));
                 break;
             case R.id.naver_btn:
                 PORTAR_DIVISIONT = 1;
@@ -157,6 +178,9 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
                 }else {
                     SET_CODE = 3;
                 }
+                youtube_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.blacklist_btn_default_radius));
+                naver_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.blacklist_btn_radius));
+                tistory_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.blacklist_btn_default_radius));
                 break;
             case R.id.tistory_btn:
                 PORTAR_DIVISIONT = 2;
@@ -165,6 +189,9 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
                 }else {
                     SET_CODE = 5;
                 }
+                youtube_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.blacklist_btn_default_radius));
+                naver_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.blacklist_btn_default_radius));
+                tistory_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.blacklist_btn_radius));
                 break;
             case R.id.post_btn:
                 WRITE_TYPE_DIVISION = 0;
@@ -175,6 +202,12 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
                 }else if(PORTAR_DIVISIONT == 2){
                     SET_CODE = 4;
                 }
+
+                post_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.common_bottom_border));
+                author_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.common_white_background));
+
+                post_btn.setTextColor(Color.parseColor("#333333"));
+                author_btn.setTextColor(Color.parseColor("#cccccc"));
                 break;
             case R.id.author_btn:
                 WRITE_TYPE_DIVISION = 1;
@@ -185,6 +218,11 @@ public class BlackListActivity extends AppCompatActivity implements View.OnClick
                 }else if(PORTAR_DIVISIONT == 2){
                     SET_CODE = 5;
                 }
+                post_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.common_white_background));
+                author_btn.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.common_bottom_border));
+
+                post_btn.setTextColor(Color.parseColor("#cccccc"));
+                author_btn.setTextColor(Color.parseColor("#333333"));
                 break;
         }
         blackListControll.setRetrofitInit();

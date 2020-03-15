@@ -2,6 +2,7 @@ package com.dev.eatjeong.main.search;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ import com.dev.eatjeong.main.search.searchActivity.MapSearchActivity;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PlaceListFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class SearchTab extends Fragment implements View.OnClickListener{
     public static final int sub = 1002; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
@@ -77,17 +80,12 @@ public class SearchTab extends Fragment implements View.OnClickListener{
         search_lately_keyword.setOnClickListener(this);
         search_popular_keyword = v.findViewById(R.id.search_popular_keyword) ;
         search_popular_keyword.setOnClickListener(this);
+
         search_keyword.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
             public void afterTextChanged(Editable s) {
                 if(keyword_flag){
@@ -104,7 +102,6 @@ public class SearchTab extends Fragment implements View.OnClickListener{
                     constraintSet.applyTo(container_1);
                     keyword_flag = false;
                 }
-
             }
         });
         return v;
@@ -198,8 +195,6 @@ public class SearchTab extends Fragment implements View.OnClickListener{
 
     public void changeText(String text)
     {
-
-
         search_keyword.setText(text);
         Fragment fg;
         fg = PlaceListFragment.newInstance();
@@ -212,6 +207,16 @@ public class SearchTab extends Fragment implements View.OnClickListener{
         constraintSet.applyTo(container_1);
         keyword_btn_wrap.setVisibility(View.GONE);
 
+//
+//        SharedPreferences sp = getSharedPreferences("search",MODE_PRIVATE);
+//
+//        SharedPreferences.Editor editor = sp.edit();
+//
+//        editor.remove("user_id");
+//
+//        editor.remove("sns_division");
+//
+//        editor.commit();
 
 
 

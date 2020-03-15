@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
@@ -92,14 +93,13 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
 
     // ViewHolder는 하나의 View를 보존하는 역할을 한다
     public class Holder extends RecyclerView.ViewHolder{
-        public TextView author,post;
-        public Button delete;
+        public AppCompatTextView author,post,delete;
 
         public Holder(View view){
             super(view);
-            author = (TextView) view.findViewById(R.id.author);
-            post = (TextView)view.findViewById(R.id.post);
-            delete =(Button) view.findViewById(R.id.delete);
+            author = view.findViewById(R.id.author);
+            post = view.findViewById(R.id.post);
+            delete = view.findViewById(R.id.delete);
         }
     }
 }
