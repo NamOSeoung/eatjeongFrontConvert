@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeListAdapter.MainTistoryListAdapter;
@@ -43,12 +44,13 @@ public class MainTistoryListFragment extends Fragment{
 
     private HomeRetrofitAPI mHomeRetrofitAPI;
 
+    public RequestManager mGlideRequestManager;
+
     private Call<MainReviewListResponseVO> mCallMainReviewListResponseVO;
 
     RecyclerView listView;
 
     MainTistoryListAdapter adapter;
-
 
     TextView review_more;
 
@@ -61,6 +63,7 @@ public class MainTistoryListFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mGlideRequestManager = Glide.with(getActivity());
     }
 
 
@@ -85,6 +88,20 @@ public class MainTistoryListFragment extends Fragment{
         callSearchResponse();
 
         listView = (RecyclerView) v.findViewById(R.id.recycler_view);
+
+        review_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goMore = new Intent(getContext(), HomeReviewMoreActivity.class);
+                TextView textView = ((MainWrapActivity) getActivity()).findViewById(R.id.address);
+                goMore.putExtra("main_address_textview", textView.getText());
+                goMore.putExtra("address",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
+                goMore.putExtra("review_division","TISTORY");
+
+                startActivityForResult(goMore,0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein,0);
+            }
+        });
 
         //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
         final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
@@ -181,7 +198,7 @@ public class MainTistoryListFragment extends Fragment{
             }
 
             listView.setHasFixedSize(true);
-            adapter = new MainTistoryListAdapter(getActivity(), arrayList, Glide.with(((MainWrapActivity) Objects.requireNonNull(getActivity())).getApplicationContext()));
+            adapter = new MainTistoryListAdapter(getActivity(), arrayList, mGlideRequestManager);
             listView.setLayoutManager(new LinearLayoutManager(getActivity()));
             listView.setAdapter(adapter);
 

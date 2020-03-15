@@ -17,7 +17,7 @@ public class MainPlaceVO {
     private String blog_thumbnail;
     private String app_thumbnail;
 
-    public MainPlaceVO(String place_id, String place_name, String place_address,String latitude,String longitude, String blog_thumbnail, String app_thumbnail, String category_name){
+    public MainPlaceVO(String place_id, String place_name, String place_address,String latitude,String longitude, String blog_thumbnail, String app_thumbnail, String category_name, String google_rating, String appreview_rating){
         this.place_id = place_id;
         this.place_name = place_name;
         this.place_address = place_address;
@@ -26,6 +26,8 @@ public class MainPlaceVO {
         this.app_thumbnail = app_thumbnail;
         this.category_name = category_name;
         this.blog_thumbnail = blog_thumbnail;
+        this.google_rating = google_rating;
+        this.appreview_rating = appreview_rating;
     }
 
     public String getPlace_id() {

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
@@ -71,9 +72,10 @@ public class MainNaverListAdapter extends RecyclerView.Adapter<MainNaverListAdap
         }else{
             glide.load(thumbnail_url)
                     .override(200,200)
-                    .apply(new RequestOptions()
-                            .transform(new RoundedCorners(30))
-                    )
+//                    .apply(new RequestOptions()
+//                            .transform(new RoundedCorners(30))
+//                    )
+                    .transform(new CenterCrop(), new RoundedCorners(30))
                     .into(holder.naver_image);
         }
         holder.naver_title.setText(list.get(itemposition).getTitle());

@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="@dimen/actionbar_guideline_percent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/action_bar_layout"
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanumsquareroundb"
                     android:gravity="center"
-                    android:text="back_text"
+                    android:text="뒤로가기"
                     android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -21,6 +21,7 @@ import com.dev.eatjeong.layout.RoundedCornersTransformation;
 import com.dev.eatjeong.main.home.homeVO.MainPlaceVO;
 import com.dev.eatjeong.main.home.homeVO.MainReviewVO;
 import com.dev.eatjeong.main.search.searchListVO.PlaceListVO;
+import com.dev.eatjeong.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,6 @@ public class MainPlaceListAdapter extends RecyclerView.Adapter<MainPlaceListAdap
         // 각 위치에 문자열 세팅
         int itemposition = position;
         String image_url = list.get(itemposition).getBlog_thumbnail();
-        System.out.println("URL" + list.get(itemposition).getBlog_thumbnail());
         if(image_url != null){
             holder.place_image.setPadding(0,0,0,0);
         }
@@ -68,6 +68,15 @@ public class MainPlaceListAdapter extends RecyclerView.Adapter<MainPlaceListAdap
                 .into(holder.place_image);
         holder.place_name.setText(list.get(itemposition).getPlace_name());
         holder.place_category.setText(list.get(itemposition).getCategory_name());
+
+        if(!Util.isNullOrEmpty(list.get(itemposition).getAppreview_rating())) {
+            holder.rating_point.setText(list.get(itemposition).getAppreview_rating());
+        }else if(!Util.isNullOrEmpty(list.get(itemposition).getGoogle_rating())){
+            holder.rating_point.setText(list.get(itemposition).getGoogle_rating());
+        }else{
+            holder.rating_point.setText("0");
+        }
+
     }
 
     // 몇개의 데이터를 리스트로 뿌려줘야하는지 반드시 정의해줘야한다
@@ -81,12 +90,14 @@ public class MainPlaceListAdapter extends RecyclerView.Adapter<MainPlaceListAdap
         public AppCompatTextView place_name;
         public AppCompatImageView place_image;
         public AppCompatTextView place_category;
+        public AppCompatTextView rating_point;
 
         public Holder(View view){
             super(view);
             place_image = (AppCompatImageView) view.findViewById(R.id.place_image);
             place_name = (AppCompatTextView) view.findViewById(R.id.place_name);
             place_category = (AppCompatTextView) view.findViewById(R.id.place_category);
+            rating_point = (AppCompatTextView) view.findViewById(R.id.rating_point);
         }
     }
 }

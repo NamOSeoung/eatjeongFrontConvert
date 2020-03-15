@@ -36,7 +36,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainYoutubeListFragment extends Fragment{
+public class MainYoutubeListFragment extends Fragment {
 
     private ArrayList<MainReviewVO> arrayList = new ArrayList<MainReviewVO>();
 
@@ -55,7 +55,7 @@ public class MainYoutubeListFragment extends Fragment{
 
     String address_arr[];
 
-    public static MainYoutubeListFragment newInstance(){
+    public static MainYoutubeListFragment newInstance() {
         return new MainYoutubeListFragment();
     }
 
@@ -72,11 +72,10 @@ public class MainYoutubeListFragment extends Fragment{
 //        youtube_progress_bar = (ProgressBar)v.findViewById(R.id.youtube_progress_bar);
 
 
-        review_more = (TextView)v.findViewById(R.id.review_more);
+        review_more = (TextView) v.findViewById(R.id.review_more);
 
 
-
-        address_arr = ((MainWrapActivity)getActivity()).getCurrentLocationAddress().split(" ");
+        address_arr = ((MainWrapActivity) getActivity()).getCurrentLocationAddress().split(" ");
 
 
 //
@@ -92,20 +91,20 @@ public class MainYoutubeListFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Intent goMore = new Intent(getContext(), HomeReviewMoreActivity.class);
-                    goMore.putExtra("address",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
-                    goMore.putExtra("review_division","YOUTUBE");
+                TextView textView = ((MainWrapActivity) getActivity()).findViewById(R.id.address);
+                goMore.putExtra("main_address_textview", textView.getText());
+                goMore.putExtra("address", ((MainWrapActivity) getActivity()).getCurrentLocationAddress());
+                goMore.putExtra("review_division", "YOUTUBE");
 
-                    startActivityForResult(goMore,0);//액티비티 띄우기
-                    getActivity().overridePendingTransition(R.anim.fadein,0);
+                startActivityForResult(goMore, 0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.fadein, 0);
             }
         });
 
         //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
-        final GestureDetector gestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener()
-        {
+        final GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onSingleTapUp(MotionEvent e)
-            {
+            public boolean onSingleTapUp(MotionEvent e) {
                 return true;
             }
         });
@@ -116,12 +115,11 @@ public class MainYoutubeListFragment extends Fragment{
 
                 View child = listView.findChildViewUnder(e.getX(), e.getY());
                 int position = listView.getChildAdapterPosition(child);
-                if(child!=null&&gestureDetector.onTouchEvent(e))
-                {
+                if (child != null && gestureDetector.onTouchEvent(e)) {
                     Intent goWebview = new Intent(getContext(), HomeReviewWebviewActivity.class);
-                    goWebview.putExtra("url",arrayList.get(position).getUrl());
-                    startActivityForResult(goWebview,0);//액티비티 띄우기
-                    getActivity().overridePendingTransition(R.anim.sliding_up,R.anim.stay);
+                    goWebview.putExtra("url", arrayList.get(position).getUrl());
+                    startActivityForResult(goWebview, 0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.sliding_up, R.anim.stay);
                 }
 
                 return false;
@@ -162,14 +160,14 @@ public class MainYoutubeListFragment extends Fragment{
     private void callSearchResponse() {
 
         String query = "";
-        Log.e("dd",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
-        if(((MainWrapActivity)getActivity()).getCurrentLocationAddress().equals("")){
+        Log.e("dd", ((MainWrapActivity) getActivity()).getCurrentLocationAddress());
+        if (((MainWrapActivity) getActivity()).getCurrentLocationAddress().equals("")) {
             query = "서울 맛집";
-        }else{
-            address_arr = ((MainWrapActivity)getActivity()).getCurrentLocationAddress().split(" ");
-            query = address_arr[1] + " " + address_arr[2] +" " +address_arr[3] + " " + "맛집";
+        } else {
+            address_arr = ((MainWrapActivity) getActivity()).getCurrentLocationAddress().split(" ");
+            query = address_arr[1] + " " + address_arr[2] + " " + address_arr[3] + " " + "맛집";
         }
-        mCallMainReviewListResponseVO = mHomeRetrofitAPI.getMainReviews(query,"YOUTUBE","5");
+        mCallMainReviewListResponseVO = mHomeRetrofitAPI.getMainReviews(query, "YOUTUBE", "5");
 
         mCallMainReviewListResponseVO.enqueue(mRetrofitCallback);
 
@@ -183,7 +181,7 @@ public class MainYoutubeListFragment extends Fragment{
             Log.e("title : ", response.body().getCode());
             Log.e("title : ", response.body().getMessage());
             arrayList.clear();
-            for(int i = 0; i < response.body().mDatalist.size(); i ++){
+            for (int i = 0; i < response.body().mDatalist.size(); i++) {
 
                 arrayList.add(new MainReviewVO(
                         response.body().mDatalist.get(i).getTitle(),
@@ -206,7 +204,6 @@ public class MainYoutubeListFragment extends Fragment{
 
             listView.setLayoutManager(horizonalLayoutManager);
         }
-
 
 
         @Override

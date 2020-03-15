@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.15017065" />
+                app:layout_constraintGuide_percent="0.1" />
 
         <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/imageTextGuideLineBottom"

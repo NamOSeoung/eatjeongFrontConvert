@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -30,10 +33,26 @@ public class HomeReviewMoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_review_more);
 
+        View action_bar = findViewById(R.id.action_bar);
+        ImageButton exit_button = (ImageButton) action_bar.findViewById(R.id.exit_image);
+        ImageButton back_image = (ImageButton) action_bar.findViewById(R.id.back_image);
+        TextView back_text = (TextView) action_bar.findViewById(R.id.back_text);
+        TextView title_text = action_bar.findViewById(R.id.textview1);
+
+        back_text.setText("");
+        exit_button.setVisibility(View.INVISIBLE);
+
         Intent intent  = getIntent();
+        title_text.setText(intent.getStringExtra("main_address_textview"));
         String review_division = intent.getStringExtra("review_division");
         setFragment(review_division);
 
+        back_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
     }
 
@@ -69,6 +88,11 @@ public class HomeReviewMoreActivity extends AppCompatActivity {
         overridePendingTransition(0,0);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0,0);
+    }
 
     public void setFragment(String review_division){
         // 첫 화면 지정

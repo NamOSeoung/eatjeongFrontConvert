@@ -93,6 +93,8 @@ public class MainNaverListFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Intent goMore = new Intent(getContext(), HomeReviewMoreActivity.class);
+                TextView textView = ((MainWrapActivity) getActivity()).findViewById(R.id.address);
+                goMore.putExtra("main_address_textview", textView.getText());
                 goMore.putExtra("address",((MainWrapActivity)getActivity()).getCurrentLocationAddress());
                 goMore.putExtra("review_division","NAVER");
 

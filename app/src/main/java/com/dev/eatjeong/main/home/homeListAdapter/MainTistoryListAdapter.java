@@ -13,6 +13,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -33,7 +34,7 @@ import java.util.List;
 
 public class MainTistoryListAdapter extends RecyclerView.Adapter<MainTistoryListAdapter.Holder> {
 
-    private final RequestManager glide;
+    public RequestManager mGlideRequestManager;
     private Context context;
     private List<MainReviewVO> list = new ArrayList<>();
     View view;
@@ -41,7 +42,7 @@ public class MainTistoryListAdapter extends RecyclerView.Adapter<MainTistoryList
     public MainTistoryListAdapter(Context context, List<MainReviewVO> list, RequestManager glide) {
         this.context = context;
         this.list = list;
-        this.glide = glide;
+        this.mGlideRequestManager = glide;
     }
 
     // ViewHolder 생성
@@ -72,11 +73,12 @@ public class MainTistoryListAdapter extends RecyclerView.Adapter<MainTistoryList
             imageLayoutParams.width = 20;
             holder.tistory_image.setLayoutParams(imageLayoutParams);
         }else{
-            glide.load(thumbnail_url)
+            mGlideRequestManager.load(thumbnail_url)
                     .override(200,200)
-                    .apply(new RequestOptions()
-                            .transform(new RoundedCorners(30))
-                    )
+//                    .apply(new RequestOptions()
+//                            .transform(new RoundedCorners(30))
+//                    )
+                    .transform(new CenterCrop(), new RoundedCorners(30))
                     .into(holder.tistory_image);
         }
         holder.tistory_title.setText(list.get(itemposition).getTitle());

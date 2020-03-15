@@ -5,11 +5,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.dev.eatjeong.R;
 
@@ -26,6 +30,20 @@ public class HomeReviewWebviewActivity extends AppCompatActivity {
         setContentView(R.layout.home_review_webview);
 
         Intent intent = getIntent();
+        View action_bar = findViewById(R.id.action_bar);
+        ConstraintLayout back_button = action_bar.findViewById(R.id.back_button);
+        ImageButton exit_button = (ImageButton) action_bar.findViewById(R.id.exit_image);
+        TextView title_text = action_bar.findViewById(R.id.textview1);
+
+        back_button.setVisibility(View.INVISIBLE);
+        title_text.setVisibility(View.INVISIBLE);
+
+        exit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         String url = intent.getStringExtra("url");
 
@@ -34,7 +52,7 @@ public class HomeReviewWebviewActivity extends AppCompatActivity {
 
         webView.setWebViewClient(new WebViewClient()); // 클릭시 새창 안뜨게
         webSettings = webView.getSettings(); //세부 세팅 등록
-        webSettings.setJavaScriptEnabled(true); // 웹페이지 자바스클비트 허용 여부
+        webSettings.setJavaScriptEnabled(true); // 웹페이지 자바스크립트 허용 여부
         webSettings.setSupportMultipleWindows(false); // 새창 띄우기 허용 여부
         webSettings.setJavaScriptCanOpenWindowsAutomatically(false); // 자바스크립트 새창 띄우기(멀티뷰) 허용 여부
         webSettings.setLoadWithOverviewMode(true); // 메타태그 허용 여부

@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.HomeRetrofitAPI;
 import com.dev.eatjeong.main.home.homeListAdapter.MainYoutubeListMoreAdapter;
@@ -30,23 +32,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainYoutubeListMoreFragment extends Fragment{
 
     private ArrayList<MainReviewVO> arrayList = new ArrayList<MainReviewVO>();
-
     private Retrofit mRetrofit;
-
     private HomeRetrofitAPI mHomeRetrofitAPI;
-
     private Call<MainReviewListResponseVO> mCallMainReviewListResponseVO;
+    private RequestManager mGlideRequestManager;
 
     MainYoutubeListMoreAdapter adapter;
 
-
-
     String address_arr[];
-
     String address = "";
-
     ProgressBar home_youtube_progress_bar;
-
     ListView listView;
 
     public static MainYoutubeListMoreFragment newInstance(){
@@ -56,6 +51,7 @@ public class MainYoutubeListMoreFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mGlideRequestManager = Glide.with(getActivity());
     }
 
 
@@ -73,7 +69,7 @@ public class MainYoutubeListMoreFragment extends Fragment{
 //        //레트로핏 초기화 후 호출작업 진행.
         callSearchResponse();
 //
-        home_youtube_progress_bar = (ProgressBar)v.findViewById(R.id.home_youtube_progress_bar);
+        home_youtube_progress_bar = (ProgressBar)v.findViewById(R.id.youtube_place_progress_bar);
 
         listView = (ListView) v.findViewById(R.id.home_youtube_list);
 
@@ -84,7 +80,7 @@ public class MainYoutubeListMoreFragment extends Fragment{
                 goWebview.putExtra("url",arrayList.get(position).getUrl());
 
                 startActivityForResult(goWebview,0);//액티비티 띄우기
-                getActivity().overridePendingTransition(R.anim.fadein,0);
+                getActivity().overridePendingTransition(R.anim.sliding_up,0);
             }
         });
 
@@ -96,16 +92,11 @@ public class MainYoutubeListMoreFragment extends Fragment{
         Json을 우리가 원하는 형태로 만들어주는 Gson라이브러리와 Retrofit2에 연결하는 코드입니다 */
 
         mRetrofit = new Retrofit.Builder()
-
                 .baseUrl(getString(R.string.baseUrl))
-
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
 
-
         mHomeRetrofitAPI = mRetrofit.create(HomeRetrofitAPI.class);
-
     }
 
     private void callSearchResponse() {
@@ -144,7 +135,7 @@ public class MainYoutubeListMoreFragment extends Fragment{
                 ));
             }
 
-            adapter = new MainYoutubeListMoreAdapter(getContext(),arrayList);
+            adapter = new MainYoutubeListMoreAdapter(getContext(),arrayList, mGlideRequestManager);
             listView.setAdapter(adapter);
 
             home_youtube_progress_bar.setVisibility(View.GONE);
