@@ -3,6 +3,7 @@
         package="com.dev.eatjeong">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- 현위치 화인 위한 권한 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -99,17 +100,17 @@
 
         <!-- 회원가입 화면 -->
         <activity
-                android:name=".signUp.SignUpActivity"
+                android:name=".signUp.signUpActivity.SignUpActivity"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustResize" />
 
         <!-- 서비스 약관 화면 -->
         <activity
-                android:name=".signUp.ServiceTermsPopupActivity"
+                android:name=".signUp.signUpActivity.ServiceTermsPopupActivity"
                 android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 개인정보 약관 화면 -->
-        <activity android:name=".signUp.PersonalTermsPopupActivity"
+        <activity android:name=".signUp.signUpActivity.PersonalTermsPopupActivity"
                 android:theme="@style/AppTheme.NoActionBar" />
 
 
@@ -169,6 +170,15 @@
 
         <activity
             android:name=".main.settings.settingsActivity.MyAppReviewListActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".main.settings.settingsActivity.MyAppReviewDetailActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.ReviewUpdateActivity"
             android:windowSoftInputMode="adjustNothing"
             android:theme="@style/AppTheme.NoActionBar" />
 
