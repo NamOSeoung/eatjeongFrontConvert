@@ -55,13 +55,26 @@
         android:layout_height="wrap_content"/>
 
 
-    <ImageView
-        android:id="@+id/iv_image"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_rx_multi_show"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp" />
+        android:orientation="vertical">
+        <Button
+            android:text="이미지 삭제"
+            android:id="@+id/delete_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_rx_multi_show"
+            android:layout_centerInParent="true"
+            />
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_rx_multi_show"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
 
 
     <HorizontalScrollView

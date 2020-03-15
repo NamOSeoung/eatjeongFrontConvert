@@ -2,6 +2,7 @@ package com.dev.eatjeong.main.settings.settingsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MenuItem;
@@ -14,12 +15,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.homeListAdapter.MainNaverListAdapter;
 import com.dev.eatjeong.main.home.homeReviewWebview.HomeReviewWebviewActivity;
+import com.dev.eatjeong.main.search.searchActivity.MapSearchActivity;
+import com.dev.eatjeong.main.search.searchFragment.PlaceListFragment;
 import com.dev.eatjeong.main.settings.SettingsListAdapter.SettingsCategoryListAdapter;
 import com.dev.eatjeong.main.settings.SettingsListAdapter.SettingsListAdapter;
 import com.dev.eatjeong.main.settings.SettingsListAdapter.SettingsReviewListAdapter;
@@ -164,18 +168,38 @@ public class MyAppReviewListActivity extends AppCompatActivity{
             }
 
             @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-
-
-            }
-
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) { }
             @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) { }
         });
 
+        review_recycler_view.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
 
+                View child = review_recycler_view.findChildViewUnder(e.getX(), e.getY());
+                int position = review_recycler_view.getChildAdapterPosition(child);
+                if(child!=null&&gestureDetector.onTouchEvent(e))
+                {
+                    Toast.makeText(getApplicationContext(),String.valueOf(setMyReviews.get(position).getPlace_name()),Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getApplicationContext(), MyAppReviewDetailActivity.class);
+                    intent.putExtra("user_id",user_id);
+                    intent.putExtra("sns_division",sns_division);
+                    intent.putExtra("place_name",setMyReviews.get(position).getPlace_name());
+                    intent.putExtra("place_id",setMyReviews.get(position).getPlace_id());
+                    intent.putExtra("review_id",setMyReviews.get(position).getReview_id());
+                    startActivityForResult(intent,0);//액티비티 띄우기
+                    overridePendingTransition(R.anim.slide_out_right,R.anim.stay);
+                }
+
+                return false;
+            }
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) { }
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) { }
+        });
     }
 
     @Override
@@ -264,14 +288,17 @@ public class MyAppReviewListActivity extends AppCompatActivity{
                 Log.e("review_count",String.valueOf(response.body().mDatalist.size()));
 
                 if(response.body().getCode().equals("200")){
+                    myReviews.clear();
+                    setMyReviews.clear();
                     myReviews.addAll(response.body().mDatalist);
-
+                    setMyReviews.addAll(myReviews);
                     Log.e("ss",String.valueOf(myReviews.size()));
 
                     review_recycler_view.setHasFixedSize(true);
                     review_adapter = new SettingsReviewListAdapter(getApplicationContext(), myReviews,"ALL",myReviews.size());
                     review_recycler_view.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     review_recycler_view.setAdapter(review_adapter);
+
 
                 }
                 progressBar.setVisibility(View.GONE);
@@ -288,4 +315,19 @@ public class MyAppReviewListActivity extends AppCompatActivity{
             }
         };
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+            if(resultCode == 1){
+                Toast.makeText(getApplicationContext(),"back 정상적으로 호출" , Toast.LENGTH_SHORT).show();
+                //뒤로오면 무조건 다시 호출(내 리뷰 디테일 화면에서 리뷰 삭제됬을수도 있기 때문에.)
+                myReviewListControll.setRetrofitInit();
+            }
+
+        }
+    }
+
 }

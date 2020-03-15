@@ -1,25 +1,18 @@
 package com.dev.eatjeong.main.settings.settingsActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.home.homeListAdapter.MainNaverListAdapter;
-import com.dev.eatjeong.main.home.homeReviewWebview.HomeReviewWebviewActivity;
 import com.dev.eatjeong.main.settings.SettingsListAdapter.SettingsListAdapter;
 import com.dev.eatjeong.main.settings.SettingsRetrofitAPI;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsBlackListResponseVO;
