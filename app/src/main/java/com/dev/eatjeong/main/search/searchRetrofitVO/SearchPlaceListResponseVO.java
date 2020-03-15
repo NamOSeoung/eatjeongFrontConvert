@@ -1,5 +1,6 @@
 package com.dev.eatjeong.main.search.searchRetrofitVO;
 
+import com.dev.eatjeong.main.home.homeRetrofitVO.MainPlaceListResponseVO;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -27,35 +28,27 @@ public class SearchPlaceListResponseVO {
 
     @SerializedName("dataList")
 
-    public List<DataList> mDatalist;
+    public List<MainPlaceListResponseVO.DataList> mDatalist;
 
 
     public class DataList {
 
 
-        @SerializedName("place_name")
-
-        private String place_name = "";
-
         @SerializedName("place_id")
 
         private String place_id = "";
 
-        @SerializedName("review_id")
+        @SerializedName("place_name")
 
-        private String review_id = "";
+        private String place_name = "";
+
+        @SerializedName("open_hours")
+
+        private String open_hours = "";
 
         @SerializedName("category_name")
 
         private String category_name = "";
-
-        @SerializedName("place_address")
-
-        private String place_address = "";
-
-        @SerializedName("road_place_address")
-
-        private String road_place_address = "";
 
         @SerializedName("latitude")
 
@@ -65,52 +58,25 @@ public class SearchPlaceListResponseVO {
 
         private String longitude = "";
 
-        @SerializedName("google_rating")
+        @SerializedName("appreview_rating")
 
-        private String google_rating = "";
+        private String appreview_rating = "";
 
-        @SerializedName("app_rating")
+        @SerializedName("place_address")
 
-        private String app_rating = "";
+        private String place_address = "";
 
-        @SerializedName("thumbnail")
+        @SerializedName("read_place_address")
 
-        private String thumbnail = "";
+        private String read_place_address = "";
 
-        @SerializedName("naver_blog_count")
+        @SerializedName("blog_thumbnail")
 
-        private String naver_blog_count = "";
+        private String blog_thumbnail = "";
 
-        @SerializedName("daum_blog_count")
+        @SerializedName("app_thumbnail")
 
-        private String daum_blog_count = "";
-
-        @SerializedName("google_review_count")
-
-        private String google_review_count = "";
-
-        @SerializedName("youtube_review_count")
-
-        private String youtube_review_count = "";
-
-        @SerializedName("app_review_count")
-
-        private String app_review_count = "";
-
-
-        @SerializedName("url")
-
-        private String url = "";
-
-
-
-        public String getPlace_name() {
-            return place_name;
-        }
-
-        public void setPlace_name(String place_name) {
-            this.place_name = place_name;
-        }
+        private String app_thumbnail = "";
 
         public String getPlace_id() {
             return place_id;
@@ -120,12 +86,20 @@ public class SearchPlaceListResponseVO {
             this.place_id = place_id;
         }
 
-        public String getReview_id() {
-            return review_id;
+        public String getPlace_name() {
+            return place_name;
         }
 
-        public void setReview_id(String review_id) {
-            this.review_id = review_id;
+        public void setPlace_name(String place_name) {
+            this.place_name = place_name;
+        }
+
+        public String getOpen_hours() {
+            return open_hours;
+        }
+
+        public void setOpen_hours(String open_hours) {
+            this.open_hours = open_hours;
         }
 
         public String getCategory_name() {
@@ -135,23 +109,6 @@ public class SearchPlaceListResponseVO {
         public void setCategory_name(String category_name) {
             this.category_name = category_name;
         }
-
-        public String getPlace_address() {
-            return place_address;
-        }
-
-        public void setPlace_address(String place_address) {
-            this.place_address = place_address;
-        }
-
-        public String getRoad_place_address() {
-            return road_place_address;
-        }
-
-        public void setRoad_place_address(String road_place_address) {
-            this.road_place_address = road_place_address;
-        }
-
         public String getLatitude() {
             return latitude;
         }
@@ -168,78 +125,47 @@ public class SearchPlaceListResponseVO {
             this.longitude = longitude;
         }
 
-        public String getGoogle_rating() {
-            return google_rating;
+        public String getAppreview_rating() {
+            return appreview_rating;
         }
 
-        public void setGoogle_rating(String google_rating) {
-            this.google_rating = google_rating;
+        public void setAppreview_rating(String appreview_rating) {
+            this.appreview_rating = appreview_rating;
         }
 
-        public String getApp_rating() {
-            return app_rating;
+        public String getPlace_address() {
+            return place_address;
         }
 
-        public void setApp_rating(String app_rating) {
-            this.app_rating = app_rating;
+        public void setPlace_address(String place_address) {
+            this.place_address = place_address;
         }
 
-        public String getThumbnail() {
-            return thumbnail;
+        public String getRead_place_address() {
+            return read_place_address;
         }
 
-        public void setThumbnail(String thumbnail) {
-            this.thumbnail = thumbnail;
+        public void setRead_place_address(String read_place_address) {
+            this.read_place_address = read_place_address;
         }
 
-        public String getNaver_blog_count() {
-            return naver_blog_count;
+        public String getBlog_thumbnail() {
+            return blog_thumbnail;
         }
 
-        public void setNaver_blog_count(String naver_blog_count) {
-            this.naver_blog_count = naver_blog_count;
+        public void setBlog_thumbnail(String blog_thumbnail) {
+            this.blog_thumbnail = blog_thumbnail;
         }
 
-        public String getDaum_blog_count() {
-            return daum_blog_count;
+        public String getApp_thumbnail() {
+            return app_thumbnail;
         }
 
-        public void setDaum_blog_count(String daum_blog_count) {
-            this.daum_blog_count = daum_blog_count;
-        }
-
-        public String getGoogle_review_count() {
-            return google_review_count;
-        }
-
-        public void setGoogle_review_count(String google_review_count) {
-            this.google_review_count = google_review_count;
-        }
-
-        public String getYoutube_review_count() {
-            return youtube_review_count;
-        }
-
-        public void setYoutube_review_count(String youtube_review_count) {
-            this.youtube_review_count = youtube_review_count;
-        }
-
-        public String getApp_review_count() {
-            return app_review_count;
-        }
-
-        public void setApp_review_count(String app_review_count) {
-            this.app_review_count = app_review_count;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
+        public void setApp_thumbnail(String app_thumbnail) {
+            this.app_thumbnail = app_thumbnail;
         }
     }
+
 
 }
 

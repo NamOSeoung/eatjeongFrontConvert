@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchActivity.PlaceInfoActivity;
@@ -39,7 +41,7 @@ public class PlaceListFragment extends Fragment {
     private Retrofit mRetrofit;
 
     private SearchRetrofitAPI mSearchRetrofitAPI;
-
+    private RequestManager mGlideRequestManager;
     private Call<SearchPlaceListResponseVO> mCallSearchPlaceListResponseVO;
 
     ListView listView;
@@ -54,6 +56,7 @@ public class PlaceListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mGlideRequestManager = Glide.with(getActivity());
     }
 
 
@@ -76,7 +79,7 @@ public class PlaceListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String place_name = arrayList.get(position).getPlace_name();
                 String place_id = arrayList.get(position).getPlace_id();
-                String latitude = arrayList.get(position).getLatitute();
+                String latitude = arrayList.get(position).getLatitude();
                 String longitude = arrayList.get(position).getLongitude();
                 String place_address = arrayList.get(position).getPlace_address();
 
@@ -147,12 +150,18 @@ public class PlaceListFragment extends Fragment {
                 arrayList.add(new PlaceListVO(
                         response.body().mDatalist.get(i).getPlace_id(),
                         response.body().mDatalist.get(i).getPlace_name(),
+                        response.body().mDatalist.get(i).getPlace_address(),
                         response.body().mDatalist.get(i).getLatitude(),
                         response.body().mDatalist.get(i).getLongitude(),
-                        response.body().mDatalist.get(i).getPlace_address()));
+                        response.body().mDatalist.get(i).getBlog_thumbnail(),
+                        response.body().mDatalist.get(i).getApp_thumbnail(),
+                        response.body().mDatalist.get(i).getCategory_name(),
+                        "4.2",     // Todo:getGoogle_rating() 만들어야함!!!
+                        response.body().mDatalist.get(i).getAppreview_rating()
+                ));
             }
 
-            adapter = new PlaceListAdapter(getContext(),arrayList);
+            adapter = new PlaceListAdapter(getContext(),arrayList,mGlideRequestManager);
             listView.setAdapter(adapter);
 
             place_list_progress_bar.setVisibility(View.GONE);
