@@ -2,7 +2,11 @@ package com.dev.eatjeong.main.search;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Selection;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +20,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -27,8 +34,10 @@ import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
 
 public class SearchTab extends Fragment implements View.OnClickListener{
     public static final int sub = 1002; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
-    Button search_map,search_lately_keyword,search_popular_keyword,search_button;
     EditText search_keyword;
+    AppCompatImageView search_map;
+    AppCompatImageView search_image;
+    AppCompatTextView search_popular_keyword,search_lately_keyword;
 
     //키보드 관련
     InputMethodManager imm;
@@ -41,10 +50,10 @@ public class SearchTab extends Fragment implements View.OnClickListener{
         View v = inflater.inflate(R.layout.search_tab, container, false);
 
         initFragment(v);
-        search_button = (Button)v.findViewById(R.id.search_button);
-        search_button.setOnClickListener(this);
+        search_image = v.findViewById(R.id.search_image);
+        search_image.setOnClickListener(this);
 
-        search_map = (Button)v.findViewById(R.id.search_map);
+        search_map = v.findViewById(R.id.search_map);
         search_map.setOnClickListener(this);
 
         search_keyword = (EditText)v.findViewById(R.id.search_keyword) ;
@@ -53,9 +62,9 @@ public class SearchTab extends Fragment implements View.OnClickListener{
 
         search_keyword.setOnClickListener(this);
 
-        search_lately_keyword = (Button) v.findViewById(R.id.search_lately_keyword) ;
+        search_lately_keyword = v.findViewById(R.id.search_lately_keyword) ;
         search_lately_keyword.setOnClickListener(this);
-        search_popular_keyword = (Button)v.findViewById(R.id.search_popular_keyword) ;
+        search_popular_keyword = v.findViewById(R.id.search_popular_keyword) ;
         search_popular_keyword.setOnClickListener(this);
 
 
@@ -74,13 +83,20 @@ public class SearchTab extends Fragment implements View.OnClickListener{
                 startActivityForResult(intent,0);//액티비티 띄우기
                 getActivity().overridePendingTransition(R.anim.fadein,0);
                 break;
+            case R.id.search_image:
+                changeText(search_keyword.getText().toString());
+                break;
             case R.id.search_lately_keyword:
                 fg = LatelyFragment.newInstance();
                 setChildFragment(fg);
+                search_lately_keyword.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.common_bottom_border));
+                search_popular_keyword.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.common_white_background));
                 break;
             case R.id.search_popular_keyword:
                 fg = PopularFragment.newInstance();
                 setChildFragment(fg);
+                search_lately_keyword.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.common_white_background));
+                search_popular_keyword.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.common_bottom_border));
                 break;
 
             case R.id.search_button:
@@ -129,6 +145,8 @@ public class SearchTab extends Fragment implements View.OnClickListener{
                 Fragment fg;
                 fg = PlaceListFragment.newInstance();
                 setChildFragment(fg);
+                Editable editText = search_keyword.getText();
+                Selection.setSelection(editText,editText.length());
             }
 
         }
@@ -140,6 +158,8 @@ public class SearchTab extends Fragment implements View.OnClickListener{
         Fragment fg;
         fg = PlaceListFragment.newInstance();
         setChildFragment(fg);
+        Editable editText = search_keyword.getText();
+        Selection.setSelection(editText,editText.length());
     }
 
     public String getKeyword(){

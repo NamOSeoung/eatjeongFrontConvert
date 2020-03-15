@@ -43,8 +43,12 @@ public class PopularListAdapter extends BaseAdapter {
 
 
         TextView popular_keyword = v.findViewById(R.id.popular_keyword);
+        TextView popular_index = v.findViewById(R.id.popular_index);
 
         popular_keyword.setText(data.get(position).getKeyword());
+        popular_index.setText(String.valueOf(position+1)+" ");
+
+
         //TextView place_name = v.findViewById(R.id.place_name);
 
 //        place_name.setText(data.get(0).getPlace_name());
