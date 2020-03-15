@@ -8,20 +8,21 @@
     <!-- 각각의 Fragment를 넣을 Container -->
 
     <FrameLayout
-            android:id="@+id/frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation_view"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_navigation"
-                android:layout_gravity="bottom"
-                android:background="?android:attr/windowBackground"
-                app:itemIconTint="@drawable/item_color"
-                app:itemTextColor="#333333"
-                app:menu="@menu/main_bottom_navigation" />
+            android:id="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_navigation"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
+            app:itemIconTint="@drawable/item_color"
+            app:itemTextColor="#333333"
+            app:menu="@menu/main_bottom_navigation" />
     </FrameLayout>
+
 
     <!-- Main content -->
 

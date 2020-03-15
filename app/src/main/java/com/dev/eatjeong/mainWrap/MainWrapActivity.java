@@ -12,15 +12,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.bookmark.BookmarkTab;
@@ -56,8 +61,7 @@ public class MainWrapActivity extends AppCompatActivity {
     private MenuItem prevBottomNavigation;
 
     String address = "";
-
-
+    BottomNavigationView bottomNavigationView;
 
     private GpsTracker gpsTracker;
 
@@ -65,11 +69,10 @@ public class MainWrapActivity extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_wrap);
-
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         if (!checkLocationServicesStatus()) {
 
             showDialogForLocationServiceSetting();
@@ -77,10 +80,6 @@ public class MainWrapActivity extends AppCompatActivity {
 
             checkRunTimePermission();
         }
-
-
-
-
     }
 
 
@@ -400,10 +399,9 @@ public class MainWrapActivity extends AppCompatActivity {
 
         address = getCurrentAddress(latitude, longitude);
         //textview_address.setText(address);
-        Toast.makeText(getApplicationContext(),address,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),address,Toast.LENGTH_SHORT).show();
         //Toast.makeText(getApplicationContext(), "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         // 첫 화면 지정
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_layout, homeTab).commitAllowingStateLoss();
@@ -442,6 +440,8 @@ public class MainWrapActivity extends AppCompatActivity {
     }
 
 
-
+    public void changeFragment(int gubun,Fragment fragment) {
+        bottomNavigationView.setSelectedItemId(R.id.search);
+    }
 
 }

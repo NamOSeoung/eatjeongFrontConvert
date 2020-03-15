@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -79,7 +80,7 @@ public class PlaceListFragment extends Fragment {
                 String longitude = arrayList.get(position).getLongitude();
                 String place_address = arrayList.get(position).getPlace_address();
 
-
+                Toast.makeText(getContext(), latitude+" " + longitude, Toast.LENGTH_SHORT).show();
 
                 Intent goPlaceInfo = new Intent(getContext(), PlaceInfoActivity.class);
                 goPlaceInfo.putExtra("place_name",place_name);

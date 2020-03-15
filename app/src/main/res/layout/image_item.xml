@@ -7,7 +7,11 @@
              android:orientation="vertical"
              android:padding="10dp" >
 
-
+    <Button
+        android:text="이미지 삭제"
+        android:id="@+id/image_delete"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     <ImageView
         android:id="@+id/media_image"
         android:layout_width="match_parent"
@@ -15,6 +19,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="new post image"
         android:visibility="visible" />
+
 
 
 </FrameLayout>

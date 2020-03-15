@@ -160,51 +160,51 @@ public class ClearEditText extends androidx.appcompat.widget.AppCompatEditText i
     /*  View 생명주기 */
     String Tag = "ClearEditText 생명주기";
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        Log.d(Tag, "onAttachedToWindow()");
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.d(Tag, "onMeasure()");
-    }
-
-    @Override
-    public void layout(int l, int t, int r, int b) {
-        super.layout(l, t, r, b);
-        Log.d(Tag, "layout()");
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        Log.d(Tag, "onLayout()");
-    }
-
-    @Override
-    protected void dispatchDraw(Canvas canvas) {
-        super.dispatchDraw(canvas);
-        Log.d(Tag, "dispatchDraw()");
-    }
-
-    @Override
-    public void requestLayout() {
-        super.requestLayout();
-        Log.d(Tag, "requestLayout()");
-    }
-
-    @Override
-    public void invalidate() {
-        super.invalidate();
-        Log.d(Tag, "invalidate()");
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        Log.d(Tag, "onDraw()");
-    }
+//    @Override
+//    protected void onAttachedToWindow() {
+//        super.onAttachedToWindow();
+//        Log.d(Tag, "onAttachedToWindow()");
+//    }
+//
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        Log.d(Tag, "onMeasure()");
+//    }
+//
+//    @Override
+//    public void layout(int l, int t, int r, int b) {
+//        super.layout(l, t, r, b);
+//        Log.d(Tag, "layout()");
+//    }
+//
+//    @Override
+//    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+//        super.onLayout(changed, left, top, right, bottom);
+//        Log.d(Tag, "onLayout()");
+//    }
+//
+//    @Override
+//    protected void dispatchDraw(Canvas canvas) {
+//        super.dispatchDraw(canvas);
+//        Log.d(Tag, "dispatchDraw()");
+//    }
+//
+//    @Override
+//    public void requestLayout() {
+//        super.requestLayout();
+//        Log.d(Tag, "requestLayout()");
+//    }
+//
+//    @Override
+//    public void invalidate() {
+//        super.invalidate();
+//        Log.d(Tag, "invalidate()");
+//    }
+//
+//    @Override
+//    protected void onDraw(Canvas canvas) {
+//        super.onDraw(canvas);
+//        Log.d(Tag, "onDraw()");
+//    }
 }
