@@ -27,6 +27,7 @@ import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.homeVO.MainReviewVO;
+import com.dev.eatjeong.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,18 +67,13 @@ public class MainTistoryListAdapter extends RecyclerView.Adapter<MainTistoryList
 
         ViewGroup.LayoutParams imageLayoutParams = (ViewGroup.LayoutParams)holder.tistory_image.getLayoutParams();
 
-        System.out.println("thumbnail_url : " + thumbnail_url);
-        System.out.println("thumbnail_url class : " + thumbnail_url.getClass());
-        if(thumbnail_url.equals("")){
+        if(Util.isNullOrEmpty(thumbnail_url)){
             view.findViewById(R.id.tistory_image).getLayoutParams();
             imageLayoutParams.width = 20;
             holder.tistory_image.setLayoutParams(imageLayoutParams);
         }else{
             mGlideRequestManager.load(thumbnail_url)
                     .override(200,200)
-//                    .apply(new RequestOptions()
-//                            .transform(new RoundedCorners(30))
-//                    )
                     .transform(new CenterCrop(), new RoundedCorners(30))
                     .into(holder.tistory_image);
         }

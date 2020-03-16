@@ -12,10 +12,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchActivity.PlaceInfoActivity;
@@ -41,22 +44,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GoogleReviewFragment extends Fragment {
 
     String user_id,sns_division,place_id,place_address,place_name;
-
     private ArrayList<GoogleReviewVO> arrayList = new ArrayList<GoogleReviewVO>();
-
     private Retrofit mRetrofit;
-
     private SearchRetrofitAPI mSearchRetrofitAPI;
-
     private Call<SearchGoogleListResponseVO> mCallSearchGoogleListResponseVO;
 
     RecyclerView listView;
-
     GoogleReviewListAdapter adapter;
-
     ProgressBar google_progress_bar;
-
     TextView review_more;
+    private ConstraintLayout data_layout, nodata_layout, container_1;
+
     public static GoogleReviewFragment newInstance(){
         return new GoogleReviewFragment();
     }
@@ -70,6 +68,9 @@ public class GoogleReviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.search_google_review_fragment, container, false);
+        container_1 = v.findViewById(R.id.container);
+        data_layout = v.findViewById(R.id.constraintLayout8);
+        nodata_layout = v.findViewById(R.id.nodata_layout);
 
 //        google_progress_bar = (ProgressBar)v.findViewById(R.id.google_progress_bar);
 
@@ -166,27 +167,37 @@ public class GoogleReviewFragment extends Fragment {
 
         public void onResponse(Call<SearchGoogleListResponseVO> call, Response<SearchGoogleListResponseVO> response) {
             arrayList.clear();
-            for(int i = 0; i < response.body().mDatalist.size(); i ++){
-                arrayList.add(new GoogleReviewVO(
-                        response.body().mDatalist.get(i).getIndex(),
-                        response.body().mDatalist.get(i).getReview_id(),
-                        response.body().mDatalist.get(i).getAuthor(),
-                        response.body().mDatalist.get(i).getG_content(),
-                        response.body().mDatalist.get(i).getG_rating(),
-                        response.body().mDatalist.get(i).getWrite_date()
-                ));
+
+            if(response.body().mDatalist.size() > 0) {
+                for (int i = 0; i < response.body().mDatalist.size(); i++) {
+                    arrayList.add(new GoogleReviewVO(
+                            response.body().mDatalist.get(i).getIndex(),
+                            response.body().mDatalist.get(i).getReview_id(),
+                            response.body().mDatalist.get(i).getAuthor(),
+                            response.body().mDatalist.get(i).getG_content(),
+                            response.body().mDatalist.get(i).getG_rating(),
+                            response.body().mDatalist.get(i).getWrite_date()
+                    ));
+                }
+
+                listView.setHasFixedSize(true);
+                adapter = new GoogleReviewListAdapter(getActivity(), arrayList);
+                listView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                listView.setAdapter(adapter);
+
+                //가로 레이아웃
+                LinearLayoutManager horizonalLayoutManager
+                        = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+                listView.setLayoutManager(horizonalLayoutManager);
+            }else{
+                ConstraintSet constraintSet = new ConstraintSet();
+                data_layout.setVisibility(View.GONE);
+                constraintSet.clone(container_1);
+                constraintSet.connect(R.id.google_header, ConstraintSet.BOTTOM, R.id.nodata_layout, ConstraintSet.TOP);
+                constraintSet.applyTo(container_1);
+                nodata_layout.setVisibility(View.VISIBLE);
             }
-
-            listView.setHasFixedSize(true);
-            adapter = new GoogleReviewListAdapter(getActivity(), arrayList);
-            listView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            listView.setAdapter(adapter);
-
-            //가로 레이아웃
-            LinearLayoutManager horizonalLayoutManager
-                    = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-            listView.setLayoutManager(horizonalLayoutManager);
         }
 
 

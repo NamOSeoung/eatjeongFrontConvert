@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,6 +24,10 @@ import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
 import com.dev.eatjeong.main.search.searchListVO.PlaceListVO;
 
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class PlaceInfoActivity extends AppCompatActivity {
-    String user_id,sns_division;
+    String user_id, sns_division;
     double latitude = 0.0;
     double longitude = 0.0;
 
@@ -45,14 +50,11 @@ public class PlaceInfoActivity extends AppCompatActivity {
     String bookmark_flag = "";
 
     private ArrayList<PlaceListVO> arrayList = new ArrayList<PlaceListVO>();
-
     private Retrofit mRetrofit;
-
     private SearchRetrofitAPI mSearchRetrofitAPI;
-
     private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
-    TextView place_name, category ,address;
+    TextView place_name, category, address;
 
     private PopularFragment popularFragment = new PopularFragment();
     private LatelyFragment latelyFragment = new LatelyFragment();
@@ -76,39 +78,39 @@ public class PlaceInfoActivity extends AppCompatActivity {
         latitude = Double.parseDouble(intent.getStringExtra("latitude"));
         longitude = Double.parseDouble(intent.getStringExtra("longitude"));
 
-        SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
-        user_id = sp.getString("user_id",null);
-        sns_division = sp.getString("sns_division",null);
+        SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
+        user_id = sp.getString("user_id", null);
+        sns_division = sp.getString("sns_division", null);
 
         setContentView(R.layout.place_info);
 
-        place_name = (TextView)findViewById(R.id.place_name);
-        category = (TextView)findViewById(R.id.category);
-        address = (TextView)findViewById(R.id.address);
-        place_bookmark_add = (Button)findViewById(R.id.place_bookmark_add);
-        place_bookmark_delete = (Button)findViewById(R.id.place_bookmark_delete);
+        place_name = (TextView) findViewById(R.id.place_name);
+        category = (TextView) findViewById(R.id.category);
+        address = (TextView) findViewById(R.id.address);
+//        place_bookmark_add = (Button)findViewById(R.id.place_bookmark_add);
+//        place_bookmark_delete = (Button)findViewById(R.id.place_bookmark_delete);
 
-        place_info_progress = (ProgressBar)findViewById(R.id.place_info_progress);
+        place_info_progress = (ProgressBar) findViewById(R.id.place_info_progress);
 
 
-
-        place_bookmark_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                BookmarkControll bookmarkControll = new BookmarkControll();
-                bookmarkControll.setRetrofitInit();
-            }
-        });
-
-        place_bookmark_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                BookmarkControll bookmarkControll = new BookmarkControll();
-                bookmarkControll.setRetrofitInit();
-            }
-        });
+        // Todo:북마크 버튼 연결
+//        place_bookmark_add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                BookmarkControll bookmarkControll = new BookmarkControll();
+//                bookmarkControll.setRetrofitInit();
+//            }
+//        });
+//
+//        place_bookmark_delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                BookmarkControll bookmarkControll = new BookmarkControll();
+//                bookmarkControll.setRetrofitInit();
+//            }
+//        });
 
 //        FragmentTransaction transaction = fragmentManager.beginTransaction();
 //        transaction.replace(R.id.youtube_frame_layout, popularFragment).commitAllowingStateLoss();
@@ -153,16 +155,16 @@ public class PlaceInfoActivity extends AppCompatActivity {
     }
 
 
-    public void goWebview(){
-        Toast.makeText(getApplicationContext(),"asdas",Toast.LENGTH_SHORT).show();
+    public void goWebview() {
+        Toast.makeText(getApplicationContext(), "asdas", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
 
 
     @Override
@@ -198,11 +200,11 @@ public class PlaceInfoActivity extends AppCompatActivity {
     }
 
     private void callPlaceInfoResponse() {
-        if(user_id == null){
+        if (user_id == null) {
             user_id = "temp";
             sns_division = "T";
         }
-        mCallCommonMapResponseVO = mSearchRetrofitAPI.getPlaceInfo(info_place_id,user_id,sns_division,String.valueOf(latitude),String.valueOf(longitude));
+        mCallCommonMapResponseVO = mSearchRetrofitAPI.getPlaceInfo(info_place_id, user_id, sns_division, String.valueOf(latitude), String.valueOf(longitude));
         mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
 
     }
@@ -219,13 +221,14 @@ public class PlaceInfoActivity extends AppCompatActivity {
             address.setText(response.body().getDataList().get("address"));
             bookmark_flag = response.body().getDataList().get("bookmark_flag");
 
-            if(bookmark_flag.equals("true")){
-                place_bookmark_delete.setVisibility(View.VISIBLE);
-                place_bookmark_add.setVisibility(View.GONE);
-            }else{
-                place_bookmark_delete.setVisibility(View.GONE);
-                place_bookmark_add.setVisibility(View.VISIBLE);
-            }
+            // Todo:북마크 체크 로직
+//            if(bookmark_flag.equals("true")){
+//                place_bookmark_delete.setVisibility(View.VISIBLE);
+//                place_bookmark_add.setVisibility(View.GONE);
+//            }else{
+//                place_bookmark_delete.setVisibility(View.GONE);
+//                place_bookmark_add.setVisibility(View.VISIBLE);
+//            }
 
             place_info_progress.setVisibility(View.GONE);
 
@@ -242,23 +245,23 @@ public class PlaceInfoActivity extends AppCompatActivity {
         }
     };
 
-    public Map<String,String> getPlaceInfo(){
-        Map<String,String> placeInfo = new HashMap();
+    public Map<String, String> getPlaceInfo() {
+        Map<String, String> placeInfo = new HashMap();
 
-        placeInfo.put("place_name",info_place_name);
-        placeInfo.put("place_id",info_place_id);
-        placeInfo.put("place_address",info_place_address);
+        placeInfo.put("place_name", info_place_name);
+        placeInfo.put("place_id", info_place_id);
+        placeInfo.put("place_address", info_place_address);
 
         return placeInfo;
     }
 
-    public Map<String,String> getUserInfo(){
-        Map<String,String> userInfo = new HashMap();
+    public Map<String, String> getUserInfo() {
+        Map<String, String> userInfo = new HashMap();
 
-        SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
 
-        userInfo.put("user_id",sp.getString("user_id",null));
-        userInfo.put("sns_division",sp.getString("sns_division",null));
+        userInfo.put("user_id", sp.getString("user_id", null));
+        userInfo.put("sns_division", sp.getString("sns_division", null));
 
         return userInfo;
     }
@@ -285,7 +288,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
         /*addConverterFactory(GsonConverterFactory.create())은
         Json을 우리가 원하는 형태로 만들어주는 Gson라이브러리와 Retrofit2에 연결하는 코드입니다 */
 
-            if(user_id == null){
+            if (user_id == null) {
                 return;
             }
             mRetrofit = new Retrofit.Builder()
@@ -304,10 +307,10 @@ public class PlaceInfoActivity extends AppCompatActivity {
         }
 
         private void callPlaceInfoResponse() {
-            if(bookmark_flag.equals("true")){
-                mCallCommonMapResponseVO = mBookmarkRetrofitAPI.deleteBookmarkPlace("place",info_place_id,user_id,sns_division);
-            }else {
-                mCallCommonMapResponseVO = mBookmarkRetrofitAPI.setBookmarkPlace("place",info_place_id,user_id,sns_division);
+            if (bookmark_flag.equals("true")) {
+                mCallCommonMapResponseVO = mBookmarkRetrofitAPI.deleteBookmarkPlace("place", info_place_id, user_id, sns_division);
+            } else {
+                mCallCommonMapResponseVO = mBookmarkRetrofitAPI.setBookmarkPlace("place", info_place_id, user_id, sns_division);
             }
 
             mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
@@ -318,20 +321,20 @@ public class PlaceInfoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
 
-             Log.e("code : ", response.body().getCode());
-             Log.e("code : ", response.body().getMessage());
-              if(response.body().getCode().equals("200")){
-                  if(bookmark_flag.equals("true")){
-                      place_bookmark_add.setVisibility(View.VISIBLE);
-                      place_bookmark_delete.setVisibility(View.GONE);
-                      bookmark_flag = "false";
-                  }else {
-                      place_bookmark_add.setVisibility(View.GONE);
-                      place_bookmark_delete.setVisibility(View.VISIBLE);
-                      bookmark_flag = "true";
-                  }
+                Log.e("code : ", response.body().getCode());
+                Log.e("code : ", response.body().getMessage());
+                if (response.body().getCode().equals("200")) {
+                    if (bookmark_flag.equals("true")) {
+                        place_bookmark_add.setVisibility(View.VISIBLE);
+                        place_bookmark_delete.setVisibility(View.GONE);
+                        bookmark_flag = "false";
+                    } else {
+                        place_bookmark_add.setVisibility(View.GONE);
+                        place_bookmark_delete.setVisibility(View.VISIBLE);
+                        bookmark_flag = "true";
+                    }
 
-              }
+                }
 //            setCode(response.body().getCode());
 
             }

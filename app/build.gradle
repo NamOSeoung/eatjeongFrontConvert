@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -99,8 +98,7 @@ dependencies {
     implementation 'com.kakao.sdk:usermgmt:1.16.0'
     /*네이버로그인*/
     implementation ('com.naver.nid:naveridlogin-android-sdk:4.2.5')
-    /*파베 문자인증*/
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
     // 카카오 로그인 sdk를 사용하기 위해 필요.
 //    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
 //// 카카오톡 sdk를 사용하기 위해 필요.

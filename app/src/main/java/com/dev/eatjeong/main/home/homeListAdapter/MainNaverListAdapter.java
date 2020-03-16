@@ -24,6 +24,7 @@ import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.home.homeVO.MainReviewVO;
+import com.dev.eatjeong.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ public class MainNaverListAdapter extends RecyclerView.Adapter<MainNaverListAdap
 
         System.out.println("thumbnail_url : " + thumbnail_url);
         System.out.println("thumbnail_url class : " + thumbnail_url.getClass());
-        if(thumbnail_url.equals("")){
+        if(Util.isNullOrEmpty(thumbnail_url)){
             view.findViewById(R.id.naver_image).getLayoutParams();
             imageLayoutParams.width = 20;
             holder.naver_image.setLayoutParams(imageLayoutParams);

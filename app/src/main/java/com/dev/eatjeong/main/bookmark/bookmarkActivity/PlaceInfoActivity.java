@@ -85,8 +85,8 @@ public class PlaceInfoActivity extends AppCompatActivity {
         place_name = (TextView)findViewById(R.id.place_name);
         category = (TextView)findViewById(R.id.category);
         address = (TextView)findViewById(R.id.address);
-        place_bookmark_add = (Button)findViewById(R.id.place_bookmark_add);
-        place_bookmark_delete = (Button)findViewById(R.id.place_bookmark_delete);
+//        place_bookmark_add = (Button)findViewById(R.id.place_bookmark);
+//        place_bookmark_delete = (Button)findViewById(R.id.place_bookmark_delete);
 
         place_info_progress = (ProgressBar)findViewById(R.id.place_info_progress);
 

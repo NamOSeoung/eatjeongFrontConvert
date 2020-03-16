@@ -105,15 +105,15 @@ public class MainPlaceListFragment extends Fragment {
                 View child = listView.findChildViewUnder(e.getX(), e.getY());
                 int position = listView.getChildAdapterPosition(child);
                 if (child != null && gestureDetector.onTouchEvent(e)) {
-                    Intent goWebview = new Intent(getContext(), PlaceInfoActivity.class);
-                    goWebview.putExtra("place_id", arrayList.get(position).getPlace_id());
-                    goWebview.putExtra("place_name", arrayList.get(position).getPlace_name());
-                    goWebview.putExtra("place_address", arrayList.get(position).getPlace_address());
-                    goWebview.putExtra("latitude", arrayList.get(position).getLatitude());
-                    goWebview.putExtra("longitude", arrayList.get(position).getLongitude());
-                    goWebview.putExtra("call_division", "MAIN");
+                    Intent goPlaceInfo = new Intent(getContext(), PlaceInfoActivity.class);
+                    goPlaceInfo.putExtra("place_id", arrayList.get(position).getPlace_id());
+                    goPlaceInfo.putExtra("place_name", arrayList.get(position).getPlace_name());
+                    goPlaceInfo.putExtra("place_address", arrayList.get(position).getPlace_address());
+                    goPlaceInfo.putExtra("latitude", arrayList.get(position).getLatitude());
+                    goPlaceInfo.putExtra("longitude", arrayList.get(position).getLongitude());
+                    goPlaceInfo.putExtra("call_division", "MAIN");
 
-                    startActivityForResult(goWebview, 0);//액티비티 띄우기
+                    startActivityForResult(goPlaceInfo, 0);//액티비티 띄우기
                     getActivity().overridePendingTransition(R.anim.fadein, 0);
                 }
                 return false;

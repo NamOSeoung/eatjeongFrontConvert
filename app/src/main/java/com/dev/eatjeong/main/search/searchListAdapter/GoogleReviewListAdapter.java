@@ -30,7 +30,7 @@ public class GoogleReviewListAdapter extends RecyclerView.Adapter<GoogleReviewLi
     // row layout을 화면에 뿌려주고 holder에 연결
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_youtube_review_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_google_review_list_item, parent, false);
         Holder holder = new Holder(view);
         return holder;
     }

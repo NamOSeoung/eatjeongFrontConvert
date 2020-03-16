@@ -9,11 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.dev.eatjeong.R;
@@ -22,6 +24,7 @@ import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
+import com.dev.eatjeong.util.Util;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -38,7 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class PlaceInfoActivity extends AppCompatActivity {
-    String user_id,sns_division;
+    String user_id, sns_division;
     double latitude = 0.0;
     double longitude = 0.0;
 
@@ -53,12 +56,15 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
     private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
-    TextView place_name, category ,address;
+    private TextView place_name, category, address, action_bar_title, phone_number;
+    private View action_bar;
+    private ConstraintLayout back_button;
 
     private PopularFragment popularFragment = new PopularFragment();
     private LatelyFragment latelyFragment = new LatelyFragment();
 
-    private Button place_bookmark_add, place_bookmark_delete,review_add;
+    private Button review_add;
+    private ImageView bookmark_false, bookmark_true;
 
     private ProgressBar place_info_progress;
 
@@ -77,65 +83,81 @@ public class PlaceInfoActivity extends AppCompatActivity {
         latitude = Double.parseDouble(intent.getStringExtra("latitude"));
         longitude = Double.parseDouble(intent.getStringExtra("longitude"));
 
-        SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
-        user_id = sp.getString("user_id",null);
-        sns_division = sp.getString("sns_division",null);
+        SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
+        user_id = sp.getString("user_id", "temp");
+        sns_division = sp.getString("sns_division", "T");
 
         setContentView(R.layout.place_info);
 
-        place_name = (TextView)findViewById(R.id.place_name);
-        category = (TextView)findViewById(R.id.category);
-        address = (TextView)findViewById(R.id.address);
-        place_bookmark_add = (Button)findViewById(R.id.place_bookmark_add);
-        place_bookmark_delete = (Button)findViewById(R.id.place_bookmark_delete);
-        review_add = (Button)findViewById(R.id.review_add);
+        action_bar = findViewById(R.id.action_bar);
+        back_button = (ConstraintLayout) action_bar.findViewById(R.id.back_button);
+        action_bar_title = action_bar.findViewById(R.id.textview1);
+        bookmark_false = action_bar.findViewById(R.id.bookmark_false);
+        bookmark_true = action_bar.findViewById(R.id.bookmark_true);
 
-        place_info_progress = (ProgressBar)findViewById(R.id.place_info_progress);
-
-        MapView mapView = new MapView(this);
-
-        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-        mapViewContainer.addView(mapView);
+        place_name = (TextView) findViewById(R.id.place_name);
+        category = (TextView) findViewById(R.id.category);
+        address = (TextView) findViewById(R.id.address);
+        phone_number = (TextView) findViewById(R.id.phone_number);
 
 
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+        review_add = (Button) findViewById(R.id.review_add);
 
-// 줌 레벨 변경
-        mapView.setZoomLevel(1, true);
+        place_info_progress = (ProgressBar) findViewById(R.id.place_info_progress);
 
-// 중심점 변경 + 줌 레벨 변경
-        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 1, true);
+        action_bar_title.setVisibility(View.INVISIBLE);
+        bookmark_true.setVisibility(View.GONE);
+        bookmark_false.setVisibility(View.GONE);
 
-// 줌 인
-        mapView.zoomIn(true);
+//        MapView mapView = new MapView(this);
+//
+//        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+//        mapViewContainer.addView(mapView);
+//
+//
+//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+//
+//// 줌 레벨 변경
+//        mapView.setZoomLevel(1, true);
+//
+//// 중심점 변경 + 줌 레벨 변경
+//        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 1, true);
+//
+//// 줌 인
+//        mapView.zoomIn(true);
+//
+//// 줌 아웃
+//        mapView.zoomOut(true);
+//
+//        MapPOIItem marker = new MapPOIItem();
+//        marker.setItemName("Default Marker");
+//        marker.setTag(0);
+//        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
+//        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+//        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+//
+//        mapView.addPOIItem(marker);
 
-// 줌 아웃
-        mapView.zoomOut(true);
 
-        MapPOIItem marker = new MapPOIItem();
-        marker.setItemName("Default Marker");
-        marker.setTag(0);
-        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
-        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
-        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-
-        mapView.addPOIItem(marker);
-
-
-
-        place_bookmark_add.setOnClickListener(new View.OnClickListener() {
+        back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+            }
+        });
 
+
+        bookmark_true.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 BookmarkControll bookmarkControll = new BookmarkControll();
                 bookmarkControll.setRetrofitInit();
             }
         });
 
-        place_bookmark_delete.setOnClickListener(new View.OnClickListener() {
+        bookmark_false.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 BookmarkControll bookmarkControll = new BookmarkControll();
                 bookmarkControll.setRetrofitInit();
             }
@@ -145,8 +167,8 @@ public class PlaceInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ReviewWriteActivity.class);
-                intent.putExtra("place_id",info_place_id);
-                startActivityForResult(intent,0);//액티비티 띄우기
+                intent.putExtra("place_id", info_place_id);
+                startActivityForResult(intent, 0);//액티비티 띄우기
                 overridePendingTransition(R.anim.sliding_up, R.anim.stay);
             }
         });
@@ -164,17 +186,16 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
     }
 
-
-    public void goWebview(){
-        Toast.makeText(getApplicationContext(),"asdas",Toast.LENGTH_SHORT).show();
+    public void goWebview() {
+        Toast.makeText(getApplicationContext(), "asdas", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
 
 
     @Override
@@ -210,11 +231,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
     }
 
     private void callPlaceInfoResponse() {
-        if(user_id == null){
-            user_id = "temp";
-            sns_division = "T";
-        }
-        mCallCommonMapResponseVO = mSearchRetrofitAPI.getPlaceInfo(info_place_id,user_id,sns_division,String.valueOf(latitude),String.valueOf(longitude));
+        mCallCommonMapResponseVO = mSearchRetrofitAPI.getPlaceInfo(info_place_id, user_id, sns_division, String.valueOf(latitude), String.valueOf(longitude));
         mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
 
     }
@@ -222,55 +239,61 @@ public class PlaceInfoActivity extends AppCompatActivity {
     private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
         @Override
         public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
-            Log.e("dd", response.body().getCode());
-            Log.e("dd", response.body().getMessage());
-            Log.e("dd", response.body().getDataList().get("road_address"));
+            Log.e("dd", response.body().getDataList().toString());
 
             place_name.setText(response.body().getDataList().get("place_name"));
             category.setText(response.body().getDataList().get("category"));
             address.setText(response.body().getDataList().get("address"));
+            phone_number.setText(response.body().getDataList().get("phone_no"));
             bookmark_flag = response.body().getDataList().get("bookmark_flag");
 
-            if(bookmark_flag.equals("true")){
-                place_bookmark_delete.setVisibility(View.VISIBLE);
-                place_bookmark_add.setVisibility(View.GONE);
-            }else{
-                place_bookmark_delete.setVisibility(View.GONE);
-                place_bookmark_add.setVisibility(View.VISIBLE);
+            if (bookmark_flag.equals("true")) {
+                if ("temp".equals(user_id) || "T".equals(sns_division)) {
+                    Log.e("북마크", "2");
+                    bookmark_true.setVisibility(View.GONE);
+                    bookmark_false.setVisibility(View.GONE);
+                } else {
+                    Log.e("북마크", "4");
+                    bookmark_true.setVisibility(View.VISIBLE);
+                    bookmark_false.setVisibility(View.GONE);
+                }
+            } else {
+                if ("temp".equals(user_id) || "T".equals(sns_division)) {
+                    Log.e("북마크", "3");
+                    bookmark_true.setVisibility(View.GONE);
+                    bookmark_false.setVisibility(View.GONE);
+                } else {
+                    Log.e("북마크", "5");
+                    bookmark_true.setVisibility(View.GONE);
+                    bookmark_false.setVisibility(View.VISIBLE);
+                }
             }
-
             place_info_progress.setVisibility(View.GONE);
-
         }
 
-
         @Override
-
         public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
-
-            Log.e("ss", "asdasdasd");
             t.printStackTrace();
-
         }
     };
 
-    public Map<String,String> getPlaceInfo(){
-        Map<String,String> placeInfo = new HashMap();
+    public Map<String, String> getPlaceInfo() {
+        Map<String, String> placeInfo = new HashMap();
 
-        placeInfo.put("place_name",info_place_name);
-        placeInfo.put("place_id",info_place_id);
-        placeInfo.put("place_address",info_place_address);
+        placeInfo.put("place_name", info_place_name);
+        placeInfo.put("place_id", info_place_id);
+        placeInfo.put("place_address", info_place_address);
 
         return placeInfo;
     }
 
-    public Map<String,String> getUserInfo(){
-        Map<String,String> userInfo = new HashMap();
+    public Map<String, String> getUserInfo() {
+        Map<String, String> userInfo = new HashMap();
 
-        SharedPreferences sp = getSharedPreferences("login",MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
 
-        userInfo.put("user_id",sp.getString("user_id",null));
-        userInfo.put("sns_division",sp.getString("sns_division",null));
+        userInfo.put("user_id", sp.getString("user_id", null));
+        userInfo.put("sns_division", sp.getString("sns_division", null));
 
         return userInfo;
     }
@@ -278,11 +301,8 @@ public class PlaceInfoActivity extends AppCompatActivity {
     public class BookmarkControll {
 
         String code = "";
-
         private Retrofit mRetrofit;
-
         private BookmarkRetrofitAPI mBookmarkRetrofitAPI;
-
         private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
         public String getCode() {
@@ -297,29 +317,24 @@ public class PlaceInfoActivity extends AppCompatActivity {
         /*addConverterFactory(GsonConverterFactory.create())은
         Json을 우리가 원하는 형태로 만들어주는 Gson라이브러리와 Retrofit2에 연결하는 코드입니다 */
 
-            if(user_id == null){
+            if (user_id == null) {
                 return;
             }
             mRetrofit = new Retrofit.Builder()
-
                     .baseUrl(getString(R.string.baseUrl))
-
                     .addConverterFactory(GsonConverterFactory.create())
-
                     .build();
 
-
             mBookmarkRetrofitAPI = mRetrofit.create(BookmarkRetrofitAPI.class);
-
             callPlaceInfoResponse();
 
         }
 
         private void callPlaceInfoResponse() {
-            if(bookmark_flag.equals("true")){
-                mCallCommonMapResponseVO = mBookmarkRetrofitAPI.deleteBookmarkPlace("place",info_place_id,user_id,sns_division);
-            }else {
-                mCallCommonMapResponseVO = mBookmarkRetrofitAPI.setBookmarkPlace("place",info_place_id,user_id,sns_division);
+            if (bookmark_flag.equals("true")) {
+                mCallCommonMapResponseVO = mBookmarkRetrofitAPI.deleteBookmarkPlace("place", info_place_id, user_id, sns_division);
+            } else {
+                mCallCommonMapResponseVO = mBookmarkRetrofitAPI.setBookmarkPlace("place", info_place_id, user_id, sns_division);
             }
 
             mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
@@ -332,14 +347,14 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
                 Log.e("code : ", response.body().getCode());
                 Log.e("code : ", response.body().getMessage());
-                if(response.body().getCode().equals("200")){
-                    if(bookmark_flag.equals("true")){
-                        place_bookmark_add.setVisibility(View.VISIBLE);
-                        place_bookmark_delete.setVisibility(View.GONE);
+                if (response.body().getCode().equals("200")) {
+                    if (bookmark_flag.equals("true")) {
+                        bookmark_true.setVisibility(View.VISIBLE);
+                        bookmark_false.setVisibility(View.GONE);
                         bookmark_flag = "false";
-                    }else {
-                        place_bookmark_add.setVisibility(View.GONE);
-                        place_bookmark_delete.setVisibility(View.VISIBLE);
+                    } else {
+                        bookmark_true.setVisibility(View.GONE);
+                        bookmark_false.setVisibility(View.VISIBLE);
                         bookmark_flag = "true";
                     }
 

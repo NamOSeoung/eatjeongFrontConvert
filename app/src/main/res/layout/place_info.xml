@@ -1,96 +1,334 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical">
 
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/place_info_progress"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/place_bookmark_add"
-        android:visibility="gone"
-        android:text="매장 북마크 추가"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/place_bookmark_delete"
-        android:visibility="gone"
-        android:text="매장 북마크 제거"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_action_bar_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="@dimen/actionbar_guideline_percent" />
+
+    <include
+            android:id="@+id/action_bar"
+            layout="@layout/custom_actionbar_place" />
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/category"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guide_action_bar_bottom">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="wrap_content"
+                android:background="#eff2f7"
+                android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95"/>
+
             <TextView
-                android:id="@+id/place_name"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:textSize="40dp"/>
+                    android:id="@+id/category"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:paddingVertical="5dp"
+                    android:text=""
+                    android:textSize="13dp"
+                    android:fontFamily="@font/nanumsquareroundb"
+                    android:textColor="#555555"
+                    app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                    app:layout_constraintBottom_toTopOf="@id/place_name"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/address"/>
+                    android:id="@+id/place_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text=""
+                    android:textSize="20dp"
+                    android:fontFamily="@font/nanumsquareroundb"
+                    android:textColor="#333333"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                    app:layout_constraintBottom_toTopOf="@id/map_view"
+                    app:layout_constraintTop_toBottomOf="@id/category" />
+
             <RelativeLayout
-                android:id="@+id/map_view"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                    android:id="@+id/map_view"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:background="@color/LightGrey"
+                    app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                    app:layout_constraintBottom_toTopOf="@id/phone_number"
+                    app:layout_constraintTop_toBottomOf="@id/place_name" />
 
-            <fragment
-                android:name="com.dev.eatjeong.main.search.searchFragment.YoutubeReviewFragment"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:id="@+id/youtube_review_fragment"
-                android:layout_height="100dp" />
+            <TextView
+                    android:id="@+id/phone_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="13dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    android:textColor="#555555"
+                    app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                    app:layout_constraintBottom_toTopOf="@id/address"
+                    app:layout_constraintTop_toBottomOf="@id/map_view" />
 
-            <fragment
-                android:name="com.dev.eatjeong.main.search.searchFragment.NaverReviewFragment"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:id="@+id/naver_review_fragment"
-                android:layout_height="100dp" />
+            <TextView
+                    android:id="@+id/address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="13dp"
+                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    android:textColor="#555555"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                    app:layout_constraintBottom_toTopOf="@id/work_layout"
+                    app:layout_constraintTop_toBottomOf="@id/phone_number" />
 
-            <fragment
-                android:name="com.dev.eatjeong.main.search.searchFragment.TistoryReviewFragment"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:id="@+id/tistory_review_fragment"
-                android:layout_height="100dp" />
+            <LinearLayout
+                    android:id="@+id/work_layout"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/no_login_button"
+                    app:layout_constraintBottom_toTopOf="@id/work_text"
+                    app:layout_constraintEnd_toStartOf="@+id/rating_layout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                    app:layout_constraintTop_toBottomOf="@id/address"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    >
 
-            <fragment
-                android:name="com.dev.eatjeong.main.search.searchFragment.GoogleReviewFragment"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:id="@+id/google_review_fragment"
-                android:layout_height="100dp" />
+                <ImageView
+                        android:id="@+id/work_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/icon_padding"
+                        android:src="@drawable/clock_f_64"/>
+            </LinearLayout>
 
-            <fragment
-                android:name="com.dev.eatjeong.main.search.searchFragment.AppReviewFragment"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:id="@+id/app_review_fragment"
-                android:layout_height="100dp" />
+
+            <LinearLayout
+                    android:id="@+id/rating_layout"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/no_login_button"
+                    app:layout_constraintBottom_toBottomOf="@id/work_layout"
+                    app:layout_constraintEnd_toStartOf="@+id/phone_layout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/work_layout"
+                    app:layout_constraintTop_toTopOf="@id/work_layout" >
+
+            <ImageView
+                    android:id="@+id/rating_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/icon_padding"
+                    android:src="@drawable/star_f_64"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/phone_layout"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/no_login_button"
+                    app:layout_constraintBottom_toBottomOf="@id/work_layout"
+                    app:layout_constraintEnd_toStartOf="@+id/address_copy_layout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/rating_layout"
+                    app:layout_constraintTop_toTopOf="@id/work_layout" >
+
+                <ImageView
+                        android:id="@+id/phone_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/icon_padding"
+                        android:src="@drawable/phone"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/address_copy_layout"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/no_login_button"
+                    android:layout_marginEnd="15dp"
+                    app:layout_constraintBottom_toBottomOf="@id/work_layout"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/phone_layout"
+                    app:layout_constraintTop_toTopOf="@id/work_layout">
+
+                <ImageView
+                        android:id="@+id/address_copy_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/icon_padding"
+                        android:src="@drawable/phone"
+                        />
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/work_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="영업종료"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    app:layout_constraintBottom_toTopOf="@id/youtube_review_fragment"
+                    app:layout_constraintEnd_toEndOf="@id/work_layout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/work_layout"
+                    app:layout_constraintTop_toBottomOf="@id/work_layout"
+                    />
+
+            <TextView
+                    android:id="@+id/rating_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5.0"
+                    android:textSize="15dp"
+                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    app:layout_constraintBottom_toBottomOf="@id/work_text"
+                    app:layout_constraintEnd_toEndOf="@id/rating_layout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/rating_layout"
+                    app:layout_constraintTop_toTopOf="@id/work_text" />
+
+            <TextView
+                    android:id="@+id/phone_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전화걸기"
+                    android:textSize="15dp"
+                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    app:layout_constraintBottom_toBottomOf="@id/work_text"
+                    app:layout_constraintEnd_toEndOf="@id/phone_layout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/phone_layout"
+                    app:layout_constraintTop_toTopOf="@id/work_text" />
+
+            <TextView
+                    android:id="@+id/address_copy_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="주소복사"
+                    android:textSize="15dp"
+                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    app:layout_constraintBottom_toBottomOf="@id/work_text"
+                    app:layout_constraintEnd_toEndOf="@id/address_copy_layout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/address_copy_layout"
+                    app:layout_constraintTop_toTopOf="@id/work_text" />
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/youtube_review_fragment"
+                    android:name="com.dev.eatjeong.main.search.searchFragment.YoutubeReviewFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/naver_review_fragment"
+                    app:layout_constraintTop_toBottomOf="@id/work_text" />
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/naver_review_fragment"
+                    android:name="com.dev.eatjeong.main.search.searchFragment.NaverReviewFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/tistory_review_fragment"
+                    app:layout_constraintTop_toBottomOf="@id/youtube_review_fragment" />
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/tistory_review_fragment"
+                    android:name="com.dev.eatjeong.main.search.searchFragment.TistoryReviewFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/google_review_fragment"
+                    app:layout_constraintTop_toBottomOf="@id/naver_review_fragment" />
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/google_review_fragment"
+                    android:name="com.dev.eatjeong.main.search.searchFragment.GoogleReviewFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/app_review_fragment"
+                    app:layout_constraintTop_toBottomOf="@id/tistory_review_fragment" />
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/app_review_fragment"
+                    android:name="com.dev.eatjeong.main.search.searchFragment.AppReviewFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/review_add"
+                    app:layout_constraintTop_toBottomOf="@id/google_review_fragment" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/review_add"
-                android:text="리뷰작성"/>
-        </LinearLayout>
+                    android:id="@+id/review_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="리뷰작성"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/app_review_fragment" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-</LinearLayout>
+    <ProgressBar
+            android:id="@+id/place_info_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

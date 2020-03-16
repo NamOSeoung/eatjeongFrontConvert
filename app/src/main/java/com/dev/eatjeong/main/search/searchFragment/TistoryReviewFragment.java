@@ -15,10 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchActivity.PlaceInfoActivity;
@@ -48,22 +52,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TistoryReviewFragment extends Fragment {
+
     String user_id,sns_division,place_id,place_address,place_name;
-
     private ArrayList<TistoryReviewVO> arrayList = new ArrayList<TistoryReviewVO>();
-
     private Retrofit mRetrofit;
-
     private SearchRetrofitAPI mSearchRetrofitAPI;
-
     private Call<SearchTistoryListResponseVO> mCallSearchTistoryListResponseVO;
 
-//    ListView listView;
-
-    RecyclerView listView;
-    TistoryReviewListAdapter adapter;
-
-    ProgressBar tistory_progress_bar;
+    private RecyclerView listView;
+    private TistoryReviewListAdapter adapter;
+    private ProgressBar tistory_progress_bar;
+    private RequestManager mGlideRequestManager;
+    private ConstraintLayout data_layout, nodata_layout, container_1, header_right;
 
     TextView review_more;
     public static TistoryReviewFragment newInstance(){
@@ -73,12 +73,17 @@ public class TistoryReviewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mGlideRequestManager = Glide.with(getActivity());
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.search_tistory_review_fragment, container, false);
+        container_1 = v.findViewById(R.id.container);
+        data_layout = v.findViewById(R.id.constraintLayout8);
+        nodata_layout = v.findViewById(R.id.nodata_layout);
+        header_right = v.findViewById(R.id.header_right);
 
 //        tistory_progress_bar = (ProgressBar)v.findViewById(R.id.tistory_progress_bar);
 
@@ -178,13 +183,9 @@ public class TistoryReviewFragment extends Fragment {
         Json을 우리가 원하는 형태로 만들어주는 Gson라이브러리와 Retrofit2에 연결하는 코드입니다 */
 
         mRetrofit = new Retrofit.Builder()
-
                 .baseUrl(getString(R.string.baseUrl))
-
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
-
 
         mSearchRetrofitAPI = mRetrofit.create(SearchRetrofitAPI.class);
 
@@ -207,46 +208,50 @@ public class TistoryReviewFragment extends Fragment {
 
 
         @Override
-
         public void onResponse(Call<SearchTistoryListResponseVO> call, Response<SearchTistoryListResponseVO> response) {
-
             arrayList.clear();
-            for(int i = 0; i < response.body().mDatalist.size(); i ++){
-                arrayList.add(new TistoryReviewVO(
-                        response.body().mDatalist.get(i).getIndex(),
-                        response.body().mDatalist.get(i).getReview_id(),
-                        response.body().mDatalist.get(i).getTitle(),
-                        response.body().mDatalist.get(i).getWrite_date(),
-                        response.body().mDatalist.get(i).getAuthor(),
-                        response.body().mDatalist.get(i).getDescription(),
-                        response.body().mDatalist.get(i).getUrl(),
-                        response.body().mDatalist.get(i).getThumbnail_url(),
-                        response.body().mDatalist.get(i).getBookmark_flag()
-                ));
+            if(response.body().mDatalist.size() > 0) {
+                for (int i = 0; i < response.body().mDatalist.size(); i++) {
+                    arrayList.add(new TistoryReviewVO(
+                            response.body().mDatalist.get(i).getIndex(),
+                            response.body().mDatalist.get(i).getReview_id(),
+                            response.body().mDatalist.get(i).getTitle(),
+                            response.body().mDatalist.get(i).getWrite_date(),
+                            response.body().mDatalist.get(i).getAuthor(),
+                            response.body().mDatalist.get(i).getDescription(),
+                            response.body().mDatalist.get(i).getUrl(),
+                            response.body().mDatalist.get(i).getThumbnail_url(),
+                            response.body().mDatalist.get(i).getBookmark_flag()
+                    ));
+                }
+
+                listView.setHasFixedSize(true);
+                adapter = new TistoryReviewListAdapter(getActivity(), arrayList, mGlideRequestManager);
+                listView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                listView.setAdapter(adapter);
+
+                //가로 레이아웃
+                LinearLayoutManager horizonalLayoutManager
+                        = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+                listView.setLayoutManager(horizonalLayoutManager);
+            }else{
+                ConstraintSet constraintSet = new ConstraintSet();
+                header_right.setVisibility(View.INVISIBLE);
+                data_layout.setVisibility(View.GONE);
+                constraintSet.clone(container_1);
+                constraintSet.connect(R.id.tistory_header, ConstraintSet.BOTTOM, R.id.nodata_layout, ConstraintSet.TOP);
+                constraintSet.applyTo(container_1);
+                nodata_layout.setVisibility(View.VISIBLE);
             }
-
-            listView.setHasFixedSize(true);
-            adapter = new TistoryReviewListAdapter(getActivity(), arrayList);
-            listView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            listView.setAdapter(adapter);
-
-            //가로 레이아웃
-            LinearLayoutManager horizonalLayoutManager
-                    = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-            listView.setLayoutManager(horizonalLayoutManager);
         }
 
 
 
         @Override
-
         public void onFailure(Call<SearchTistoryListResponseVO> call, Throwable t) {
-
             t.printStackTrace();
-
         }
-
     };
 
     @Override
@@ -261,9 +266,6 @@ public class TistoryReviewFragment extends Fragment {
                 callSearchResponse();
 
             }
-
         }
     }
-
-
 }

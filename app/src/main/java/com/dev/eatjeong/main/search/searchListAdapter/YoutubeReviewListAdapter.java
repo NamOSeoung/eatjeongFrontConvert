@@ -2,20 +2,33 @@ package com.dev.eatjeong.main.search.searchListAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkYoutubeListVO;
 import com.dev.eatjeong.main.search.searchActivity.PlaceInfoActivity;
@@ -32,10 +45,12 @@ public class YoutubeReviewListAdapter extends RecyclerView.Adapter<YoutubeReview
 
     private Context context;
     private List<YoutubeReviewVO> list = new ArrayList<>();
+    private RequestManager mGlide;
 
-    public YoutubeReviewListAdapter(Context context, List<YoutubeReviewVO> list) {
+    public YoutubeReviewListAdapter(Context context, List<YoutubeReviewVO> list, RequestManager mGlideRequestManager) {
         this.context = context;
         this.list = list;
+        this.mGlide = mGlideRequestManager;
     }
 
     // ViewHolder 생성
@@ -55,8 +70,24 @@ public class YoutubeReviewListAdapter extends RecyclerView.Adapter<YoutubeReview
     public void onBindViewHolder(Holder holder, int position) {
         // 각 위치에 문자열 세팅
         int itemposition = position;
-        holder.review_id.setText(list.get(itemposition).getReview_id());
+        String image_url = list.get(itemposition).getThumbnail_url();
 
+        holder.title.setText(list.get(itemposition).getTitle());
+        mGlide.load(image_url)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        holder.progress_bar.setVisibility(View.GONE);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        holder.progress_bar.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
+                .into(holder.thumbnail_image);
     }
 
     // 몇개의 데이터를 리스트로 뿌려줘야하는지 반드시 정의해줘야한다
@@ -67,11 +98,15 @@ public class YoutubeReviewListAdapter extends RecyclerView.Adapter<YoutubeReview
 
     // ViewHolder는 하나의 View를 보존하는 역할을 한다
     public class Holder extends RecyclerView.ViewHolder{
-        public TextView review_id;
+        private AppCompatTextView title;
+        private AppCompatImageView thumbnail_image;
+        private ProgressBar progress_bar;
 
         public Holder(View view){
             super(view);
-            review_id = (TextView) view.findViewById(R.id.review_id);
+            title = (AppCompatTextView) view.findViewById(R.id.youtube_title);
+            thumbnail_image = (AppCompatImageView) view.findViewById(R.id.youtube_image);
+            progress_bar = (ProgressBar) view.findViewById(R.id.progress_bar);
         }
     }
 }
