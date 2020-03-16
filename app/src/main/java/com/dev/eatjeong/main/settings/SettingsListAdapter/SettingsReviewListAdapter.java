@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
@@ -62,19 +64,48 @@ public class SettingsReviewListAdapter extends RecyclerView.Adapter<SettingsRevi
 
         final int Position = position;
         holder.place_name.setText(review_list.get(itemposition).getPlace_name());
+        String rating_point = review_list.get(itemposition).getRating();
+        holder.avg_point.setText(review_list.get(itemposition).getRating_avg());
+        holder.write_date.setText(review_list.get(itemposition).getWrite_date());
+        holder.like_count.setText(review_list.get(itemposition).getLike_count());
 
 
-
-
-//        //중략 ...................
-//        holder.delete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(itemClick != null){
-//                    itemClick.onClick(v, Position);
-//                }
-//            }
-//        });
+        if(review_list.get(itemposition).getLike_flag().equals("true")){
+            holder.like_image_d.setImageResource(R.drawable.like_r_128);
+        }else {
+            holder.like_image_d.setImageResource(R.drawable.heart_d_128);
+        }
+        if(rating_point.equals("1")){
+            holder.star_y1.setImageResource(R.drawable.star_y2_128);
+            holder.star_y2.setImageResource(R.drawable.star_d_128);
+            holder.star_y3.setImageResource(R.drawable.star_d_128);
+            holder.star_y4.setImageResource(R.drawable.star_d_128);
+            holder.star_y5.setImageResource(R.drawable.star_d_128);
+        }else if(rating_point.equals("2")){
+            holder.star_y1.setImageResource(R.drawable.star_y2_128);
+            holder.star_y2.setImageResource(R.drawable.star_y2_128);
+            holder.star_y3.setImageResource(R.drawable.star_d_128);
+            holder.star_y4.setImageResource(R.drawable.star_d_128);
+            holder.star_y5.setImageResource(R.drawable.star_d_128);
+        }else if(rating_point.equals("3")){
+            holder.star_y1.setImageResource(R.drawable.star_y2_128);
+            holder.star_y2.setImageResource(R.drawable.star_y2_128);
+            holder.star_y3.setImageResource(R.drawable.star_y2_128);
+            holder.star_y4.setImageResource(R.drawable.star_d_128);
+            holder.star_y5.setImageResource(R.drawable.star_d_128);
+        }else if(rating_point.equals("4")){
+            holder.star_y1.setImageResource(R.drawable.star_y2_128);
+            holder.star_y2.setImageResource(R.drawable.star_y2_128);
+            holder.star_y3.setImageResource(R.drawable.star_y2_128);
+            holder.star_y4.setImageResource(R.drawable.star_y2_128);
+            holder.star_y5.setImageResource(R.drawable.star_d_128);
+        }else if(rating_point.equals("5")){
+            holder.star_y1.setImageResource(R.drawable.star_y2_128);
+            holder.star_y2.setImageResource(R.drawable.star_y2_128);
+            holder.star_y3.setImageResource(R.drawable.star_y2_128);
+            holder.star_y4.setImageResource(R.drawable.star_y2_128);
+            holder.star_y5.setImageResource(R.drawable.star_y2_128);
+        }
 
     }
 
@@ -87,10 +118,21 @@ public class SettingsReviewListAdapter extends RecyclerView.Adapter<SettingsRevi
     // ViewHolder는 하나의 View를 보존하는 역할을 한다
     public class Holder extends RecyclerView.ViewHolder{
         public TextView place_name;
+        AppCompatTextView avg_point,write_date,like_count;
+        public AppCompatImageView like_image_d,star_y1,star_y2,star_y3,star_y4,star_y5;
 
         public Holder(View view){
             super(view);
             place_name = (TextView) view.findViewById(R.id.place_name);
+            like_image_d = view.findViewById(R.id.like_image_d);
+            star_y1 = view.findViewById(R.id.star_y1);
+            star_y2 = view.findViewById(R.id.star_y2);
+            star_y3 = view.findViewById(R.id.star_y3);
+            star_y4 = view.findViewById(R.id.star_y4);
+            star_y5 = view.findViewById(R.id.star_y5);
+            avg_point = view.findViewById(R.id.avg_point);
+            write_date = view.findViewById(R.id.write_date);
+            like_count = view.findViewById(R.id.like_count);
         }
     }
 }
