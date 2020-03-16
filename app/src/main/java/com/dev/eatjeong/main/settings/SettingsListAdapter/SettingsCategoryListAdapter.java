@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,7 +74,7 @@ public class SettingsCategoryListAdapter extends RecyclerView.Adapter<SettingsCa
             holder.category_name.setBackground(ContextCompat.getDrawable(context,R.drawable.common_white_background));
         }
 
-        holder.category_name.setOnClickListener(new View.OnClickListener() {
+        holder.category_name_wrap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedPosition = position;
@@ -92,10 +93,12 @@ public class SettingsCategoryListAdapter extends RecyclerView.Adapter<SettingsCa
     public class Holder extends RecyclerView.ViewHolder{
         public AppCompatTextView category_name;
         public RecyclerView cv_item_movie_parent;
+        public ConstraintLayout category_name_wrap;
 
         public Holder(View view){
             super(view);
             category_name = view.findViewById(R.id.category_name);
+            category_name_wrap = view.findViewById(R.id.category_name_wrap);
         }
     }
 }
