@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -21,10 +22,12 @@ import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
 public class BookmarkTab extends Fragment implements  View.OnClickListener{
 
-    Button bookmark_place, bookmark_youtube, bookmark_naver, bookmark_tistory,bookmark_login;
+    Button bookmark_place, bookmark_youtube, bookmark_naver, bookmark_tistory;
 
     String user_id;
     String sns_division;
+
+    AppCompatTextView bookmark_login;
 
 
     @Nullable
@@ -52,7 +55,7 @@ public class BookmarkTab extends Fragment implements  View.OnClickListener{
         }else{
             v = inflater.inflate(R.layout.bookmark_logout_tab, container, false);
 
-            bookmark_login = (Button)v.findViewById(R.id.bookmark_login);
+            bookmark_login = v.findViewById(R.id.bookmark_login);
 
 
             bookmark_login.setOnClickListener(new View.OnClickListener() {
