@@ -11,10 +11,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,12 +65,19 @@ public class MyAppReviewListActivity extends AppCompatActivity{
 
     MyReviewListControll myReviewListControll = new MyReviewListControll();
 
+    AppCompatTextView review_count;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.settings_my_review_list);
 
+        View action_bar = findViewById(R.id.action_bar);
+        TextView back_text = (TextView) action_bar.findViewById(R.id.back_text);
+        TextView title_text = action_bar.findViewById(R.id.textview1);
 
+        back_text.setText("내정보");
+        title_text.setText("내 리뷰");
         Intent intent = getIntent();
         user_id = intent.getStringExtra("user_id");
         sns_division = intent.getStringExtra("sns_division");
@@ -76,6 +85,8 @@ public class MyAppReviewListActivity extends AppCompatActivity{
         progressBar = (ProgressBar)findViewById(R.id.progress);
 
         myReviewListControll.setRetrofitInit();
+
+        review_count = findViewById(R.id.review_count);
 
 
         ArrayList<Map<String,String>> mapList = new ArrayList<Map<String,String>>();
@@ -134,6 +145,8 @@ public class MyAppReviewListActivity extends AppCompatActivity{
             }
         });
 
+
+
         category_recycler_view.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
@@ -147,6 +160,7 @@ public class MyAppReviewListActivity extends AppCompatActivity{
                     if(position == 0){
                         item_count = myReviews.size();
                         setMyReviews.addAll(myReviews);
+
                     }else {
                         setMyReviews.clear();
                         for(int i = 0 ;i<myReviews.size();i++){
@@ -154,9 +168,12 @@ public class MyAppReviewListActivity extends AppCompatActivity{
                                 item_count++;
 
                                 setMyReviews.add(myReviews.get(i));
+
                             }
                         }
                     }
+
+                    review_count.setText(String.valueOf(item_count) + "개 리뷰");
 
                     review_recycler_view.setHasFixedSize(true);
                     review_adapter = new SettingsReviewListAdapter(getApplicationContext(), setMyReviews,code_list.get(position),item_count);
@@ -293,7 +310,7 @@ public class MyAppReviewListActivity extends AppCompatActivity{
                     myReviews.addAll(response.body().mDatalist);
                     setMyReviews.addAll(myReviews);
                     Log.e("ss",String.valueOf(myReviews.size()));
-
+                    review_count.setText(String.valueOf(myReviews.size()) + "개 리뷰");
                     review_recycler_view.setHasFixedSize(true);
                     review_adapter = new SettingsReviewListAdapter(getApplicationContext(), myReviews,"ALL",myReviews.size());
                     review_recycler_view.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

@@ -1,12 +1,18 @@
 package com.dev.eatjeong.main.settings.SettingsListAdapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
@@ -17,7 +23,9 @@ import java.util.Map;
 
 
 public class SettingsCategoryListAdapter extends RecyclerView.Adapter<SettingsCategoryListAdapter.Holder> {
+    private SparseBooleanArray mSelectedItems = new SparseBooleanArray(0);
 
+    private int selectedPosition = -1;
     //아이템 클릭시 실행 함수
     private ItemClick itemClick;
     public interface ItemClick {
@@ -60,17 +68,19 @@ public class SettingsCategoryListAdapter extends RecyclerView.Adapter<SettingsCa
 
         final int Position = position;
         holder.category_name.setText(name_list.get(itemposition));
+        if(selectedPosition == position){
+            holder.category_name.setBackground(ContextCompat.getDrawable(context,R.drawable.common_bottom_border));
+        }else {
+            holder.category_name.setBackground(ContextCompat.getDrawable(context,R.drawable.common_white_background));
+        }
 
-//        //중략 ...................
-//        holder.cv_item_movie_parent.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(itemClick != null){
-//                    itemClick.onClick(v, Position);
-//                }
-//            }
-//        });
-
+        holder.category_name_wrap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedPosition = position;
+                notifyDataSetChanged();
+            }
+        });
     }
 
     // 몇개의 데이터를 리스트로 뿌려줘야하는지 반드시 정의해줘야한다
@@ -81,12 +91,14 @@ public class SettingsCategoryListAdapter extends RecyclerView.Adapter<SettingsCa
 
     // ViewHolder는 하나의 View를 보존하는 역할을 한다
     public class Holder extends RecyclerView.ViewHolder{
-        public TextView category_name;
+        public AppCompatTextView category_name;
         public RecyclerView cv_item_movie_parent;
+        public ConstraintLayout category_name_wrap;
 
         public Holder(View view){
             super(view);
-            category_name = (TextView) view.findViewById(R.id.category_name);
+            category_name = view.findViewById(R.id.category_name);
+            category_name_wrap = view.findViewById(R.id.category_name_wrap);
         }
     }
 }

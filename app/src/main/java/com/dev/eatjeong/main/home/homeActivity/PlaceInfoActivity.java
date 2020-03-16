@@ -123,34 +123,34 @@ public class PlaceInfoActivity extends AppCompatActivity {
         //레트로핏 초기화 후 호출작업 진행.
         callPlaceInfoResponse();
 
-//        MapView mapView = new MapView(this);
-//
-//        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-//        mapViewContainer.addView(mapView);
-//
-//
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
-//
-//// 줌 레벨 변경
-//        mapView.setZoomLevel(3, true);
-//
-//// 중심점 변경 + 줌 레벨 변경
-//        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 3, true);
-//
-//// 줌 인
-//        mapView.zoomIn(true);
-//
-//// 줌 아웃
-//        mapView.zoomOut(true);
-//
-//        MapPOIItem marker = new MapPOIItem();
-//        marker.setItemName("Default Marker");
-//        marker.setTag(0);
-//        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
-//        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
-//        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-//
-//        mapView.addPOIItem(marker);
+        MapView mapView = new MapView(this);
+
+        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
+
+
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+
+// 줌 레벨 변경
+        mapView.setZoomLevel(3, true);
+
+// 중심점 변경 + 줌 레벨 변경
+        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 3, true);
+
+// 줌 인
+        mapView.zoomIn(true);
+
+// 줌 아웃
+        mapView.zoomOut(true);
+
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName("Default Marker");
+        marker.setTag(0);
+        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
+        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+
+        mapView.addPOIItem(marker);
 
     }
 
