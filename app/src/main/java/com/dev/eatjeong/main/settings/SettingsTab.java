@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
 import com.dev.eatjeong.R;
@@ -32,8 +34,6 @@ public class SettingsTab extends Fragment {
 
     String user_id;
     String sns_division;
-    Button settings_logout;
-    Button settings_login;
 
     private Retrofit mRetrofit;
 
@@ -41,13 +41,12 @@ public class SettingsTab extends Fragment {
 
     private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
-    TextView nick_name;
-
     private PopularFragment popularFragment = new PopularFragment();
     private LatelyFragment latelyFragment = new LatelyFragment();
 
-    private Button my_info,my_black_list,my_review;
 
+    AppCompatTextView login_btn,settings_logout,my_info,nick_name;
+    AppCompatImageView my_review_image,black_list_image,one_one_question_image;
 
     @Nullable
     @Override
@@ -64,10 +63,10 @@ public class SettingsTab extends Fragment {
 
             settings_logout = v.findViewById(R.id.settings_logout);
 
-            nick_name = (TextView)v.findViewById(R.id.nick_name) ;
-            my_info = (Button)v.findViewById(R.id.my_info);
-            my_black_list = (Button)v.findViewById(R.id.my_black_list);
-            my_review = (Button)v.findViewById(R.id.my_review);
+            nick_name = v.findViewById(R.id.nick_name) ;
+            my_info = v.findViewById(R.id.my_info);
+            black_list_image = v.findViewById(R.id.black_list_image);
+            my_review_image = v.findViewById(R.id.my_review_image);
 
             //로그인 됬을 경우만 회원 정보 가지고옴
             setRetrofitInit();
@@ -93,7 +92,7 @@ public class SettingsTab extends Fragment {
                 }
             });
 
-            my_black_list.setOnClickListener(new View.OnClickListener() {
+            black_list_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent blackList = new Intent(getContext(), BlackListActivity.class);
@@ -104,8 +103,8 @@ public class SettingsTab extends Fragment {
                     getActivity().overridePendingTransition(R.anim.fadein,0);
                 }
             });
-
-            my_review.setOnClickListener(new View.OnClickListener() {
+//
+            my_review_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent myAppList = new Intent(getContext(), MyAppReviewListActivity.class);
@@ -119,9 +118,9 @@ public class SettingsTab extends Fragment {
         }else {
             v = inflater.inflate(R.layout.settings_logout_tab, container, false);
 
-            settings_login = v.findViewById(R.id.settings_login);
+            login_btn = v.findViewById(R.id.login_btn);
 
-            settings_login.setOnClickListener(new View.OnClickListener() {
+            login_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((MainWrapActivity)getActivity()).backLoginPage();
