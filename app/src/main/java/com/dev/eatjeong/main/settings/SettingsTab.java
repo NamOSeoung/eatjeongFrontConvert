@@ -20,6 +20,7 @@ import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
 import com.dev.eatjeong.main.settings.settingsActivity.BlackListActivity;
+import com.dev.eatjeong.main.settings.settingsActivity.FAQActivity;
 import com.dev.eatjeong.main.settings.settingsActivity.MyAppReviewListActivity;
 import com.dev.eatjeong.main.settings.settingsActivity.NoticeActivity;
 import com.dev.eatjeong.main.settings.settingsActivity.TermsActivity;
@@ -47,7 +48,7 @@ public class SettingsTab extends Fragment {
     private LatelyFragment latelyFragment = new LatelyFragment();
 
 
-    AppCompatTextView login_btn,settings_logout,my_info,nick_name,notice,terms;
+    AppCompatTextView login_btn,settings_logout,my_info,nick_name,notice,terms,faq;
     AppCompatImageView my_review_image,black_list_image,one_one_question_image;
 
     @Nullable
@@ -71,6 +72,7 @@ public class SettingsTab extends Fragment {
             my_review_image = v.findViewById(R.id.my_review_image);
             notice = v.findViewById(R.id.notice);
             terms = v.findViewById(R.id.terms);
+            faq = v.findViewById(R.id.faq);
 
             //로그인 됬을 경우만 회원 정보 가지고옴
             setRetrofitInit();
@@ -136,6 +138,16 @@ public class SettingsTab extends Fragment {
                     Intent goTerms = new Intent(getContext(), TermsActivity.class);
 
                     startActivityForResult(goTerms,0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.slide_out_right,R.anim.stay);
+                }
+            });
+
+            faq.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent goFaq = new Intent(getContext(), FAQActivity.class);
+
+                    startActivityForResult(goFaq,0);//액티비티 띄우기
                     getActivity().overridePendingTransition(R.anim.slide_out_right,R.anim.stay);
                 }
             });

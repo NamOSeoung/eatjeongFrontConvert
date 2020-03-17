@@ -2,6 +2,7 @@ package com.dev.eatjeong.main.settings;
 
 import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsBlackListResponseVO;
+import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsFaqListResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewDetailListResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewListResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsNoticeListResponseVO;
@@ -102,6 +103,10 @@ public interface SettingsRetrofitAPI {
     //약관 디테일 검색
     @GET("/v1/users/terms/{terms_code}")
     Call<SettingsTermsDetailListResponseVO> getTermsDetail(@Path("terms_code")String terms_code);
+
+    //FAQ 정보 검색
+    @GET("/v1/users/faqs")
+    Call<SettingsFaqListResponseVO> getFaqs();
 
 
 }

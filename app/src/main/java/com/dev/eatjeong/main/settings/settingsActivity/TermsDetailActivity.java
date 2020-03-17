@@ -83,8 +83,7 @@ public class TermsDetailActivity extends AppCompatActivity {
             header_text.setText("개인정보 처리방침");
         }
 
-        back_text.setText("약관 및 정책");
-//        tv.setText(Html.fromHtml(service_terms));
+        back_text.setText("뒤로");
 
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override

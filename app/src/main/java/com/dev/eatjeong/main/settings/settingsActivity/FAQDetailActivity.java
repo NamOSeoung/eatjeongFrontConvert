@@ -16,7 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.dev.eatjeong.R;
 
-public class NoticeDetailActivity extends AppCompatActivity {
+public class FAQDetailActivity extends AppCompatActivity {
 
     private AppCompatTextView tv;
     private TextView title_text,back_text;

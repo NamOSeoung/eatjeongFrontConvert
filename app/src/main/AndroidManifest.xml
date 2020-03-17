@@ -197,6 +197,14 @@
             android:name=".main.settings.settingsActivity.TermsDetailActivity"
             android:windowSoftInputMode="adjustNothing"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.FAQActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.FAQDetailActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 
