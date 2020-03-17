@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.common.CommonMapResponseVO;
@@ -35,7 +36,7 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
 
     private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
-    TextView nick_name,email,phone_number,password,account_close;
+    AppCompatTextView nick_name,email,phone_number,password,account_out;
 
     private PopularFragment popularFragment = new PopularFragment();
     private LatelyFragment latelyFragment = new LatelyFragment();
@@ -49,11 +50,19 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
 
         setContentView(R.layout.user_info_management);
 
-        nick_name = (TextView)findViewById(R.id.nick_name);
-        email = (TextView)findViewById(R.id.email);
-        phone_number = (TextView)findViewById(R.id.phone_number);
-        password = (TextView)findViewById(R.id.password);
-        account_close = (TextView)findViewById(R.id.account_close);
+        nick_name = findViewById(R.id.nick_name);
+        email = findViewById(R.id.email);
+        phone_number = findViewById(R.id.phone_number);
+        password = findViewById(R.id.password);
+        account_out = findViewById(R.id.account_out);
+
+        View action_bar = findViewById(R.id.action_bar);
+
+        TextView back_text = action_bar.findViewById(R.id.back_text);
+        TextView textview1 = action_bar.findViewById(R.id.textview1);
+
+        back_text.setText("내정보");
+        textview1.setText("내 정보 관리");
 
 
         Intent intent = getIntent();
@@ -67,7 +76,7 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
         nick_name.setOnClickListener(this);
         phone_number.setOnClickListener(this);
         password.setOnClickListener(this);
-        account_close.setOnClickListener(this);
+        account_out.setOnClickListener(this);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -190,7 +199,7 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
                 startActivityForResult(passwordChange,0);//액티비티 띄우기
                 UserInfoManagementActivity.this.overridePendingTransition(R.anim.fadein,0);
                 break;
-            case R.id.account_close:
+            case R.id.account_out:
                 Intent accountClose = new Intent(UserInfoManagementActivity.this, AccountCloseActivity.class);
                 accountClose.putExtra("user_id",user_id);
                 startActivityForResult(accountClose,0);//액티비티 띄우기
