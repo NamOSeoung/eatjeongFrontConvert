@@ -49,7 +49,7 @@ public class PhoneAuthentication extends Fragment implements View.OnClickListene
 
     EditText editTextPhone, editTextCode;
     Button getVerification, signIn,signOut, resend_button;
-        boolean timeout_check = false;
+    boolean timeout_check = false;
 
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
