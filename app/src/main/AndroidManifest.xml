@@ -181,6 +181,10 @@
             android:name=".main.settings.settingsActivity.ReviewUpdateActivity"
             android:windowSoftInputMode="adjustNothing"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.NoticeActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 

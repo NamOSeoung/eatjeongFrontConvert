@@ -4,6 +4,7 @@ import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsBlackListResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewDetailListResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewListResponseVO;
+import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsNoticeListResponseVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,5 +89,8 @@ public interface SettingsRetrofitAPI {
     @PUT("/v1/places/{place_id}/reviews/{review_id}")
     Call<Map<String,String>> updateReview(@Path("place_id")String place_id, @Path("review_id")String review_id, @Query("review_user_id") String review_user_id, @Query("sns_division") String sns_division, @Query("rating_point")String rating_point, @Query("review_contents")String review_contents, @Query("image_url") ArrayList<String> image_url);
 
+    //공지사항 정보 검색
+    @GET("/v1/users/notice")
+    Call<SettingsNoticeListResponseVO> getNotice();
 
 }

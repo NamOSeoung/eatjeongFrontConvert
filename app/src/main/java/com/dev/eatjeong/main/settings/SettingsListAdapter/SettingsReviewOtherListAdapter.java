@@ -90,7 +90,7 @@ public class SettingsReviewOtherListAdapter extends RecyclerView.Adapter<Setting
 
         public Holder(View view){
             super(view);
-            review_user_id = (TextView) view.findViewById(R.id.review_user_id);
+//            review_user_id = (TextView) view.findViewById(R.id.review_user_id);
             review_delete = view.findViewById(R.id.review_delete);
         }
     }

@@ -3,6 +3,7 @@ package com.dev.eatjeong.main.settings.SettingsListAdapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewDetailListResponseVO;
 
@@ -25,10 +33,10 @@ import java.util.List;
 
 
 public class SettingsReviewMyListAdapter extends RecyclerView.Adapter<SettingsReviewMyListAdapter.Holder> {
-    public Button review_delete, like_delete, like_add;
-    public TextView review_user_id, review_user_nickname, review_contents, rating_point, like_count, like_flag, image_url,review_update;
+    public AppCompatTextView write_date,review_user_id, review_user_nickname, review_contents, rating_point, like_count, like_flag, image_url,review_update, review_delete, like_delete, like_add;
     //아이템 클릭시 실행 함수
     private ItemClick itemClick;
+    private RequestManager requestManager;
 
     public interface ItemClick {
         public void onClick(View view, int position);
@@ -40,19 +48,19 @@ public class SettingsReviewMyListAdapter extends RecyclerView.Adapter<SettingsRe
     }
 
     public void responseItemStatus(int controll_flag, int view_id) {
-
-        //컨트롤러 부분에서 통신 성공하고 callback 호출하는 부분임.
-        if (controll_flag == 0) {
-            like_add.setVisibility(View.GONE);
-            like_delete.setVisibility(View.VISIBLE);
-            like_count.setText(String.valueOf(Integer.parseInt(like_count.getText().toString())+1));
-            like_flag.setText("true");
-        } else if (controll_flag == 1) {
-            like_add.setVisibility(View.VISIBLE);
-            like_delete.setVisibility(View.GONE);
-            like_count.setText(String.valueOf(Integer.parseInt(like_count.getText().toString())-1));
-            like_flag.setText("false");
-        }
+//
+//        //컨트롤러 부분에서 통신 성공하고 callback 호출하는 부분임.
+//        if (controll_flag == 0) {
+//            like_add.setVisibility(View.GONE);
+//            like_delete.setVisibility(View.VISIBLE);
+//            like_count.setText(String.valueOf(Integer.parseInt(like_count.getText().toString())+1));
+//            like_flag.setText("true");
+//        } else if (controll_flag == 1) {
+//            like_add.setVisibility(View.VISIBLE);
+//            like_delete.setVisibility(View.GONE);
+//            like_count.setText(String.valueOf(Integer.parseInt(like_count.getText().toString())-1));
+//            like_flag.setText("false");
+//        }
     }
 
     private Context context;
@@ -70,6 +78,8 @@ public class SettingsReviewMyListAdapter extends RecyclerView.Adapter<SettingsRe
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.settings_review_list_detail_item, parent, false);
         Holder holder = new Holder(view);
+
+        requestManager = Glide.with(context);
         return holder;
     }
 
@@ -84,41 +94,50 @@ public class SettingsReviewMyListAdapter extends RecyclerView.Adapter<SettingsRe
         Handler handler = new Handler();  // 외부쓰레드 에서 메인 UI화면을 그릴때 사용
 
         final int Position = position;
-        review_user_id.setText(review_list.get(itemposition).getReview_user_id());
-        review_user_nickname.setText(review_list.get(itemposition).getReview_user_nickname());
+//        review_user_id.setText(review_list.get(itemposition).getReview_user_id());
+//        review_user_nickname.setText(review_list.get(itemposition).getReview_user_nickname());
         review_contents.setText(review_list.get(itemposition).getReview_contents());
-        rating_point.setText(review_list.get(itemposition).getRating_point());
-        like_flag.setText(review_list.get(itemposition).getLike_flag());
+//        rating_point.setText(review_list.get(itemposition).getRating_point());
+//        like_flag.setText(review_list.get(itemposition).getLike_flag());
         like_count.setText(review_list.get(itemposition).getLike_count());
-        image_url.setText(review_list.get(itemposition).getImage_url().get(0));
+        write_date.setText(review_list.get(itemposition).getWrite_date());
+
+        requestManager.load(review_list.get(itemposition).getImage_url().get(0))
+//                .apply(new RequestOptions()
+//                        .transform(new RoundedCorners(30))
+//                )
+                .transform(new CenterCrop(),new RoundedCorners(30))
+                .placeholder(R.drawable.dinner_w_64)
+                .into(holder.review_image1);
+//        image_url.setText(review_list.get(itemposition).getImage_url().get(0));
 
 
-        if (review_list.get(itemposition).getLike_flag().equals("true")) {
-            like_add.setVisibility(View.GONE);
-            like_delete.setVisibility(View.VISIBLE);
-        } else {
-            like_add.setVisibility(View.VISIBLE);
-            like_delete.setVisibility(View.GONE);
-        }
-
-        //좋아요 추가
-        like_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (itemClick != null) {
-                    itemClick.onClick(v, Position);
-                }
-            }
-        });
-        //좋아요 삭제
-        like_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (itemClick != null) {
-                    itemClick.onClick(v, Position);
-                }
-            }
-        });
+//        if (review_list.get(itemposition).getLike_flag().equals("true")) {
+//            like_add.setVisibility(View.GONE);
+//            like_delete.setVisibility(View.VISIBLE);
+//        } else {
+//            like_add.setVisibility(View.VISIBLE);
+//            like_delete.setVisibility(View.GONE);
+//        }
+//
+//        //좋아요 추가
+//        like_add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (itemClick != null) {
+//                    itemClick.onClick(v, Position);
+//                }
+//            }
+//        });
+//        //좋아요 삭제
+//        like_delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (itemClick != null) {
+//                    itemClick.onClick(v, Position);
+//                }
+//            }
+//        });
         //리뷰 삭제
         review_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,27 +170,32 @@ public class SettingsReviewMyListAdapter extends RecyclerView.Adapter<SettingsRe
     public class Holder extends RecyclerView.ViewHolder {
 
 
-        public ImageView review_image1, review_image2, review_image3, review_image4;
+        public AppCompatImageView review_image1, review_image2, review_image3, review_image4;
 
 
         public Holder(View view) {
             super(view);
-            review_user_id = (TextView) view.findViewById(R.id.review_user_id);
-            review_user_nickname = (TextView) view.findViewById(R.id.review_user_nickname);
-            review_contents = (TextView) view.findViewById(R.id.review_contents);
-            rating_point = (TextView) view.findViewById(R.id.rating_point);
-            like_flag = (TextView) view.findViewById(R.id.like_flag);
-            like_count = (TextView) view.findViewById(R.id.like_count);
-            image_url = (TextView) view.findViewById(R.id.image_url);
+
             review_image1 = view.findViewById(R.id.review_image1);
             review_image2 = view.findViewById(R.id.review_image2);
             review_image3 = view.findViewById(R.id.review_image3);
             review_image4 = view.findViewById(R.id.review_image4);
 
+
+//            review_user_id =  view.findViewById(R.id.review_user_id);
+//            review_user_nickname =  view.findViewById(R.id.review_user_nickname);
+            review_contents =  view.findViewById(R.id.review_contents);
+//            rating_point =  view.findViewById(R.id.rating_point);
+//            like_flag =  view.findViewById(R.id.like_flag);
+            like_count = view.findViewById(R.id.like_count);
+//            image_url =  view.findViewById(R.id.image_url);
+
+
             review_delete = view.findViewById(R.id.review_delete);
-            like_add = view.findViewById(R.id.like_add);
-            like_delete = view.findViewById(R.id.like_delete);
+//            like_add = view.findViewById(R.id.like_add);
+//            like_delete = view.findViewById(R.id.like_delete);
             review_update = view.findViewById(R.id.review_update);
+            write_date = view.findViewById(R.id.write_date);
         }
     }
 }
