@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.common.CommonMapResponseVO;
@@ -42,7 +43,7 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
     private LatelyFragment latelyFragment = new LatelyFragment();
 
     private Button my_info;
-
+    private ConstraintLayout back_button;
     // FrameLayout에 각 메뉴의 Fragment를 바꿔 줌
 
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
 
         TextView back_text = action_bar.findViewById(R.id.back_text);
         TextView textview1 = action_bar.findViewById(R.id.textview1);
-
+         back_button = action_bar.findViewById(R.id.back_button);
         back_text.setText("내정보");
         textview1.setText("내 정보 관리");
 
@@ -77,6 +78,12 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
         phone_number.setOnClickListener(this);
         password.setOnClickListener(this);
         account_out.setOnClickListener(this);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -180,7 +187,7 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
                 nickNameChange.putExtra("nick_name",nick_name.getText().toString());
 
                 startActivityForResult(nickNameChange,0);//액티비티 띄우기
-                UserInfoManagementActivity.this.overridePendingTransition(R.anim.fadein,0);
+                UserInfoManagementActivity.this.overridePendingTransition(R.anim.slide_out_right,R.anim.stay);
                 break;
             case R.id.phone_number:
                 Intent phoneNumberChange = new Intent(UserInfoManagementActivity.this, PhoneNumberChangeActivity.class);
@@ -189,7 +196,7 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
                 phoneNumberChange.putExtra("phone_number",phone_number.getText().toString());
 
                 startActivityForResult(phoneNumberChange,0);//액티비티 띄우기
-                UserInfoManagementActivity.this.overridePendingTransition(R.anim.fadein,0);
+                UserInfoManagementActivity.this.overridePendingTransition(R.anim.slide_out_right,R.anim.stay);
                 break;
             case R.id.password:
                 Intent passwordChange = new Intent(UserInfoManagementActivity.this, PasswordChangeActivity.class);
@@ -197,13 +204,13 @@ public class UserInfoManagementActivity extends AppCompatActivity implements Vie
                 passwordChange.putExtra("sns_division",sns_division);
 
                 startActivityForResult(passwordChange,0);//액티비티 띄우기
-                UserInfoManagementActivity.this.overridePendingTransition(R.anim.fadein,0);
+                UserInfoManagementActivity.this.overridePendingTransition(R.anim.slide_out_right,R.anim.stay);
                 break;
             case R.id.account_out:
                 Intent accountClose = new Intent(UserInfoManagementActivity.this, AccountCloseActivity.class);
                 accountClose.putExtra("user_id",user_id);
                 startActivityForResult(accountClose,0);//액티비티 띄우기
-                UserInfoManagementActivity.this.overridePendingTransition(R.anim.fadein,0);
+                UserInfoManagementActivity.this.overridePendingTransition(R.anim.slide_out_right,R.anim.stay);
                 break;
 
         }
