@@ -205,6 +205,9 @@
             android:name=".main.settings.settingsActivity.FAQDetailActivity"
             android:windowSoftInputMode="adjustNothing"
             android:theme="@style/AppTheme.NoActionBar" />
+        <!-- 팝업 Activity -->
+        <activity android:name=".main.settings.settingsActivity.AccountClosePopupActivity" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+
 
     </application>
 

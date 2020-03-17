@@ -1,33 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical" android:layout_width="match_parent"
-android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:layout_marginTop="24dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="비밀번호"
-            android:textSize="20dp"
-            android:layout_weight="1"
-            android:textAlignment="center"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineActionbarBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="@dimen/actionbar_guideline_percent" />
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/custom_actionbar_blacklist" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.075" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.925" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/contents_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.125" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/contents_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.325" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/button_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/button_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.525" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contents_wrap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#eff2f7"
+        android:padding="20dp"
+        app:layout_constraintTop_toTopOf="@+id/contents_top"
+        app:layout_constraintBottom_toBottomOf="@+id/contents_bottom"
+        app:layout_constraintStart_toEndOf="@+id/left_line"
+        app:layout_constraintEnd_toStartOf="@+id/right_line"
+        >
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/contents1"
+            android:fontFamily="@font/nanumsquareroundr"
+            android:textSize="16dp"
+            android:text="탈퇴 전 꼭 확인해 주세요!"
+            android:layout_width="0dp"
+            android:textColor="#444444"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/contents2"
+        />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/contents2"
+            android:fontFamily="@font/nanumsquareroundr"
+            android:textSize="14dp"
+            android:text="- 리뷰와 북마크 기록이 모두 삭제됩니다."
+            android:textColor="#444444"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/contents1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/contents3"
             />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="30dp"
-            android:layout_weight="1"
-            android:id="@+id/password"
-            android:textAlignment="center"/>
-    </LinearLayout>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/confirm"
-        android:text="탈퇴하기"
-        android:textSize="30dp"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/contents3"
+            android:fontFamily="@font/nanumsquareroundr"
+            android:textColor="#444444"
+            android:textSize="14dp"
+            android:text="- 재가입 하셔도 데이터는 복구할 수 없습니다."
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/contents2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/contents_wrap"
+        app:layout_constraintBottom_toTopOf="@+id/buttom_wrap"
+        app:layout_constraintStart_toStartOf="@+id/left_line"
+        app:layout_constraintEnd_toStartOf="@+id/right_line"
+        >
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/password_text"
+            android:text="비밀번호"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/nanumsquareroundr"
+            android:textSize="12dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/password"
+            />
+        <com.dev.eatjeong.layout.ClearEditText
+            android:id="@+id/password"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:fontFamily="@font/nanumsquareroundr"
+            android:textSize="14dp"
+            android:textColor="#888888"
+            android:imeOptions="actionDone"
+            android:layout_marginTop="10dp"
+            android:inputType="textNoSuggestions|textPassword"
+            android:background="@drawable/notice_bottom_border"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password_text"
+            app:layout_constraintBottom_toTopOf="@+id/password_message"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/password_message"
+            android:text="비밀번호가 올바르지 않습니다."
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:textColor="#db522b"
+            android:fontFamily="@font/nanumsquareroundr"
+            android:textSize="12dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttom_wrap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/button_top"
+        app:layout_constraintStart_toEndOf="@id/left_line"
+        app:layout_constraintEnd_toStartOf="@+id/right_line"
+        app:layout_constraintBottom_toBottomOf="@+id/button_bottom"
+        >
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/buttom_line_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/buttom_line_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="취소"
+            android:textSize="15dp"
+            android:textColor="#444444"
+            android:layout_marginRight="15dp"
+            android:fontFamily="@font/nanumsquareroundr"
+            android:background="@drawable/signup_next_button_false"
+            app:layout_constraintStart_toEndOf="@+id/buttom_line_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/confirm"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="탈퇴"
+            android:textSize="15dp"
+            android:textColor="#444444"
+            android:layout_marginLeft="15dp"
+            android:fontFamily="@font/nanumsquareroundr"
+            android:background="@drawable/signup_next_button_true"
+            app:layout_constraintStart_toEndOf="@+id/cancel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttom_line_right"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:orientation="horizontal">-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:text="비밀번호"-->
+<!--            android:textSize="20dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:textAlignment="center"-->
+<!--            />-->
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:textSize="30dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:id="@+id/password"-->
+<!--            android:textAlignment="center"/>-->
+<!--    </LinearLayout>-->
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:id="@+id/confirm"-->
+<!--        android:text="탈퇴하기"-->
+<!--        android:textSize="30dp"/>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
