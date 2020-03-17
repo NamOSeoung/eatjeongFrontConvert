@@ -189,6 +189,14 @@
             android:name=".main.settings.settingsActivity.NoticeDetailActivity"
             android:windowSoftInputMode="adjustNothing"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.TermsActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.TermsDetailActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 

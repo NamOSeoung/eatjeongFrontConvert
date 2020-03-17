@@ -404,6 +404,7 @@
 
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/terms"
         android:text="약관 및 정책"
         android:layout_width="0dp"
         android:layout_height="0dp"

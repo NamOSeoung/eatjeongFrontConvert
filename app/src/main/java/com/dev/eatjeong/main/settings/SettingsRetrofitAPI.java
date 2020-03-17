@@ -5,6 +5,8 @@ import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsBlackListRespon
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewDetailListResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewListResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsNoticeListResponseVO;
+import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsTermsDetailListResponseVO;
+import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsTermsListResponseVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,5 +94,14 @@ public interface SettingsRetrofitAPI {
     //공지사항 정보 검색
     @GET("/v1/users/notice")
     Call<SettingsNoticeListResponseVO> getNotice();
+
+    //약관 정보 검색
+    @GET("/v1/users/terms")
+    Call<SettingsTermsListResponseVO> getTerms();
+
+    //약관 디테일 검색
+    @GET("/v1/users/terms/{terms_code}")
+    Call<SettingsTermsDetailListResponseVO> getTermsDetail(@Path("terms_code")String terms_code);
+
 
 }
