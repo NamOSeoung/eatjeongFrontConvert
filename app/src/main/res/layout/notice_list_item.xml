@@ -19,21 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffffff">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/popular_index_left"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.75" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/popular_index_left_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.825" />
+            android:background="@drawable/notice_bottom_border">
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -44,11 +30,36 @@
                 android:gravity="center_vertical"
                 android:textColor="#333333"
                 android:textSize="12dp"
-                android:text="ww"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/popular_index_left"
+                app:layout_constraintEnd_toStartOf="@+id/write_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/write_date"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:gravity="center_vertical"
+                android:textColor="#333333"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/right_image"
+                app:layout_constraintStart_toEndOf="@+id/notice_subject"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/right_image"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/angle_right"
+                app:layout_constraintStart_toEndOf="@+id/write_date"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

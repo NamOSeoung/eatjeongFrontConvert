@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,13 +15,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.login.LoginActivity;
+import com.dev.eatjeong.main.home.homeReviewWebview.HomeReviewWebviewActivity;
 import com.dev.eatjeong.main.settings.SettingsListAdapter.SettingsListAdapter;
 import com.dev.eatjeong.main.settings.SettingsListAdapter.SettingsNoticeListAdapter;
 import com.dev.eatjeong.main.settings.SettingsListAdapter.SettingsReviewMyListAdapter;
@@ -27,6 +32,9 @@ import com.dev.eatjeong.main.settings.SettingsListAdapter.SettingsReviewOtherLis
 import com.dev.eatjeong.main.settings.SettingsRetrofitAPI;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewDetailListResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsNoticeListResponseVO;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,12 +49,14 @@ public class NoticeActivity extends AppCompatActivity {
     RecyclerView listView;
     MyReviewListControll myReviewListControll = new MyReviewListControll();
     ProgressBar progress;
+    private ConstraintLayout back_button;
+    ArrayList<SettingsNoticeListResponseVO.DataList> notice_list = new ArrayList<>();
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.notice);
         View action_bar = findViewById(R.id.action_bar);
-
+        back_button = (ConstraintLayout)action_bar.findViewById(R.id.back_button);
         TextView back_text = action_bar.findViewById(R.id.back_text);
         TextView textview1 = action_bar.findViewById(R.id.textview1);
         back_text.setText("내정보");
@@ -55,6 +65,57 @@ public class NoticeActivity extends AppCompatActivity {
         listView = findViewById(R.id.recycler_view);
         progress = findViewById(R.id.progress);
         myReviewListControll.setRetrofitInit();
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        //터치를 하고 손을 뗴는 순간 적용되는 이벤트 적용위한 추가.
+        final GestureDetector gestureDetector = new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
+        {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e)
+            {
+                return true;
+            }
+        });
+
+        listView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+                View child = listView.findChildViewUnder(e.getX(), e.getY());
+                int position = listView.getChildAdapterPosition(child);
+                if(child!=null&&gestureDetector.onTouchEvent(e))
+                {
+//                    Toast.makeText(getApplicationContext(),notice_list.get(position).getSubject(),Toast.LENGTH_SHORT).show();
+                    Intent noticeDetail = new Intent(getApplicationContext(), NoticeDetailActivity.class);
+                    noticeDetail.putExtra("contents",notice_list.get(position).getItems().get(0).get("contents"));
+                    startActivityForResult(noticeDetail,0);//액티비티 띄우기
+                    overridePendingTransition(R.anim.slide_out_right,R.anim.stay);
+//                    Intent goWebview = new Intent(getApplicationContext(), HomeReviewWebviewActivity.class);
+//                    goWebview.putExtra("url",arrayList.get(position).getUrl());
+//                    startActivityForResult(goWebview,0);//액티비티 띄우기
+//                    getActivity().overridePendingTransition(R.anim.sliding_up,R.anim.stay);
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
     }
     @Override
@@ -127,6 +188,7 @@ public class NoticeActivity extends AppCompatActivity {
                 Log.e("message : ", response.body().getMessage());
 
                 if (response.body().getCode().equals("200")) {
+                    notice_list.addAll(response.body().mDatalist);
                     adapter = new SettingsNoticeListAdapter(getApplicationContext(),response.body().mDatalist);
                     listView.setHasFixedSize(true);
                     listView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -146,4 +208,11 @@ public class NoticeActivity extends AppCompatActivity {
             }
         };
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.stay, R.anim.slide_in_left);
+    }
+
 }

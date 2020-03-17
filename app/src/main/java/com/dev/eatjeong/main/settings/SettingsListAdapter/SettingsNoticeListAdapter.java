@@ -73,8 +73,7 @@ public class SettingsNoticeListAdapter extends RecyclerView.Adapter<SettingsNoti
 
         final int Position = position;
         holder.notice_subject.setText(list.get(itemposition).getSubject());
-//
-
+        holder.write_date.setText(list.get(itemposition).getAdd_date());
     }
 
     // 몇개의 데이터를 리스트로 뿌려줘야하는지 반드시 정의해줘야한다
@@ -87,13 +86,14 @@ public class SettingsNoticeListAdapter extends RecyclerView.Adapter<SettingsNoti
     public class Holder extends RecyclerView.ViewHolder {
 
 
-        public AppCompatTextView notice_subject;
+        public AppCompatTextView notice_subject,write_date;
 
 
         public Holder(View view) {
             super(view);
 
             notice_subject = view.findViewById(R.id.notice_subject);
+            write_date = view.findViewById(R.id.write_date);
         }
     }
 }
