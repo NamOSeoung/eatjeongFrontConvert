@@ -1,17 +1,25 @@
 package com.dev.eatjeong.main.settings.settingsActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.common.CommonMapResponseVO;
+import com.dev.eatjeong.layout.ClearEditText;
 import com.dev.eatjeong.main.settings.SettingsRetrofitAPI;
 
 import retrofit2.Call;
@@ -29,31 +37,138 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
     private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
 
-    EditText password;
     Button confirm;
+    ClearEditText password,password_check;
+    private ConstraintLayout back_button,exit_button;
 
+    AppCompatTextView password_message,password_check_message;
+
+    boolean password_flag = false;
+    boolean password_check_flag = false;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.password_change);
 
+        View action_bar = findViewById(R.id.action_bar);
+        back_button = (ConstraintLayout)action_bar.findViewById(R.id.back_button);
+        TextView back_text = action_bar.findViewById(R.id.back_text);
+        TextView textview1 = action_bar.findViewById(R.id.textview1);
+        exit_button = action_bar.findViewById(R.id.exit_button);
+        back_text.setText("뒤로가기");
+        textview1.setText("비밀번호 변경");
+        exit_button.setVisibility(View.INVISIBLE);
+
         Intent intent = getIntent();
 
-        password = (EditText)findViewById(R.id.password);
+        password = findViewById(R.id.password);
+        password_message = findViewById(R.id.password_message);
+        password_check_message = findViewById(R.id.password_check_message);
+        password_check = findViewById(R.id.password_check);
         confirm = (Button)findViewById(R.id.confirm);
 
         user_id = intent.getStringExtra("user_id");
         sns_division = intent.getStringExtra("sns_division");
-        password.setText(intent.getStringExtra("phone_number"));
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setRetrofitInit();
 
-                callPlaceInfoResponse();
+                if(password_flag&&password_check_flag){
+                    setRetrofitInit();
+                }
+
             }
         });
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String password_edit = password.getText().toString();
+                String password_check_edit = password_check.getText().toString();;
+
+                password_flag = false;
+                password_check.setText("");
+
+                if(password_edit.length()>=8){
+                    if(getPasswordCheck()){ //비밀번호 체크 통과 시 숨김
+                        password_message.setVisibility(View.INVISIBLE);
+                        password_flag = true;
+                        if(password_check_flag){
+                            confirm.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.signup_next_button_true));
+                        }
+                    }else{ //비밀번호 체크 미 통과시 문구 출력
+                        password_message.setTextColor(Color.parseColor("#DB522B"));
+                        password_message.setText("8~15자 이내로 영문,숫자,특수문자 중 2가지 이상 조합으로 입력해주세요.");
+                        password_message.setVisibility(View.VISIBLE);
+                        password_flag = false;
+                        confirm.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.signup_next_button_false));
+                    }
+                }else if(password.length() == 0){
+                    password_message.setTextColor(Color.parseColor("#888888"));
+                    password_message.setText("8~15자 이내로 영문,숫자,특수문자 중 2가지 이상 조합으로 입력해주세요.");
+                    password_message.setVisibility(View.VISIBLE);
+                    password_flag = false;
+                    confirm.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.signup_next_button_false));
+                }else if(password_edit.length()>0&&password_edit.length()<8){
+                    password_message.setTextColor(Color.parseColor("#DB522B"));
+                    password_message.setText("8~15자 이내로 영문,숫자,특수문자 중 2가지 이상 조합으로 입력해주세요.");
+                    password_message.setVisibility(View.VISIBLE);
+                    password_flag = false;
+                    confirm.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.signup_next_button_false));
+                }
+            }
+        });
+
+
+        password_check.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String password_edit = password.getText().toString();
+                String password_check_edit = password_check.getText().toString();
+
+
+                if(password_flag){ // 상단 비밀번호 입력박스 통과시에만 비밀번호 동일여부 체크 진행.
+                    if(!password_edit.equals(password_check_edit)){
+                        password_check_message.setVisibility(View.VISIBLE);
+                        password_check_flag = false;
+                        confirm.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.signup_next_button_false));
+                    }else {
+                        password_check_flag = true;
+                        password_check_message.setVisibility(View.INVISIBLE);
+                        if(password_flag){
+                            confirm.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.signup_next_button_true));
+                        }
+                    }
+                }else{
+                    password_check_flag = false;
+                    confirm.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.signup_next_button_false));
+                }
+            }
+        });
+
 
     }
     @Override
@@ -85,7 +200,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
 
         mSettingsRetrofitAPI = mRetrofit.create(SettingsRetrofitAPI.class);
-
+        callPlaceInfoResponse();
     }
 
     private void callPlaceInfoResponse() {
@@ -127,4 +242,41 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
 
     }
+
+    public boolean getPasswordCheck()
+    {
+        String password_edit = password.getText().toString();
+        String passwordStr[] = password_edit.split("");
+        final String specialString = "^[a-zA-Z0-9]*$"; // 특수문자만
+        final String engString = ".*[a-zA-Z]+.*"; // 영문자
+        final String numberString = ".*[0-9]+.*"; // 숫자만
+
+        boolean check = false;
+
+        if(!password_edit.matches(specialString)){
+            if(password_edit.matches(engString)){
+                check = true;
+            }
+            if(password_edit.matches(numberString)){
+                check = true;
+            }
+        }else if(password_edit.matches(engString)){
+            if(!password_edit.matches(specialString)){
+                check = true;
+            }
+            if(password_edit.matches(numberString)){
+                check = true;
+            }
+        }else if(password_edit.matches(numberString)){
+            if(password_edit.matches(engString)){
+                check = true;
+            }
+            if(!password_edit.matches(specialString)){
+                check = true;
+            }
+        }
+
+        return check;
+    }
+
 }

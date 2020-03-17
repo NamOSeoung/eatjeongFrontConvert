@@ -81,7 +81,6 @@
         />
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/email"
-        android:text="이메일"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center_vertical"
@@ -120,7 +119,6 @@
         />
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/nick_name"
-        android:text="닉네임"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center_vertical"
@@ -162,7 +160,6 @@
         />
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/phone_number"
-        android:text="휴대폰"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center_vertical"
