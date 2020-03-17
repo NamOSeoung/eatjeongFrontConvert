@@ -22,6 +22,8 @@ import com.dev.eatjeong.main.settings.SettingsRetrofitAPI;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewDetailListResponseVO;
 import com.dev.eatjeong.main.settings.settingsRetrofitVO.SettingsMyReviewListResponseVO;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -49,7 +51,7 @@ public class MyAppReviewDetailActivity extends AppCompatActivity {
 
     RecyclerView my_review_recycler_view, other_review_recycler_view;
 
-    ProgressBar progressBar;
+//    ProgressBar progressBar;
 
     SettingsReviewMyListAdapter myReviewAdapter;
     SettingsReviewOtherListAdapter otherReviewAdapter;
@@ -73,9 +75,17 @@ public class MyAppReviewDetailActivity extends AppCompatActivity {
         Log.e("place_id", place_id);
         Log.e("review_id", review_id);
 
+        View action_bar = findViewById(R.id.action_bar);
+
+        TextView back_text = action_bar.findViewById(R.id.back_text);
+        TextView textview1 = action_bar.findViewById(R.id.textview1);
+
+        back_text.setText("리뷰목록");
+        textview1.setVisibility(View.INVISIBLE);
         place_name_text.setText(place_name);
 
-        progressBar = (ProgressBar) findViewById(R.id.progress);
+
+//        progressBar = (ProgressBar) findViewById(R.id.progress);
 
         myReviewListControll.setRetrofitInit();
 
@@ -189,15 +199,16 @@ public class MyAppReviewDetailActivity extends AppCompatActivity {
                         public void onClick(View view, int position) {
                             ReviewsControll reviewsControll = new ReviewsControll();
                             //클릭시 실행될 함수 작성
-                            if (view.getId() == R.id.like_add) {
-                                reviewsControll.controll_flag = 0;
-                                reviewsControll.view = view.getId();
-                                reviewsControll.setRetrofitInit();
-                            } else if (view.getId() == R.id.like_delete) {
-                                reviewsControll.controll_flag = 1;
-                                reviewsControll.view = view.getId();
-                                reviewsControll.setRetrofitInit();
-                            } else if (view.getId() == R.id.review_delete) {
+//                            if (view.getId() == R.id.like_add) {
+//                                reviewsControll.controll_flag = 0;
+//                                reviewsControll.view = view.getId();
+//                                reviewsControll.setRetrofitInit();
+//                            } else if (view.getId() == R.id.like_delete) {
+//                                reviewsControll.controll_flag = 1;
+//                                reviewsControll.view = view.getId();
+//                                reviewsControll.setRetrofitInit();
+//                            } else
+                            if (view.getId() == R.id.review_delete) {
                                 reviewsControll.controll_flag = 2;
                                 reviewsControll.view = view.getId();
                                 reviewsControll.setRetrofitInit();
@@ -216,7 +227,7 @@ public class MyAppReviewDetailActivity extends AppCompatActivity {
                     });
 
                 }
-                progressBar.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.GONE);
 
             }
 

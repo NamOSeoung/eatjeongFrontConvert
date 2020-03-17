@@ -21,6 +21,7 @@ import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
 import com.dev.eatjeong.main.search.searchFragment.PopularFragment;
 import com.dev.eatjeong.main.settings.settingsActivity.BlackListActivity;
 import com.dev.eatjeong.main.settings.settingsActivity.MyAppReviewListActivity;
+import com.dev.eatjeong.main.settings.settingsActivity.NoticeActivity;
 import com.dev.eatjeong.main.settings.settingsActivity.UserInfoManagementActivity;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 
@@ -45,7 +46,7 @@ public class SettingsTab extends Fragment {
     private LatelyFragment latelyFragment = new LatelyFragment();
 
 
-    AppCompatTextView login_btn,settings_logout,my_info,nick_name;
+    AppCompatTextView login_btn,settings_logout,my_info,nick_name,notice;
     AppCompatImageView my_review_image,black_list_image,one_one_question_image;
 
     @Nullable
@@ -67,6 +68,7 @@ public class SettingsTab extends Fragment {
             my_info = v.findViewById(R.id.my_info);
             black_list_image = v.findViewById(R.id.black_list_image);
             my_review_image = v.findViewById(R.id.my_review_image);
+            notice = v.findViewById(R.id.notice);
 
             //로그인 됬을 경우만 회원 정보 가지고옴
             setRetrofitInit();
@@ -115,19 +117,38 @@ public class SettingsTab extends Fragment {
                     getActivity().overridePendingTransition(R.anim.fadein,0);
                 }
             });
+
+            notice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent goNotice = new Intent(getContext(), NoticeActivity.class);
+
+                    startActivityForResult(goNotice,0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.slide_out_right,R.anim.stay);
+                }
+            });
         }else {
             v = inflater.inflate(R.layout.settings_logout_tab, container, false);
 
             login_btn = v.findViewById(R.id.login_btn);
-
+            notice = v.findViewById(R.id.notice);
             login_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((MainWrapActivity)getActivity()).backLoginPage();
                 }
             });
+            notice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent goNotice = new Intent(getContext(), NoticeActivity.class);
 
+                    startActivityForResult(goNotice,0);//액티비티 띄우기
+                    getActivity().overridePendingTransition(R.anim.slide_out_right,R.anim.stay);
+                }
+            });
         }
+
 
 
 
