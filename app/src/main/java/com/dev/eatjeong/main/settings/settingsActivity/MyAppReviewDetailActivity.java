@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,7 +58,7 @@ public class MyAppReviewDetailActivity extends AppCompatActivity {
     SettingsReviewOtherListAdapter otherReviewAdapter;
 
     MyReviewListControll myReviewListControll = new MyReviewListControll();
-
+    ConstraintLayout back_button;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -79,7 +80,7 @@ public class MyAppReviewDetailActivity extends AppCompatActivity {
 
         TextView back_text = action_bar.findViewById(R.id.back_text);
         TextView textview1 = action_bar.findViewById(R.id.textview1);
-
+        back_button = action_bar.findViewById(R.id.back_button);
         back_text.setText("리뷰목록");
         textview1.setVisibility(View.INVISIBLE);
         place_name_text.setText(place_name);
@@ -91,6 +92,13 @@ public class MyAppReviewDetailActivity extends AppCompatActivity {
 
         my_review_recycler_view = (RecyclerView) findViewById(R.id.my_review_recycler_view);
         other_review_recycler_view = (RecyclerView) findViewById(R.id.other_review_recycler_view);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override

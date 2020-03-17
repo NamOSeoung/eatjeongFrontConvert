@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,6 +67,7 @@ public class MyAppReviewListActivity extends AppCompatActivity{
     MyReviewListControll myReviewListControll = new MyReviewListControll();
 
     AppCompatTextView review_count;
+    ConstraintLayout back_button;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +77,7 @@ public class MyAppReviewListActivity extends AppCompatActivity{
         View action_bar = findViewById(R.id.action_bar);
         TextView back_text = (TextView) action_bar.findViewById(R.id.back_text);
         TextView title_text = action_bar.findViewById(R.id.textview1);
-
+        back_button = action_bar.findViewById(R.id.back_button);
         back_text.setText("내정보");
         title_text.setText("내 리뷰");
         Intent intent = getIntent();
@@ -216,6 +218,13 @@ public class MyAppReviewListActivity extends AppCompatActivity{
             public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) { }
             @Override
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) { }
+        });
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
         });
     }
 
