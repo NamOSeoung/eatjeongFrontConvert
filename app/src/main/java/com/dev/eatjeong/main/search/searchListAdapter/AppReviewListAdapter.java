@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.search.searchListVO.AppReviewVO;
 import com.dev.eatjeong.main.search.searchListVO.YoutubeReviewVO;
@@ -20,10 +23,12 @@ public class AppReviewListAdapter extends RecyclerView.Adapter<AppReviewListAdap
 
     private Context context;
     private List<AppReviewVO> list = new ArrayList<>();
+    private RequestManager mGlide;
 
-    public AppReviewListAdapter(Context context, List<AppReviewVO> list) {
+    public AppReviewListAdapter(Context context, List<AppReviewVO> list, RequestManager mGlideRequestManager) {
         this.context = context;
         this.list = list;
+        this.mGlide = mGlideRequestManager;
     }
 
     // ViewHolder 생성
@@ -43,7 +48,43 @@ public class AppReviewListAdapter extends RecyclerView.Adapter<AppReviewListAdap
     public void onBindViewHolder(Holder holder, int position) {
         // 각 위치에 문자열 세팅
         int itemposition = position;
-        holder.review_id.setText(list.get(itemposition).getReview_id());
+        Log.e("AppReviewListAdapter", list.get(itemposition).toString());
+
+        String rating_point = list.get(itemposition).getRating_point();
+        holder.write_date.setText(list.get(itemposition).getWrite_date());
+        holder.google_text_view.setText(list.get(itemposition).getReview_contents());
+
+        if(rating_point.equals("1")){
+            holder.star_y1.setImageResource(R.drawable.star_y2_128);
+            holder.star_y2.setImageResource(R.drawable.star_d_128);
+            holder.star_y3.setImageResource(R.drawable.star_d_128);
+            holder.star_y4.setImageResource(R.drawable.star_d_128);
+            holder.star_y5.setImageResource(R.drawable.star_d_128);
+        }else if(rating_point.equals("2")){
+            holder.star_y1.setImageResource(R.drawable.star_y2_128);
+            holder.star_y2.setImageResource(R.drawable.star_y2_128);
+            holder.star_y3.setImageResource(R.drawable.star_d_128);
+            holder.star_y4.setImageResource(R.drawable.star_d_128);
+            holder.star_y5.setImageResource(R.drawable.star_d_128);
+        }else if(rating_point.equals("3")){
+            holder.star_y1.setImageResource(R.drawable.star_y2_128);
+            holder.star_y2.setImageResource(R.drawable.star_y2_128);
+            holder.star_y3.setImageResource(R.drawable.star_y2_128);
+            holder.star_y4.setImageResource(R.drawable.star_d_128);
+            holder.star_y5.setImageResource(R.drawable.star_d_128);
+        }else if(rating_point.equals("4")){
+            holder.star_y1.setImageResource(R.drawable.star_y2_128);
+            holder.star_y2.setImageResource(R.drawable.star_y2_128);
+            holder.star_y3.setImageResource(R.drawable.star_y2_128);
+            holder.star_y4.setImageResource(R.drawable.star_y2_128);
+            holder.star_y5.setImageResource(R.drawable.star_d_128);
+        }else if(rating_point.equals("5")){
+            holder.star_y1.setImageResource(R.drawable.star_y2_128);
+            holder.star_y2.setImageResource(R.drawable.star_y2_128);
+            holder.star_y3.setImageResource(R.drawable.star_y2_128);
+            holder.star_y4.setImageResource(R.drawable.star_y2_128);
+            holder.star_y5.setImageResource(R.drawable.star_y2_128);
+        }
     }
 
     // 몇개의 데이터를 리스트로 뿌려줘야하는지 반드시 정의해줘야한다
@@ -54,11 +95,18 @@ public class AppReviewListAdapter extends RecyclerView.Adapter<AppReviewListAdap
 
     // ViewHolder는 하나의 View를 보존하는 역할을 한다
     public class Holder extends RecyclerView.ViewHolder{
-        public TextView review_id;
+        private AppCompatImageView star_y1, star_y2, star_y3, star_y4, star_y5;
+        private AppCompatTextView write_date, google_text_view;
 
         public Holder(View view){
             super(view);
-            review_id = (TextView) view.findViewById(R.id.review_id);
+            star_y1 = view.findViewById(R.id.star_y1);
+            star_y2 = view.findViewById(R.id.star_y2);
+            star_y3 = view.findViewById(R.id.star_y3);
+            star_y4 = view.findViewById(R.id.star_y4);
+            star_y5 = view.findViewById(R.id.star_y5);
+            write_date = view.findViewById(R.id.write_date);
+            google_text_view = view.findViewById(R.id.google_text_view);
         }
     }
 }

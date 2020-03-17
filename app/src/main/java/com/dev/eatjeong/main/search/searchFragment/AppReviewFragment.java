@@ -12,10 +12,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchActivity.PlaceInfoActivity;
@@ -30,6 +34,7 @@ import com.dev.eatjeong.main.search.searchRetrofitVO.SearchResponseVO;
 import com.dev.eatjeong.main.search.searchReviewMoreActivirt.SearchAppReviewMoreActivity;
 import com.dev.eatjeong.main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
+import com.dev.eatjeong.util.Util;
 
 import java.util.ArrayList;
 
@@ -42,22 +47,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AppReviewFragment extends Fragment {
 
     String user_id,sns_division,place_id,place_address,place_name;
-
     private ArrayList<AppReviewVO> arrayList = new ArrayList<AppReviewVO>();
-
     private Retrofit mRetrofit;
-
     private SearchRetrofitAPI mSearchRetrofitAPI;
-
     private Call<SearchAppListResponseVO> mCallSearchAppListResponseVO;
 
     RecyclerView listView;
-
     AppReviewListAdapter adapter;
-
     ProgressBar app_progress_bar;
-
     TextView review_more;
+    private RequestManager mGlideRequestManager;
+    private ConstraintLayout data_layout, nodata_layout, container_1;
 
     public static AppReviewFragment newInstance(){
         return new AppReviewFragment();
@@ -66,12 +66,16 @@ public class AppReviewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mGlideRequestManager = Glide.with(getActivity());
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.search_app_review_fragment, container, false);
+        container_1 = v.findViewById(R.id.container);
+        data_layout = v.findViewById(R.id.constraintLayout8);
+        nodata_layout = v.findViewById(R.id.nodata_layout);
 
 //        app_progress_bar = (ProgressBar)v.findViewById(R.id.app_progress_bar);
 
@@ -148,25 +152,19 @@ public class AppReviewFragment extends Fragment {
         Json을 우리가 원하는 형태로 만들어주는 Gson라이브러리와 Retrofit2에 연결하는 코드입니다 */
 
         mRetrofit = new Retrofit.Builder()
-
                 .baseUrl(getString(R.string.baseUrl))
-
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
 
-
         mSearchRetrofitAPI = mRetrofit.create(SearchRetrofitAPI.class);
-
     }
 
     private void callSearchResponse() {
 
-        if(user_id == null){
+        if(Util.isNullOrEmpty(user_id)){
             mCallSearchAppListResponseVO = mSearchRetrofitAPI.getAppReview(place_id,"temp","T","5");
         }else{
             mCallSearchAppListResponseVO = mSearchRetrofitAPI.getAppReview(place_id,user_id,sns_division,"5");
-
         }
 
         mCallSearchAppListResponseVO.enqueue(mRetrofitCallback);
@@ -182,32 +180,41 @@ public class AppReviewFragment extends Fragment {
         public void onResponse(Call<SearchAppListResponseVO> call, Response<SearchAppListResponseVO> response) {
 
             arrayList.clear();
-            for(int i = 0; i < response.body().mDatalist.size(); i ++){
-                arrayList.add(new AppReviewVO(
-                        response.body().mDatalist.get(i).getIndex(),
-                        response.body().mDatalist.get(i).getReview_id(),
-                        response.body().mDatalist.get(i).getReview_user_id(),
-                        response.body().mDatalist.get(i).getAuthor(),
-                        response.body().mDatalist.get(i).getProfile_image_url(),
-                        response.body().mDatalist.get(i).getRating_point(),
-                        response.body().mDatalist.get(i).getReview_contents(),
-                        response.body().mDatalist.get(i).getLike_count(),
-                        response.body().mDatalist.get(i).getWrite_date(),
-                        response.body().mDatalist.get(i).getImage_url()
-                ));
+
+            if(response.body().mDatalist.size() > 0) {
+                for (int i = 0; i < response.body().mDatalist.size(); i++) {
+                    arrayList.add(new AppReviewVO(
+                            response.body().mDatalist.get(i).getIndex(),
+                            response.body().mDatalist.get(i).getReview_id(),
+                            response.body().mDatalist.get(i).getReview_user_id(),
+                            response.body().mDatalist.get(i).getAuthor(),
+                            response.body().mDatalist.get(i).getProfile_image_url(),
+                            response.body().mDatalist.get(i).getRating_point(),
+                            response.body().mDatalist.get(i).getReview_contents(),
+                            response.body().mDatalist.get(i).getLike_count(),
+                            response.body().mDatalist.get(i).getWrite_date(),
+                            response.body().mDatalist.get(i).getImage_url()
+                    ));
+                }
+
+                listView.setHasFixedSize(true);
+                adapter = new AppReviewListAdapter(getActivity(), arrayList, mGlideRequestManager);
+                listView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                listView.setAdapter(adapter);
+
+                //가로 레이아웃
+                LinearLayoutManager horizonalLayoutManager
+                        = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+                listView.setLayoutManager(horizonalLayoutManager);
+            }else{
+                ConstraintSet constraintSet = new ConstraintSet();
+                data_layout.setVisibility(View.GONE);
+                constraintSet.clone(container_1);
+                constraintSet.connect(R.id.appreview_header, ConstraintSet.BOTTOM, R.id.nodata_layout, ConstraintSet.TOP);
+                constraintSet.applyTo(container_1);
+                nodata_layout.setVisibility(View.VISIBLE);
             }
-
-            listView.setHasFixedSize(true);
-            adapter = new AppReviewListAdapter(getActivity(), arrayList);
-            listView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            listView.setAdapter(adapter);
-
-            //가로 레이아웃
-            LinearLayoutManager horizonalLayoutManager
-                    = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-            listView.setLayoutManager(horizonalLayoutManager);
-
         }
 
 

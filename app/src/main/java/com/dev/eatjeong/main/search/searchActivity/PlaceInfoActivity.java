@@ -117,16 +117,16 @@ public class PlaceInfoActivity extends AppCompatActivity {
 //
 //        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
 //
-//// 줌 레벨 변경
+//        // 줌 레벨 변경
 //        mapView.setZoomLevel(1, true);
 //
-//// 중심점 변경 + 줌 레벨 변경
+//        // 중심점 변경 + 줌 레벨 변경
 //        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 1, true);
 //
-//// 줌 인
+//        // 줌 인
 //        mapView.zoomIn(true);
 //
-//// 줌 아웃
+//        // 줌 아웃
 //        mapView.zoomOut(true);
 //
 //        MapPOIItem marker = new MapPOIItem();
@@ -249,21 +249,17 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
             if (bookmark_flag.equals("true")) {
                 if ("temp".equals(user_id) || "T".equals(sns_division)) {
-                    Log.e("북마크", "2");
                     bookmark_true.setVisibility(View.GONE);
                     bookmark_false.setVisibility(View.GONE);
                 } else {
-                    Log.e("북마크", "4");
                     bookmark_true.setVisibility(View.VISIBLE);
                     bookmark_false.setVisibility(View.GONE);
                 }
             } else {
                 if ("temp".equals(user_id) || "T".equals(sns_division)) {
-                    Log.e("북마크", "3");
                     bookmark_true.setVisibility(View.GONE);
                     bookmark_false.setVisibility(View.GONE);
                 } else {
-                    Log.e("북마크", "5");
                     bookmark_true.setVisibility(View.GONE);
                     bookmark_false.setVisibility(View.VISIBLE);
                 }
