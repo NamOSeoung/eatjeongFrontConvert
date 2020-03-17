@@ -17,13 +17,16 @@ public class BookmarkPlaceListVO {
     private String youtube_review_count = "";
     private String app_review_count = "";
 
-    public BookmarkPlaceListVO(String place_id, String place_name,String place_address,String latitude,String longitude,String category_name){
+    public BookmarkPlaceListVO(String place_id, String place_name, String place_address, String latitude, String longitude, String category_name, String thumbnail, String google_rating, String app_rating) {
         this.place_id = place_id;
         this.place_name = place_name;
         this.place_address = place_address;
         this.latitude = latitude;
         this.longitude = longitude;
         this.category_name = category_name;
+        this.thumbnail = thumbnail;
+        this.google_rating = google_rating;
+        this.app_rating = app_rating;
     }
 
     public String getPlace_name() {

@@ -211,6 +211,10 @@ public class TistoryReviewFragment extends Fragment {
         public void onResponse(Call<SearchTistoryListResponseVO> call, Response<SearchTistoryListResponseVO> response) {
             arrayList.clear();
             if(response.body().mDatalist.size() > 0) {
+                if(response.body().mDatalist.size() < 5){
+                    header_right.setVisibility(View.INVISIBLE);
+                }
+
                 for (int i = 0; i < response.body().mDatalist.size(); i++) {
                     arrayList.add(new TistoryReviewVO(
                             response.body().mDatalist.get(i).getIndex(),

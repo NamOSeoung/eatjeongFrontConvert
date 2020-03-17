@@ -8,18 +8,28 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.search.searchListVO.NaverReviewVO;
 import com.dev.eatjeong.main.search.searchListVO.TistoryReviewVO;
+import com.dev.eatjeong.util.Util;
 
 import java.util.ArrayList;
 
 public class TistoryReviewListMoreAdapter extends BaseAdapter {
     private ArrayList<TistoryReviewVO> data;
     private Context context;
-    public TistoryReviewListMoreAdapter(Context context, ArrayList<TistoryReviewVO> data){
+    private RequestManager mGlide;
+
+    public TistoryReviewListMoreAdapter(Context context, ArrayList<TistoryReviewVO> data, RequestManager mGlideRequestManager){
         this.context = context;
         this.data = data;
+        this.mGlide = mGlideRequestManager;
     }
 
     @Override
@@ -41,10 +51,28 @@ public class TistoryReviewListMoreAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.search_tistory_item, null);
 
+        AppCompatTextView tistory_title = v.findViewById(R.id.tistory_title);
+        AppCompatTextView tistory_description = v.findViewById(R.id.tistory_description);
+        AppCompatTextView tistory_write_date = v.findViewById(R.id.tistory_write_date);
+        AppCompatTextView tistory_author = v.findViewById(R.id.tistory_author);
+        AppCompatImageView tistory_image = v.findViewById(R.id.tistory_image);
 
-            TextView title = v.findViewById(R.id.title);
+        tistory_title.setText(data.get(position).getTitle());
+        tistory_description.setText(data.get(position).getDescription());
+        tistory_write_date.setText(data.get(position).getWrite_date());
+        tistory_author.setText(data.get(position).getAuthor());
 
-        title.setText(data.get(position).getTitle());
+        ViewGroup.LayoutParams tistory_image_params = tistory_image.getLayoutParams();
+
+        if(Util.isNullOrEmpty(data.get(position).getThumbnail_url())){
+            tistory_image_params.width = 1;
+            tistory_image.setLayoutParams(tistory_image_params);
+        }else{
+            mGlide.load(data.get(position).getThumbnail_url())
+                    .transform(new CenterCrop(), new RoundedCorners(30))
+                    .into(tistory_image);
+        }
+
         return v;
     }
 }

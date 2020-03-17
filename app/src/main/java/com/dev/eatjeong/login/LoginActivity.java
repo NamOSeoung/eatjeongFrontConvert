@@ -30,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
 import com.dev.eatjeong.signUp.signUpActivity.SignUpActivity;
+import com.dev.eatjeong.util.Util;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
@@ -108,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         int widthDp = (int)(width * (160f / (float)dpi));
         int height = size.y;
 
+        Log.i("isEmulator", Util.isEmulator() + "");
         Log.i("density", "X " + density);
         Log.i("device dpi", dpi + "");
         Log.i("가로 dp", widthDp + "dp");

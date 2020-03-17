@@ -100,7 +100,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
         address = (TextView) findViewById(R.id.address);
         phone_number = (TextView) findViewById(R.id.phone_number);
 
-
         review_add = (Button) findViewById(R.id.review_add);
 
         place_info_progress = (ProgressBar) findViewById(R.id.place_info_progress);
@@ -109,35 +108,34 @@ public class PlaceInfoActivity extends AppCompatActivity {
         bookmark_true.setVisibility(View.GONE);
         bookmark_false.setVisibility(View.GONE);
 
-//        MapView mapView = new MapView(this);
-//
-//        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-//        mapViewContainer.addView(mapView);
-//
-//
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
-//
-//        // 줌 레벨 변경
-//        mapView.setZoomLevel(1, true);
-//
-//        // 중심점 변경 + 줌 레벨 변경
-//        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 1, true);
-//
-//        // 줌 인
-//        mapView.zoomIn(true);
-//
-//        // 줌 아웃
-//        mapView.zoomOut(true);
-//
-//        MapPOIItem marker = new MapPOIItem();
-//        marker.setItemName("Default Marker");
-//        marker.setTag(0);
-//        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
-//        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
-//        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-//
-//        mapView.addPOIItem(marker);
+        if(!Util.isEmulator()) {
+            MapView mapView = new MapView(this);
 
+            ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+            mapViewContainer.addView(mapView);
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+
+            // 줌 레벨 변경
+            mapView.setZoomLevel(1, true);
+
+            // 중심점 변경 + 줌 레벨 변경
+            mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 1, true);
+
+            // 줌 인
+            mapView.zoomIn(true);
+
+            // 줌 아웃
+            mapView.zoomOut(true);
+
+            MapPOIItem marker = new MapPOIItem();
+            marker.setItemName("Default Marker");
+            marker.setTag(0);
+            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
+            marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+
+            mapView.addPOIItem(marker);
+        }
 
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,22 +170,12 @@ public class PlaceInfoActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.sliding_up, R.anim.stay);
             }
         });
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        transaction.replace(R.id.youtube_frame_layout, popularFragment).commitAllowingStateLoss();
-//        transaction.replace(R.id.naver_frame_layout, latelyFragment).commitAllowingStateLoss();
-
 
         //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
 
         //레트로핏 초기화 후 호출작업 진행.
         callPlaceInfoResponse();
-
-
-    }
-
-    public void goWebview() {
-        Toast.makeText(getApplicationContext(), "asdas", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -196,7 +184,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -218,13 +205,9 @@ public class PlaceInfoActivity extends AppCompatActivity {
         Json을 우리가 원하는 형태로 만들어주는 Gson라이브러리와 Retrofit2에 연결하는 코드입니다 */
 
         mRetrofit = new Retrofit.Builder()
-
                 .baseUrl(getString(R.string.baseUrl))
-
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
-
 
         mSearchRetrofitAPI = mRetrofit.create(SearchRetrofitAPI.class);
 
@@ -233,7 +216,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
     private void callPlaceInfoResponse() {
         mCallCommonMapResponseVO = mSearchRetrofitAPI.getPlaceInfo(info_place_id, user_id, sns_division, String.valueOf(latitude), String.valueOf(longitude));
         mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
-
     }
 
     private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
@@ -288,14 +270,13 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
         SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
 
-        userInfo.put("user_id", sp.getString("user_id", null));
-        userInfo.put("sns_division", sp.getString("sns_division", null));
+        userInfo.put("user_id", sp.getString("user_id", "temp"));
+        userInfo.put("sns_division", sp.getString("sns_division", "T"));
 
         return userInfo;
     }
 
     public class BookmarkControll {
-
         String code = "";
         private Retrofit mRetrofit;
         private BookmarkRetrofitAPI mBookmarkRetrofitAPI;
@@ -323,7 +304,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
             mBookmarkRetrofitAPI = mRetrofit.create(BookmarkRetrofitAPI.class);
             callPlaceInfoResponse();
-
         }
 
         private void callPlaceInfoResponse() {
@@ -332,17 +312,12 @@ public class PlaceInfoActivity extends AppCompatActivity {
             } else {
                 mCallCommonMapResponseVO = mBookmarkRetrofitAPI.setBookmarkPlace("place", info_place_id, user_id, sns_division);
             }
-
             mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
-
         }
 
         private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
             @Override
             public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
-
-                Log.e("code : ", response.body().getCode());
-                Log.e("code : ", response.body().getMessage());
                 if (response.body().getCode().equals("200")) {
                     if (bookmark_flag.equals("true")) {
                         bookmark_true.setVisibility(View.VISIBLE);
@@ -353,19 +328,13 @@ public class PlaceInfoActivity extends AppCompatActivity {
                         bookmark_false.setVisibility(View.VISIBLE);
                         bookmark_flag = "true";
                     }
-
                 }
 //            setCode(response.body().getCode());
-
             }
 
             @Override
-
             public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
-
-//            Log.e("asdasdasd", "asdasdasd");
                 t.printStackTrace();
-
             }
         };
     }

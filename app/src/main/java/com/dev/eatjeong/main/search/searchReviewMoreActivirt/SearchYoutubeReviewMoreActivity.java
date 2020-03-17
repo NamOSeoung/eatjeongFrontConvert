@@ -1,43 +1,30 @@
 package com.dev.eatjeong.main.search.searchReviewMoreActivirt;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
-import com.dev.eatjeong.main.bookmark.BookmarkRetrofitAPI;
-import com.dev.eatjeong.main.bookmark.bookmarkListAdapter.BookmarkYoutubeListAdapter;
-import com.dev.eatjeong.main.bookmark.bookmarkListVO.BookmarkYoutubeListVO;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeResponseVO;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
-import com.dev.eatjeong.main.search.searchListAdapter.YoutubeReviewListAdapter;
 import com.dev.eatjeong.main.search.searchListAdapter.YoutubeReviewListMoreAdapter;
 import com.dev.eatjeong.main.search.searchListVO.YoutubeReviewVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
 import com.dev.eatjeong.main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,26 +36,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchYoutubeReviewMoreActivity extends AppCompatActivity {
 
     String user_id,sns_division,place_id,place_address,place_name;
-
     private ArrayList<YoutubeReviewVO> arrayList = new ArrayList<YoutubeReviewVO>();
-
     private Retrofit mRetrofit;
-
     private SearchRetrofitAPI mSearchRetrofitAPI;
-
     private Call<SearchYoutubeListResponseVO> mCallSearchYoutubeListResponseVO;
+    private RequestManager mGlideRequestManager;
 
-    ListView listView;
-
-    YoutubeReviewListMoreAdapter adapter;
-
-    ProgressBar search_youtube_progress_bar;
-
-    TextView review_more;
+    private ListView listView;
+    private YoutubeReviewListMoreAdapter adapter;
+    private ProgressBar search_youtube_progress_bar;
+    private TextView review_more;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_youtube_review_more);
+        mGlideRequestManager = Glide.with(this);
 
         Intent intent = getIntent();
         user_id = intent.getStringExtra("user_id");
@@ -76,6 +58,21 @@ public class SearchYoutubeReviewMoreActivity extends AppCompatActivity {
         place_id = intent.getStringExtra("place_id");
         place_address = intent.getStringExtra("place_address");
         place_name = intent.getStringExtra("place_name");
+
+        View action_bar = findViewById(R.id.action_bar);
+        AppCompatImageView back_button = action_bar.findViewById(R.id.back_image);
+        AppCompatImageView exit_button = action_bar.findViewById(R.id.exit_image);
+        AppCompatTextView title_text = action_bar.findViewById(R.id.textview1);
+
+        title_text.setText(place_name);
+        exit_button.setVisibility(View.INVISIBLE);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
@@ -103,16 +100,12 @@ public class SearchYoutubeReviewMoreActivity extends AppCompatActivity {
         });
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -140,16 +133,11 @@ public class SearchYoutubeReviewMoreActivity extends AppCompatActivity {
         Json을 우리가 원하는 형태로 만들어주는 Gson라이브러리와 Retrofit2에 연결하는 코드입니다 */
 
         mRetrofit = new Retrofit.Builder()
-
                 .baseUrl(getString(R.string.baseUrl))
-
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
 
-
         mSearchRetrofitAPI = mRetrofit.create(SearchRetrofitAPI.class);
-
     }
 
     private void callSearchResponse() {
@@ -173,10 +161,7 @@ public class SearchYoutubeReviewMoreActivity extends AppCompatActivity {
 
     private Callback<SearchYoutubeListResponseVO> mRetrofitCallback = new Callback<SearchYoutubeListResponseVO>() {
 
-
-
         @Override
-
         public void onResponse(Call<SearchYoutubeListResponseVO> call, Response<SearchYoutubeListResponseVO> response) {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
@@ -194,7 +179,7 @@ public class SearchYoutubeReviewMoreActivity extends AppCompatActivity {
                 ));
             }
 
-            adapter = new YoutubeReviewListMoreAdapter(getApplicationContext(),arrayList);
+            adapter = new YoutubeReviewListMoreAdapter(getApplicationContext(),arrayList, mGlideRequestManager);
             listView.setAdapter(adapter);
 
             search_youtube_progress_bar.setVisibility(View.GONE);
@@ -204,15 +189,9 @@ public class SearchYoutubeReviewMoreActivity extends AppCompatActivity {
 
 
         @Override
-
         public void onFailure(Call<SearchYoutubeListResponseVO> call, Throwable t) {
-
-
-            Log.e("ss","asdasdasd");
             t.printStackTrace();
-
         }
-
     };
 
     @Override

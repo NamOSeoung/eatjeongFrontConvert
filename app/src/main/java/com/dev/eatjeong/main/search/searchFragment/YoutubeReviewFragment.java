@@ -95,8 +95,6 @@ public class YoutubeReviewFragment extends Fragment{
             place_address =   ((PlaceInfoActivity)getActivity()).getPlaceInfo().get("place_address");
         }
 
-
-
         review_more = (TextView)v.findViewById(R.id.review_more);
 //
         //레트로핏 연결하기위한 초기화 작업.
@@ -177,13 +175,9 @@ public class YoutubeReviewFragment extends Fragment{
         Json을 우리가 원하는 형태로 만들어주는 Gson라이브러리와 Retrofit2에 연결하는 코드입니다 */
 
         mRetrofit = new Retrofit.Builder()
-
                 .baseUrl(getString(R.string.baseUrl))
-
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
-
 
         mSearchRetrofitAPI = mRetrofit.create(SearchRetrofitAPI.class);
 
@@ -203,19 +197,20 @@ public class YoutubeReviewFragment extends Fragment{
             mCallSearchYoutubeListResponseVO = mSearchRetrofitAPI.getYoutubeReview(place_id,user_id,sns_division,place_address_arr[1] + " " + place_name_arr[0] + " " + "맛집","5");
         }
 
-
         mCallSearchYoutubeListResponseVO.enqueue(mRetrofitCallback);
-
     }
 
     private Callback<SearchYoutubeListResponseVO> mRetrofitCallback = new Callback<SearchYoutubeListResponseVO>() {
 
         @Override
-
         public void onResponse(Call<SearchYoutubeListResponseVO> call, Response<SearchYoutubeListResponseVO> response) {
             arrayList.clear();
 
             if(response.body().mDatalist.size() > 0) {
+                if(response.body().mDatalist.size() < 5){
+                    header_right.setVisibility(View.INVISIBLE);
+                }
+
                 for (int i = 0; i < response.body().mDatalist.size(); i++) {
                     arrayList.add(new YoutubeReviewVO(
                             response.body().mDatalist.get(i).getIndex(),

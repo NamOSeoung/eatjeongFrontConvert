@@ -17,7 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchListAdapter.NaverReviewListMoreAdapter;
@@ -43,29 +47,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchTistoryReviewMoreActivity extends AppCompatActivity {
 
-
     String user_id,sns_division,place_id,place_address,place_name;
-
     private ArrayList<TistoryReviewVO> arrayList = new ArrayList<TistoryReviewVO>();
-
     private Retrofit mRetrofit;
-
     private SearchRetrofitAPI mSearchRetrofitAPI;
-
     private Call<SearchTistoryListResponseVO> mCallSearchTistoryListResponseVO;
+    private RequestManager mGlideRequestManager;
 
-    ListView listView;
-
-    TistoryReviewListMoreAdapter adapter;
-
-    ProgressBar search_tistory_progress_bar;
-
-    TextView review_more;
+    private ListView listView;
+    private TistoryReviewListMoreAdapter adapter;
+    private ProgressBar search_tistory_progress_bar;
+    private TextView review_more;
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_tistory_review_more);
+        mGlideRequestManager = Glide.with(this);
 
         Intent intent = getIntent();
         user_id = intent.getStringExtra("user_id");
@@ -73,6 +71,21 @@ public class SearchTistoryReviewMoreActivity extends AppCompatActivity {
         place_id = intent.getStringExtra("place_id");
         place_address = intent.getStringExtra("place_address");
         place_name = intent.getStringExtra("place_name");
+
+        View action_bar = findViewById(R.id.action_bar);
+        AppCompatImageView back_button = action_bar.findViewById(R.id.back_image);
+        AppCompatImageView exit_button = action_bar.findViewById(R.id.exit_image);
+        AppCompatTextView title_text = action_bar.findViewById(R.id.textview1);
+
+        title_text.setText(place_name);
+        exit_button.setVisibility(View.INVISIBLE);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
@@ -136,16 +149,11 @@ public class SearchTistoryReviewMoreActivity extends AppCompatActivity {
         Json을 우리가 원하는 형태로 만들어주는 Gson라이브러리와 Retrofit2에 연결하는 코드입니다 */
 
         mRetrofit = new Retrofit.Builder()
-
                 .baseUrl(getString(R.string.baseUrl))
-
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
 
-
         mSearchRetrofitAPI = mRetrofit.create(SearchRetrofitAPI.class);
-
     }
 
     private void callSearchResponse() {
@@ -163,10 +171,7 @@ public class SearchTistoryReviewMoreActivity extends AppCompatActivity {
 
     private Callback<SearchTistoryListResponseVO> mRetrofitCallback = new Callback<SearchTistoryListResponseVO>() {
 
-
-
         @Override
-
         public void onResponse(Call<SearchTistoryListResponseVO> call, Response<SearchTistoryListResponseVO> response) {
             Log.e("dd",response.body().getCode());
             Log.e("dd",response.body().getMessage());
@@ -186,25 +191,16 @@ public class SearchTistoryReviewMoreActivity extends AppCompatActivity {
                 ));
             }
 
-            adapter = new TistoryReviewListMoreAdapter(getApplicationContext(),arrayList);
+            adapter = new TistoryReviewListMoreAdapter(getApplicationContext(),arrayList, mGlideRequestManager);
             listView.setAdapter(adapter);
 
             search_tistory_progress_bar.setVisibility(View.GONE);
-
         }
-
-
 
         @Override
-
         public void onFailure(Call<SearchTistoryListResponseVO> call, Throwable t) {
-
-
-            Log.e("ss","asdasdasd");
             t.printStackTrace();
-
         }
-
     };
 
     @Override
@@ -212,14 +208,12 @@ public class SearchTistoryReviewMoreActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 0){
             if(resultCode == 1){
-
                 search_tistory_progress_bar.setVisibility(View.VISIBLE);
                 //레트로핏 연결하기위한 초기화 작업.
                 setRetrofitInit();
 
                 //재호출
                 callSearchResponse();
-
             }
 
         }

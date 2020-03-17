@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.common.CommonMapResponseVO;
@@ -42,7 +43,6 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity implem
     private String bookmark_flag = ""; //true : 북마크 추가상태, false: 북마크 헤제상태
 
     private Button
-            search_youtube_modal,
             bookmark_cancel,
             bookmark_add,
             post_black_add,
@@ -57,6 +57,8 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity implem
             post_black_add_text,
             author_black_cancel_text,
             post_black_cancel_text;
+    View action_bar;
+    AppCompatImageView search_modal;
 
     private WebView webView;
     private WebSettings webSettings; //웹뷰세팅
@@ -76,11 +78,10 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity implem
         bookmark_flag = intent.getStringExtra("bookmark_flag");
         author = intent.getStringExtra("author");
 
-        Toast.makeText(getApplicationContext(), bookmark_flag, Toast.LENGTH_SHORT).show();
-        search_youtube_modal = (Button) findViewById(R.id.search_youtube_modal);
+//        Toast.makeText(getApplicationContext(), bookmark_flag, Toast.LENGTH_SHORT).show();
 
         // 웹뷰 시작
-        webView = (WebView) findViewById(R.id.search_youtube_webview);
+        webView = findViewById(R.id.search_youtube_webview);
 
         webView.setWebViewClient(new WebViewClient()); // 클릭시 새창 안뜨게
         webSettings = webView.getSettings(); //세부 세팅 등록
@@ -97,61 +98,63 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity implem
 
         webView.loadUrl(url); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
 
+//        action_bar = findViewById(R.id.action_bar);
+//        search_modal = action_bar.findViewById(R.id.search_modal);
 
-        search_youtube_modal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(SearchYoutubeReviewWebviewActivity.this);
-                bottomSheetDialog.setContentView(R.layout.search_youtube_bottom_sheet);
-
-
-                bookmark_cancel = (Button) bottomSheetDialog.findViewById(R.id.bookmark_cancel);
-                bookmark_add = (Button) bottomSheetDialog.findViewById(R.id.bookmark_add);
-
-                bookmark_add_text = (TextView) bottomSheetDialog.findViewById(R.id.bookmark_add_test);
-                bookmark_cancel_text = (TextView) bottomSheetDialog.findViewById(R.id.bookmark_cancel_text);
-
-                author_black_add = (Button) bottomSheetDialog.findViewById(R.id.author_black_add);
-                post_black_add = (Button) bottomSheetDialog.findViewById(R.id.post_black_add);
-
-                author_black_cancel = (Button) bottomSheetDialog.findViewById(R.id.author_black_cancel);
-                post_black_cancel = (Button) bottomSheetDialog.findViewById(R.id.post_black_cancel);
-
-                author_black_add_text = (TextView) bottomSheetDialog.findViewById(R.id.author_black_add_text);
-                author_black_cancel_text = (TextView) bottomSheetDialog.findViewById(R.id.author_black_cancel_text);
-
-                post_black_add_text = (TextView) bottomSheetDialog.findViewById(R.id.post_black_add_text);
-                post_black_cancel_text = (TextView) bottomSheetDialog.findViewById(R.id.post_black_cancel_text);
-                bookmark_add.setVisibility(View.VISIBLE);
-
-//                if(bookmark_flag.equals("true")){
-//                    bookmark_add.setVisibility(View.GONE);
-//                    bookmark_cancel.setVisibility(View.VISIBLE);
+//        search_modal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
 //
-//                    bookmark_add_text.setVisibility(View.GONE);
-//                    bookmark_cancel_text.setVisibility(View.VISIBLE);
-//                }else{
-//                    bookmark_add.setVisibility(View.VISIBLE);
-//                    bookmark_cancel.setVisibility(View.GONE);
+//                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(SearchYoutubeReviewWebviewActivity.this);
+//                bottomSheetDialog.setContentView(R.layout.search_youtube_bottom_sheet);
 //
-//                    bookmark_add_text.setVisibility(View.VISIBLE);
-//                    bookmark_cancel_text.setVisibility(View.GONE);
-//                }
-
-                bookmark_add.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
-                bookmark_cancel.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
-
-                author_black_add.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
-                author_black_cancel.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
-
-                post_black_add.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
-                post_black_cancel.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
-
-                bottomSheetDialog.show();
-
-            }
-        });
+//
+//                bookmark_cancel = bottomSheetDialog.findViewById(R.id.bookmark_cancel);
+//                bookmark_add = bottomSheetDialog.findViewById(R.id.bookmark_add);
+//
+//                bookmark_add_text = bottomSheetDialog.findViewById(R.id.bookmark_add_test);
+//                bookmark_cancel_text = bottomSheetDialog.findViewById(R.id.bookmark_cancel_text);
+//
+//                author_black_add = bottomSheetDialog.findViewById(R.id.author_black_add);
+//                post_black_add = bottomSheetDialog.findViewById(R.id.post_black_add);
+//
+//                author_black_cancel = bottomSheetDialog.findViewById(R.id.author_black_cancel);
+//                post_black_cancel = bottomSheetDialog.findViewById(R.id.post_black_cancel);
+//
+//                author_black_add_text = bottomSheetDialog.findViewById(R.id.author_black_add_text);
+//                author_black_cancel_text = bottomSheetDialog.findViewById(R.id.author_black_cancel_text);
+//
+//                post_black_add_text = bottomSheetDialog.findViewById(R.id.post_black_add_text);
+//                post_black_cancel_text = bottomSheetDialog.findViewById(R.id.post_black_cancel_text);
+//                bookmark_add.setVisibility(View.VISIBLE);
+//
+////                if(bookmark_flag.equals("true")){
+////                    bookmark_add.setVisibility(View.GONE);
+////                    bookmark_cancel.setVisibility(View.VISIBLE);
+////
+////                    bookmark_add_text.setVisibility(View.GONE);
+////                    bookmark_cancel_text.setVisibility(View.VISIBLE);
+////                }else{
+////                    bookmark_add.setVisibility(View.VISIBLE);
+////                    bookmark_cancel.setVisibility(View.GONE);
+////
+////                    bookmark_add_text.setVisibility(View.VISIBLE);
+////                    bookmark_cancel_text.setVisibility(View.GONE);
+////                }
+//
+//                bookmark_add.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
+//                bookmark_cancel.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
+//
+//                author_black_add.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
+//                author_black_cancel.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
+//
+//                post_black_add.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
+//                post_black_cancel.setOnClickListener(SearchYoutubeReviewWebviewActivity.this);
+//
+//                bottomSheetDialog.show();
+//
+//            }
+//        });
 
 
     }
@@ -225,8 +228,84 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity implem
                 break;
             case R.id.post_black_cancel:
                 SET_CODE = 5;
-                 bookmarkBlackListControll.setRetrofitInit(5);
+                bookmarkBlackListControll.setRetrofitInit(5);
                 break;
+        }
+    }
+
+    public void setButtionVisible() {
+          /*
+            SET_CODE = 0 : bookmark 추가, 1 : 게시자 블랙리스트 추가, 2 : 게시물 블랙리스트 추가
+            SET_CODE = 3 : bookmark 삭제, 4 : 게시자 블랙리스트 삭제, 5 : 게시물 블랙리스트 삭제
+         */
+        if (SET_CODE == 0) {
+
+            bookmark_add.setVisibility(View.GONE);
+            bookmark_add_text.setVisibility(View.GONE);
+            bookmark_cancel.setVisibility(View.VISIBLE);
+            bookmark_cancel_text.setVisibility(View.VISIBLE);
+
+            author_black_add.setVisibility(View.VISIBLE);
+            author_black_add_text.setVisibility(View.VISIBLE);
+            author_black_cancel.setVisibility(View.GONE);
+            author_black_cancel_text.setVisibility(View.GONE);
+
+            post_black_add.setVisibility(View.VISIBLE);
+            post_black_add_text.setVisibility(View.VISIBLE);
+            post_black_cancel.setVisibility(View.GONE);
+            post_black_cancel_text.setVisibility(View.GONE);
+
+        } else if (SET_CODE == 1) {
+
+            bookmark_add.setVisibility(View.VISIBLE);
+            bookmark_add_text.setVisibility(View.VISIBLE);
+            bookmark_cancel.setVisibility(View.GONE);
+            bookmark_cancel_text.setVisibility(View.GONE);
+
+            author_black_add.setVisibility(View.GONE);
+            author_black_add_text.setVisibility(View.GONE);
+            author_black_cancel.setVisibility(View.VISIBLE);
+            author_black_cancel_text.setVisibility(View.VISIBLE);
+
+            post_black_add.setVisibility(View.VISIBLE);
+            post_black_add_text.setVisibility(View.VISIBLE);
+            post_black_cancel.setVisibility(View.GONE);
+            post_black_cancel_text.setVisibility(View.GONE);
+
+        } else if (SET_CODE == 2) {
+
+            bookmark_add.setVisibility(View.VISIBLE);
+            bookmark_add_text.setVisibility(View.VISIBLE);
+            bookmark_cancel.setVisibility(View.GONE);
+            bookmark_cancel_text.setVisibility(View.GONE);
+
+            author_black_add.setVisibility(View.VISIBLE);
+            author_black_add_text.setVisibility(View.VISIBLE);
+            author_black_cancel.setVisibility(View.GONE);
+            author_black_cancel_text.setVisibility(View.GONE);
+
+            post_black_add.setVisibility(View.GONE);
+            post_black_add_text.setVisibility(View.GONE);
+            post_black_cancel.setVisibility(View.VISIBLE);
+            post_black_cancel_text.setVisibility(View.VISIBLE);
+
+        } else if (SET_CODE == 3 || SET_CODE == 4 || SET_CODE == 5) {
+
+            bookmark_add.setVisibility(View.VISIBLE);
+            bookmark_add_text.setVisibility(View.VISIBLE);
+            bookmark_cancel.setVisibility(View.GONE);
+            bookmark_cancel_text.setVisibility(View.GONE);
+
+            author_black_add.setVisibility(View.VISIBLE);
+            author_black_add_text.setVisibility(View.VISIBLE);
+            author_black_cancel.setVisibility(View.GONE);
+            author_black_cancel_text.setVisibility(View.GONE);
+
+            post_black_add.setVisibility(View.VISIBLE);
+            post_black_add_text.setVisibility(View.VISIBLE);
+            post_black_cancel.setVisibility(View.GONE);
+            post_black_cancel_text.setVisibility(View.GONE);
+
         }
     }
 
@@ -240,6 +319,36 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity implem
         private SearchRetrofitAPI mSearchRetrofitAPI;
 
         private Call<CommonMapResponseVO> mCallCommonMapResponseVO;
+        private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
+            @Override
+            public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
+
+                Log.e("code : ", response.body().getCode());
+                Log.e("message : ", response.body().getMessage());
+                if (response.body().getCode().equals("200")) { //호출 성공 시 버튼 변경
+                    setButtionVisible();
+                }
+//                if(response.body().getCode().equals("200")){
+//                    if(bookmark_flag.equals("true")){
+//                        bookmark_flag = "false";
+//                    }else {
+//                        bookmark_flag = "true";
+//                    }
+//
+//                }
+//            setCode(response.body().getCode());
+
+            }
+
+            @Override
+
+            public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
+
+                Log.e("asdasdasd", "asdasdasd");
+                t.printStackTrace();
+
+            }
+        };
 
         public String getCode() {
             return code;
@@ -283,125 +392,18 @@ public class SearchYoutubeReviewWebviewActivity extends AppCompatActivity implem
             if (code_division == 0) {
                 mCallCommonMapResponseVO = mSearchRetrofitAPI.setBookmarkYoutube("youtube", place_id, review_id, user_id, sns_division);
             } else if (code_division == 1) {
-                mCallCommonMapResponseVO = mSearchRetrofitAPI.setBlackList(review_id,place_id, user_id, sns_division, "youtube", author, "author");
+                mCallCommonMapResponseVO = mSearchRetrofitAPI.setBlackList(review_id, place_id, user_id, sns_division, "youtube", author, "author");
             } else if (code_division == 2) {
-                mCallCommonMapResponseVO = mSearchRetrofitAPI.setBlackList(review_id,place_id,user_id, sns_division, "youtube", author, "post");
+                mCallCommonMapResponseVO = mSearchRetrofitAPI.setBlackList(review_id, place_id, user_id, sns_division, "youtube", author, "post");
             } else if (code_division == 3) {
                 mCallCommonMapResponseVO = mSearchRetrofitAPI.deleteBookmarkYoutube("youtube", place_id, review_id, user_id, sns_division);
             } else if (code_division == 4) {
-                mCallCommonMapResponseVO = mSearchRetrofitAPI.deleteBlackList(place_id,user_id, sns_division, "youtube", author, "author", review_id);
+                mCallCommonMapResponseVO = mSearchRetrofitAPI.deleteBlackList(place_id, user_id, sns_division, "youtube", author, "author", review_id);
             } else if (code_division == 5) {
-                mCallCommonMapResponseVO = mSearchRetrofitAPI.deleteBlackList(place_id,user_id, sns_division, "youtube", author, "post", review_id);
+                mCallCommonMapResponseVO = mSearchRetrofitAPI.deleteBlackList(place_id, user_id, sns_division, "youtube", author, "post", review_id);
             }
 
             mCallCommonMapResponseVO.enqueue(mRetrofitCallback);
-
-        }
-
-        private Callback<CommonMapResponseVO> mRetrofitCallback = new Callback<CommonMapResponseVO>() {
-            @Override
-            public void onResponse(Call<CommonMapResponseVO> call, Response<CommonMapResponseVO> response) {
-
-                Log.e("code : ", response.body().getCode());
-                Log.e("message : ", response.body().getMessage());
-                if(response.body().getCode().equals("200")){ //호출 성공 시 버튼 변경
-                    setButtionVisible();
-                }
-//                if(response.body().getCode().equals("200")){
-//                    if(bookmark_flag.equals("true")){
-//                        bookmark_flag = "false";
-//                    }else {
-//                        bookmark_flag = "true";
-//                    }
-//
-//                }
-//            setCode(response.body().getCode());
-
-            }
-
-            @Override
-
-            public void onFailure(Call<CommonMapResponseVO> call, Throwable t) {
-
-                Log.e("asdasdasd", "asdasdasd");
-                t.printStackTrace();
-
-            }
-        };
-    }
-
-    public void setButtionVisible(){
-          /*
-            SET_CODE = 0 : bookmark 추가, 1 : 게시자 블랙리스트 추가, 2 : 게시물 블랙리스트 추가
-            SET_CODE = 3 : bookmark 삭제, 4 : 게시자 블랙리스트 삭제, 5 : 게시물 블랙리스트 삭제
-         */
-        if(SET_CODE == 0){
-
-            bookmark_add.setVisibility(View.GONE);
-            bookmark_add_text.setVisibility(View.GONE);
-            bookmark_cancel.setVisibility(View.VISIBLE);
-            bookmark_cancel_text.setVisibility(View.VISIBLE);
-
-            author_black_add.setVisibility(View.VISIBLE);
-            author_black_add_text.setVisibility(View.VISIBLE);
-            author_black_cancel.setVisibility(View.GONE);
-            author_black_cancel_text.setVisibility(View.GONE);
-
-            post_black_add.setVisibility(View.VISIBLE);
-            post_black_add_text.setVisibility(View.VISIBLE);
-            post_black_cancel.setVisibility(View.GONE);
-            post_black_cancel_text.setVisibility(View.GONE);
-
-        }else if(SET_CODE == 1){
-
-            bookmark_add.setVisibility(View.VISIBLE);
-            bookmark_add_text.setVisibility(View.VISIBLE);
-            bookmark_cancel.setVisibility(View.GONE);
-            bookmark_cancel_text.setVisibility(View.GONE);
-
-            author_black_add.setVisibility(View.GONE);
-            author_black_add_text.setVisibility(View.GONE);
-            author_black_cancel.setVisibility(View.VISIBLE);
-            author_black_cancel_text.setVisibility(View.VISIBLE);
-
-            post_black_add.setVisibility(View.VISIBLE);
-            post_black_add_text.setVisibility(View.VISIBLE);
-            post_black_cancel.setVisibility(View.GONE);
-            post_black_cancel_text.setVisibility(View.GONE);
-
-        }else if(SET_CODE == 2){
-
-            bookmark_add.setVisibility(View.VISIBLE);
-            bookmark_add_text.setVisibility(View.VISIBLE);
-            bookmark_cancel.setVisibility(View.GONE);
-            bookmark_cancel_text.setVisibility(View.GONE);
-
-            author_black_add.setVisibility(View.VISIBLE);
-            author_black_add_text.setVisibility(View.VISIBLE);
-            author_black_cancel.setVisibility(View.GONE);
-            author_black_cancel_text.setVisibility(View.GONE);
-
-            post_black_add.setVisibility(View.GONE);
-            post_black_add_text.setVisibility(View.GONE);
-            post_black_cancel.setVisibility(View.VISIBLE);
-            post_black_cancel_text.setVisibility(View.VISIBLE);
-
-        }else if(SET_CODE == 3||SET_CODE == 4||SET_CODE == 5){
-
-            bookmark_add.setVisibility(View.VISIBLE);
-            bookmark_add_text.setVisibility(View.VISIBLE);
-            bookmark_cancel.setVisibility(View.GONE);
-            bookmark_cancel_text.setVisibility(View.GONE);
-
-            author_black_add.setVisibility(View.VISIBLE);
-            author_black_add_text.setVisibility(View.VISIBLE);
-            author_black_cancel.setVisibility(View.GONE);
-            author_black_cancel_text.setVisibility(View.GONE);
-
-            post_black_add.setVisibility(View.VISIBLE);
-            post_black_add_text.setVisibility(View.VISIBLE);
-            post_black_cancel.setVisibility(View.GONE);
-            post_black_cancel_text.setVisibility(View.GONE);
 
         }
     }

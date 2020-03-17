@@ -1,82 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardview"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="18.3dp"
-        android:layout_marginEnd="18.7dp"
-        android:layout_marginTop="11dp"
-        card_view:cardCornerRadius="17dp"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/firstLin"
+    <androidx.cardview.widget.CardView
+            android:id="@+id/cardview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="#ffffff"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            app:cardElevation="0dp"
+            card_view:cardCornerRadius="17dp">
 
-            <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
-                <ImageView
-                    android:id="@+id/imageIcon"
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:layout_margin="10dp"
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/place_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/place_image_layout"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/place_top"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/imageIcon"
-                    android:orientation="vertical">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/place_top"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/place_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@id/place_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread">
 
-                    <TextView
-                        android:id="@+id/place_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:text="가나다" />
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text1"
+                        android:layout_width="55dp"
+                        android:layout_height="0dp"
+                        android:layout_marginVertical="2.5dp"
+                        android:background="@drawable/signup_next_button_true"
+                        android:fontFamily="@font/nanumsquareroundb"
+                        android:gravity="center"
+                        android:text="영업종료"
+                        android:textSize="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/category_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:text="마바사"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_below="@+id/imageIcon">
-                    <TextView
-                        android:id="@+id/content_tv"
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/rating_star"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="가나다라"
-                        android:textSize="15sp"/>
-                </LinearLayout>
+                        android:layout_height="0dp"
+                        android:layout_marginVertical="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/text1"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </RelativeLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/rating_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/nanumsquareroundb"
+                        android:gravity="center_vertical"
+                        android:text="4.2"
+                        android:textColor="#333333"
+                        android:textSize="12dp"
+                        app:layout_constraintBottom_toBottomOf="@id/rating_star"
+                        app:layout_constraintStart_toEndOf="@id/rating_star"
+                        app:layout_constraintTop_toTopOf="@id/rating_star" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/place_name"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:ellipsize="end"
+                    android:ems="20"
+                    android:fontFamily="@font/nanumsquareroundb"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="place_name"
+                    android:textAlignment="textStart"
+                    android:textColor="#333333"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toTopOf="@+id/place_category"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/place_top"
+                    app:layout_constraintTop_toBottomOf="@+id/place_top" />
 
 
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/place_category"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    android:gravity="center"
+                    android:text="카테고리"
+                    android:textAlignment="textStart"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/place_top"
+                    app:layout_constraintTop_toBottomOf="@+id/place_name" />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

@@ -1,43 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-        <Button
+        android:layout_height="match_parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="@dimen/bottom_navigation"
+        android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/bookmark_place"
-            android:text="매장"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/bookmark_youtube"
-            android:text="유튜브"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/bookmark_naver"
-            android:text="네이버"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/bookmark_tistory"
-            android:text="티스토리"/>
-    </LinearLayout>
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/bookmark_place"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="매장"
+                android:gravity="center"
+                app:layout_constraintEnd_toStartOf="@+id/bookmark_youtube"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/bookmark_youtube"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="유튜브"
+                android:gravity="center"
+                app:layout_constraintEnd_toStartOf="@+id/bookmark_naver"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/bookmark_place" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/bookmark_naver"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="네이버"
+                android:gravity="center"
+                app:layout_constraintEnd_toStartOf="@+id/bookmark_tistory"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/bookmark_youtube" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/bookmark_tistory"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="티스토리"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/bookmark_naver" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
-        android:id="@+id/child_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
-
-</LinearLayout>
+            android:id="@+id/child_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#eff2f7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header" />
+</androidx.constraintlayout.widget.ConstraintLayout>

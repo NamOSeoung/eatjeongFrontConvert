@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,71 +12,61 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dev.eatjeong.R;
-
 import com.dev.eatjeong.main.bookmark.bookmarkFragment.NaverFragment;
 import com.dev.eatjeong.main.bookmark.bookmarkFragment.PlaceFragment;
 import com.dev.eatjeong.main.bookmark.bookmarkFragment.TistoryFragment;
 import com.dev.eatjeong.main.bookmark.bookmarkFragment.YoutubeFragment;
 import com.dev.eatjeong.mainWrap.MainWrapActivity;
+import com.dev.eatjeong.util.Util;
 
-public class BookmarkTab extends Fragment implements  View.OnClickListener{
-
-    Button bookmark_place, bookmark_youtube, bookmark_naver, bookmark_tistory;
+public class BookmarkTab extends Fragment implements View.OnClickListener {
 
     String user_id;
     String sns_division;
 
-    AppCompatTextView bookmark_login;
-
+    AppCompatTextView bookmark_login, bookmark_place, bookmark_youtube, bookmark_naver, bookmark_tistory;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v;
 
+        user_id = ((MainWrapActivity) getActivity()).getUserInfo().get("user_id");
+        sns_division = ((MainWrapActivity) getActivity()).getUserInfo().get("sns_division");
 
-        user_id = ((MainWrapActivity)getActivity()).getUserInfo().get("user_id");
-        sns_division = ((MainWrapActivity)getActivity()).getUserInfo().get("sns_division");
-
-        if(user_id != null) {
+        if (!Util.isNullOrEmpty(user_id)) {
             v = inflater.inflate(R.layout.bookmark_tab, container, false);
             initFragment(v);
-            bookmark_place = (Button)v.findViewById(R.id.bookmark_place);
-            bookmark_youtube = (Button)v.findViewById(R.id.bookmark_youtube);
-            bookmark_naver = (Button)v.findViewById(R.id.bookmark_naver);
-            bookmark_tistory = (Button)v.findViewById(R.id.bookmark_tistory);
+            bookmark_place = v.findViewById(R.id.bookmark_place);
+            bookmark_youtube = v.findViewById(R.id.bookmark_youtube);
+            bookmark_naver = v.findViewById(R.id.bookmark_naver);
+            bookmark_tistory = v.findViewById(R.id.bookmark_tistory);
 
             bookmark_place.setOnClickListener(this);
             bookmark_youtube.setOnClickListener(this);
             bookmark_naver.setOnClickListener(this);
             bookmark_tistory.setOnClickListener(this);
 
-        }else{
+        } else {
             v = inflater.inflate(R.layout.bookmark_logout_tab, container, false);
 
             bookmark_login = v.findViewById(R.id.bookmark_login);
-
-
             bookmark_login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((MainWrapActivity)getActivity()).backLoginPage();
+                    ((MainWrapActivity) getActivity()).backLoginPage();
                 }
             });
         }
 
 
-
-
-
         return v;
     }
 
-    public void initFragment(View v){
+    public void initFragment(View v) {
         Fragment fg;
         fg = PlaceFragment.newInstance();
         setChildFragment(fg);
-
     }
 
 
@@ -109,7 +98,6 @@ public class BookmarkTab extends Fragment implements  View.OnClickListener{
     public void setChildFragment(Fragment fr) {
 
         FragmentTransaction childFt = getChildFragmentManager().beginTransaction();
-
 
         if (!fr.isAdded()) {
             childFt.replace(R.id.child_fragment_container, fr);

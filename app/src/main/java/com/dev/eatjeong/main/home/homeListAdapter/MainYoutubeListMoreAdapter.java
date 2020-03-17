@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -22,7 +21,7 @@ public class MainYoutubeListMoreAdapter extends BaseAdapter {
     private Context context;
     private RequestManager mGlide;
 
-    public MainYoutubeListMoreAdapter(Context context, ArrayList<MainReviewVO> data, RequestManager mGlideRequestManager){
+    public MainYoutubeListMoreAdapter(Context context, ArrayList<MainReviewVO> data, RequestManager mGlideRequestManager) {
         this.context = context;
         this.data = data;
         this.mGlide = mGlideRequestManager;
@@ -36,7 +35,7 @@ public class MainYoutubeListMoreAdapter extends BaseAdapter {
     @Override
     public MainReviewVO getItem(int position) {
         //position %= 4; // 0~3의 데이터의 포지션 값으로 지정해야함.
-        Log.e("position" , String.valueOf(position));
+        Log.e("position", String.valueOf(position));
 
         return data.get(position);
     }
@@ -58,7 +57,7 @@ public class MainYoutubeListMoreAdapter extends BaseAdapter {
         youtube_title.setText(data.get(position).getTitle());
         youtube_write_date.setText(data.get(position).getWrite_date());
         mGlide.load(data.get(position).getThumbnail_url())
-                .override(300,200)
+                .override(300, 200)
                 .fitCenter()
                 .into(youtube_image);
 

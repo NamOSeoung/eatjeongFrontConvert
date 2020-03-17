@@ -1,6 +1,5 @@
 package com.dev.eatjeong.main.search.searchReviewMoreActivirt;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,31 +7,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.search.SearchRetrofitAPI;
 import com.dev.eatjeong.main.search.searchListAdapter.NaverReviewListMoreAdapter;
-import com.dev.eatjeong.main.search.searchListAdapter.YoutubeReviewListMoreAdapter;
 import com.dev.eatjeong.main.search.searchListVO.NaverReviewVO;
-import com.dev.eatjeong.main.search.searchListVO.YoutubeReviewVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchAreaListResponseVO;
 import com.dev.eatjeong.main.search.searchRetrofitVO.SearchNaverListResponseVO;
-import com.dev.eatjeong.main.search.searchRetrofitVO.SearchYoutubeListResponseVO;
 import com.dev.eatjeong.main.search.searchReviewWebview.SearchNaverReviewWebviewActivity;
-import com.dev.eatjeong.main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,27 +35,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchNaverReviewMoreActivity extends AppCompatActivity {
 
-    String user_id,sns_division,place_id,place_address,place_name;
-
+    String user_id, sns_division, place_id, place_address, place_name;
     private ArrayList<NaverReviewVO> arrayList = new ArrayList<NaverReviewVO>();
-
     private Retrofit mRetrofit;
-
     private SearchRetrofitAPI mSearchRetrofitAPI;
-
     private Call<SearchNaverListResponseVO> mCallSearchNaverListResponseVO;
+    private RequestManager mGlideRequestManager;
 
-    ListView listView;
-
-    NaverReviewListMoreAdapter adapter;
-
-    ProgressBar search_naver_progress_bar;
-
-    TextView review_more;
+    private ListView listView;
+    private NaverReviewListMoreAdapter adapter;
+    private ProgressBar search_naver_progress_bar;
+    private TextView review_more;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_naver_review_more);
+        mGlideRequestManager = Glide.with(this);
 
         Intent intent = getIntent();
         user_id = intent.getStringExtra("user_id");
@@ -72,28 +59,43 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
         place_address = intent.getStringExtra("place_address");
         place_name = intent.getStringExtra("place_name");
 
+        View action_bar = findViewById(R.id.action_bar);
+        AppCompatImageView back_button = action_bar.findViewById(R.id.back_image);
+        AppCompatImageView exit_button = action_bar.findViewById(R.id.exit_image);
+        AppCompatTextView title_text = action_bar.findViewById(R.id.textview1);
+
+        title_text.setText(place_name);
+        exit_button.setVisibility(View.INVISIBLE);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         //레트로핏 연결하기위한 초기화 작업.
         setRetrofitInit();
 
         //레트로핏 초기화 후 호출작업 진행.
         callSearchResponse();
 
-        search_naver_progress_bar = (ProgressBar)findViewById(R.id.search_naver_progress_bar);
-        listView = (ListView)findViewById(R.id.search_naver_list);
+        search_naver_progress_bar = (ProgressBar) findViewById(R.id.search_naver_progress_bar);
+        listView = (ListView) findViewById(R.id.search_naver_list);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent goWebview = new Intent(getApplicationContext(), SearchNaverReviewWebviewActivity.class);
-                goWebview.putExtra("user_id",user_id);
-                goWebview.putExtra("sns_division",sns_division);
-                goWebview.putExtra("place_id",place_id);
-                goWebview.putExtra("review_id",arrayList.get(position).getReview_id());
-                goWebview.putExtra("url",arrayList.get(position).getUrl());
+                goWebview.putExtra("user_id", user_id);
+                goWebview.putExtra("sns_division", sns_division);
+                goWebview.putExtra("place_id", place_id);
+                goWebview.putExtra("review_id", arrayList.get(position).getReview_id());
+                goWebview.putExtra("url", arrayList.get(position).getUrl());
 
-                startActivityForResult(goWebview,0);//액티비티 띄우기
-                SearchNaverReviewMoreActivity.this.overridePendingTransition(R.anim.fadein,0);
+                startActivityForResult(goWebview, 0);//액티비티 띄우기
+                SearchNaverReviewMoreActivity.this.overridePendingTransition(R.anim.fadein, 0);
             }
         });
     }
@@ -105,7 +107,6 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
 
 
     @Override
@@ -126,7 +127,7 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
     }
 
     private void setRetrofitInit() {
@@ -134,13 +135,9 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
         Json을 우리가 원하는 형태로 만들어주는 Gson라이브러리와 Retrofit2에 연결하는 코드입니다 */
 
         mRetrofit = new Retrofit.Builder()
-
                 .baseUrl(getString(R.string.baseUrl))
-
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
-
 
         mSearchRetrofitAPI = mRetrofit.create(SearchRetrofitAPI.class);
 
@@ -150,10 +147,10 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
 
         String place_address_arr[] = place_address.split(" ");
 
-        if(user_id == null){
-            mCallSearchNaverListResponseVO = mSearchRetrofitAPI.getNaverReviewMore(place_id,user_id,sns_division,place_address_arr[0] + " " +place_address_arr[1] +" " + place_name + " " + "맛집");
-        }else{
-            mCallSearchNaverListResponseVO = mSearchRetrofitAPI.getNaverReviewMore(place_id,"temp","T",place_address_arr[0] + " " +place_address_arr[1] +" " + place_name + " " + "맛집");
+        if (user_id == null) {
+            mCallSearchNaverListResponseVO = mSearchRetrofitAPI.getNaverReviewMore(place_id, user_id, sns_division, place_address_arr[0] + " " + place_address_arr[1] + " " + place_name + " " + "맛집");
+        } else {
+            mCallSearchNaverListResponseVO = mSearchRetrofitAPI.getNaverReviewMore(place_id, "temp", "T", place_address_arr[0] + " " + place_address_arr[1] + " " + place_name + " " + "맛집");
         }
 
 
@@ -164,15 +161,14 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
     private Callback<SearchNaverListResponseVO> mRetrofitCallback = new Callback<SearchNaverListResponseVO>() {
 
 
-
         @Override
 
         public void onResponse(Call<SearchNaverListResponseVO> call, Response<SearchNaverListResponseVO> response) {
-            Log.e("dd",response.body().getCode());
-            Log.e("dd",response.body().getMessage());
+            Log.e("dd", response.body().getCode());
+            Log.e("dd", response.body().getMessage());
 
             arrayList.clear();
-            for(int i = 0; i < response.body().mDatalist.size(); i ++){
+            for (int i = 0; i < response.body().mDatalist.size(); i++) {
                 arrayList.add(new NaverReviewVO(
                         response.body().mDatalist.get(i).getIndex(),
                         response.body().mDatalist.get(i).getReview_id(),
@@ -186,7 +182,7 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
                 ));
             }
 
-            adapter = new NaverReviewListMoreAdapter(getApplicationContext(),arrayList);
+            adapter = new NaverReviewListMoreAdapter(getApplicationContext(), arrayList, mGlideRequestManager);
             listView.setAdapter(adapter);
 
             search_naver_progress_bar.setVisibility(View.GONE);
@@ -194,13 +190,12 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
         }
 
 
-
         @Override
 
         public void onFailure(Call<SearchNaverListResponseVO> call, Throwable t) {
 
 
-            Log.e("ss","asdasdasd");
+            Log.e("ss", "asdasdasd");
             t.printStackTrace();
 
         }
@@ -210,8 +205,8 @@ public class SearchNaverReviewMoreActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0){
-            if(resultCode == 1){
+        if (requestCode == 0) {
+            if (resultCode == 1) {
 
                 search_naver_progress_bar.setVisibility(View.VISIBLE);
 

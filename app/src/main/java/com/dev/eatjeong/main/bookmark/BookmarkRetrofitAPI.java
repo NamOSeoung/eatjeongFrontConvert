@@ -1,10 +1,8 @@
 package com.dev.eatjeong.main.bookmark;
 
 import com.dev.eatjeong.common.CommonMapResponseVO;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkNaverResponseVO;
 import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkPlaceResponseVO;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkTistoryResponseVO;
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeResponseVO;
+import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkReviewResponseVO;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -23,15 +21,15 @@ public interface BookmarkRetrofitAPI {
 
     //유튜브 북마크 조회
     @GET("/v1/bookmarks")
-    Call<BookmarkYoutubeResponseVO> getBookmarkYoutube(@Query("gubun")String gubun, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+    Call<BookmarkReviewResponseVO> getBookmarkYoutube(@Query("gubun")String gubun, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
     //네이버 북마크 조회
     @GET("/v1/bookmarks")
-    Call<BookmarkNaverResponseVO> getBookmarkNaver(@Query("gubun")String gubun, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+    Call<BookmarkReviewResponseVO> getBookmarkNaver(@Query("gubun")String gubun, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
     //티스토리 북마크 조회
     @GET("/v1/bookmarks")
-    Call<BookmarkTistoryResponseVO> getBookmarkTistory(@Query("gubun")String gubun, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
+    Call<BookmarkReviewResponseVO> getBookmarkTistory(@Query("gubun")String gubun, @Query("user_id")String user_id, @Query("sns_division")String sns_division);
 
 
     //북마크 삭제부분

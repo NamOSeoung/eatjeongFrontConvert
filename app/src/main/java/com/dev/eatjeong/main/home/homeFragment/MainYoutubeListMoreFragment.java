@@ -29,22 +29,51 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainYoutubeListMoreFragment extends Fragment{
+public class MainYoutubeListMoreFragment extends Fragment {
 
+    MainYoutubeListMoreAdapter adapter;
+    String[] address_arr;
+    String address = "";
+    ProgressBar home_youtube_progress_bar;
+    ListView listView;
     private ArrayList<MainReviewVO> arrayList = new ArrayList<MainReviewVO>();
     private Retrofit mRetrofit;
     private HomeRetrofitAPI mHomeRetrofitAPI;
     private Call<MainReviewListResponseVO> mCallMainReviewListResponseVO;
     private RequestManager mGlideRequestManager;
+    private Callback<MainReviewListResponseVO> mRetrofitCallback = new Callback<MainReviewListResponseVO>() {
+        @Override
+        public void onResponse(Call<MainReviewListResponseVO> call, Response<MainReviewListResponseVO> response) {
+            arrayList.clear();
+            for (int i = 0; i < response.body().mDatalist.size(); i++) {
+                arrayList.add(new MainReviewVO(
+                        response.body().mDatalist.get(i).getTitle(),
+                        response.body().mDatalist.get(i).getUrl(),
+                        response.body().mDatalist.get(i).getThumbnail_url(),
+                        response.body().mDatalist.get(i).getDescription(),
+                        response.body().mDatalist.get(i).getAuthor(),
+                        response.body().mDatalist.get(i).getWrite_date()
+                ));
+            }
 
-    MainYoutubeListMoreAdapter adapter;
+            adapter = new MainYoutubeListMoreAdapter(getContext(), arrayList, mGlideRequestManager);
+            listView.setAdapter(adapter);
 
-    String address_arr[];
-    String address = "";
-    ProgressBar home_youtube_progress_bar;
-    ListView listView;
+            home_youtube_progress_bar.setVisibility(View.GONE);
+        }
 
-    public static MainYoutubeListMoreFragment newInstance(){
+
+        @Override
+
+        public void onFailure(Call<MainReviewListResponseVO> call, Throwable t) {
+
+            t.printStackTrace();
+
+        }
+
+    };
+
+    public static MainYoutubeListMoreFragment newInstance() {
         return new MainYoutubeListMoreFragment();
     }
 
@@ -53,7 +82,6 @@ public class MainYoutubeListMoreFragment extends Fragment{
         super.onCreate(savedInstanceState);
         this.mGlideRequestManager = Glide.with(getActivity());
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,18 +97,18 @@ public class MainYoutubeListMoreFragment extends Fragment{
 //        //레트로핏 초기화 후 호출작업 진행.
         callSearchResponse();
 //
-        home_youtube_progress_bar = (ProgressBar)v.findViewById(R.id.youtube_place_progress_bar);
+        home_youtube_progress_bar = v.findViewById(R.id.youtube_place_progress_bar);
 
-        listView = (ListView) v.findViewById(R.id.home_youtube_list);
+        listView = v.findViewById(R.id.home_youtube_list);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent goWebview = new Intent(getContext(), HomeReviewWebviewActivity.class);
-                goWebview.putExtra("url",arrayList.get(position).getUrl());
+                goWebview.putExtra("url", arrayList.get(position).getUrl());
 
-                startActivityForResult(goWebview,0);//액티비티 띄우기
-                getActivity().overridePendingTransition(R.anim.sliding_up,0);
+                startActivityForResult(goWebview, 0);//액티비티 띄우기
+                getActivity().overridePendingTransition(R.anim.sliding_up, 0);
             }
         });
 
@@ -102,55 +130,17 @@ public class MainYoutubeListMoreFragment extends Fragment{
     private void callSearchResponse() {
 
         String query = "";
-        if(address.equals("")){
+        if (address.equals("")) {
             query = "서울 맛집";
-        }else{
+        } else {
             address_arr = (address.split(" "));
-            query = address_arr[1] + " " + address_arr[2] +" " +address_arr[3] + " " + "맛집";
+            query = address_arr[1] + " " + address_arr[2] + " " + address_arr[3] + " " + "맛집";
         }
 
-        mCallMainReviewListResponseVO = mHomeRetrofitAPI.getMainReviewsMore(query,"YOUTUBE");
+        mCallMainReviewListResponseVO = mHomeRetrofitAPI.getMainReviewsMore(query, "YOUTUBE");
 
         mCallMainReviewListResponseVO.enqueue(mRetrofitCallback);
 
     }
-
-    private Callback<MainReviewListResponseVO> mRetrofitCallback = new Callback<MainReviewListResponseVO>() {
-
-        @Override
-
-        public void onResponse(Call<MainReviewListResponseVO> call, Response<MainReviewListResponseVO> response) {
-            Log.e("title : ", response.body().getCode());
-            Log.e("title : ", response.body().getMessage());
-            arrayList.clear();
-            for(int i = 0; i < response.body().mDatalist.size(); i ++){
-
-                arrayList.add(new MainReviewVO(
-                        response.body().mDatalist.get(i).getTitle(),
-                        response.body().mDatalist.get(i).getUrl(),
-                        response.body().mDatalist.get(i).getThumbnail_url(),
-                        response.body().mDatalist.get(i).getDescription(),
-                        response.body().mDatalist.get(i).getAuthor(),
-                        response.body().mDatalist.get(i).getWrite_date()
-                ));
-            }
-
-            adapter = new MainYoutubeListMoreAdapter(getContext(),arrayList, mGlideRequestManager);
-            listView.setAdapter(adapter);
-
-            home_youtube_progress_bar.setVisibility(View.GONE);
-        }
-
-
-
-        @Override
-
-        public void onFailure(Call<MainReviewListResponseVO> call, Throwable t) {
-
-            t.printStackTrace();
-
-        }
-
-    };
 
 }

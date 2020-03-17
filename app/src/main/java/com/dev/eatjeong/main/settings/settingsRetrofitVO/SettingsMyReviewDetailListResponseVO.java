@@ -1,11 +1,9 @@
 package com.dev.eatjeong.main.settings.settingsRetrofitVO;
 
-import com.dev.eatjeong.main.bookmark.bookmarkRetrofitVO.BookmarkYoutubeResponseVO;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SettingsMyReviewDetailListResponseVO {
 

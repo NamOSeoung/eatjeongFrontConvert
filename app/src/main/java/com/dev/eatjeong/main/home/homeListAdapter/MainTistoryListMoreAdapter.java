@@ -59,12 +59,13 @@ public class MainTistoryListMoreAdapter extends BaseAdapter {
         AppCompatTextView tistory_author = v.findViewById(R.id.tistory_author);
         AppCompatImageView tistory_image = v.findViewById(R.id.tistory_image);
 
-        ViewGroup.LayoutParams tistory_image_params = tistory_image.getLayoutParams();
-
         tistory_title.setText(data.get(position).getTitle());
         tistory_description.setText(data.get(position).getDescription());
         tistory_write_date.setText(data.get(position).getWrite_date());
         tistory_author.setText(data.get(position).getAuthor());
+
+        ViewGroup.LayoutParams tistory_image_params = tistory_image.getLayoutParams();
+
         if(Util.isNullOrEmpty(data.get(position).getThumbnail_url())){
             tistory_image_params.width = 1;
             tistory_image.setLayoutParams(tistory_image_params);
@@ -73,6 +74,7 @@ public class MainTistoryListMoreAdapter extends BaseAdapter {
                     .transform(new CenterCrop(), new RoundedCorners(30))
                     .into(tistory_image);
         }
+
         return v;
     }
 }

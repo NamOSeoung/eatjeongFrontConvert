@@ -6,20 +6,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.main.search.searchListVO.NaverReviewVO;
-import com.dev.eatjeong.main.search.searchListVO.YoutubeReviewVO;
+import com.dev.eatjeong.util.Util;
 
 import java.util.ArrayList;
 
 public class NaverReviewListMoreAdapter extends BaseAdapter {
     private ArrayList<NaverReviewVO> data;
     private Context context;
-    public NaverReviewListMoreAdapter(Context context, ArrayList<NaverReviewVO> data){
+    private RequestManager mGlide;
+
+    public NaverReviewListMoreAdapter(Context context, ArrayList<NaverReviewVO> data, RequestManager mGlideRequestManager){
         this.context = context;
         this.data = data;
+        this.mGlide = mGlideRequestManager;
     }
 
     @Override
@@ -41,10 +49,28 @@ public class NaverReviewListMoreAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.search_naver_item, null);
 
+        AppCompatTextView naver_title = v.findViewById(R.id.naver_title);
+        AppCompatTextView naver_description = v.findViewById(R.id.naver_description);
+        AppCompatTextView naver_write_date = v.findViewById(R.id.naver_write_date);
+        AppCompatTextView naver_author = v.findViewById(R.id.naver_author);
+        AppCompatImageView naver_image = v.findViewById(R.id.naver_image);
 
-            TextView title = v.findViewById(R.id.title);
+        naver_title.setText(data.get(position).getTitle());
+        naver_description.setText(data.get(position).getDescription());
+        naver_write_date.setText(data.get(position).getWrite_date());
+        naver_author.setText(data.get(position).getAuthor());
 
-        title.setText(data.get(position).getTitle());
+        ViewGroup.LayoutParams naver_image_params = naver_image.getLayoutParams();
+
+        if(Util.isNullOrEmpty(data.get(position).getThumbnail_url())){
+            naver_image_params.width = 1;
+            naver_image.setLayoutParams(naver_image_params);
+        }else{
+            mGlide.load(data.get(position).getThumbnail_url())
+                    .transform(new CenterCrop(), new RoundedCorners(30))
+                    .into(naver_image);
+        }
+
         return v;
     }
 }

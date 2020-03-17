@@ -223,6 +223,10 @@ public class NaverReviewFragment extends Fragment {
             arrayList.clear();
 
             if(response.body().mDatalist.size() > 0) {
+                if(response.body().mDatalist.size() < 5){
+                    header_right.setVisibility(View.INVISIBLE);
+                }
+
                 for (int i = 0; i < response.body().mDatalist.size(); i++) {
                     arrayList.add(new NaverReviewVO(
                             response.body().mDatalist.get(i).getIndex(),
