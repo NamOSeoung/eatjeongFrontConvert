@@ -15,6 +15,10 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.dev.eatjeong.R;
 import com.dev.eatjeong.common.CommonMapResponseVO;
 import com.dev.eatjeong.main.search.searchFragment.LatelyFragment;
@@ -49,7 +53,14 @@ public class SettingsTab extends Fragment {
 
 
     AppCompatTextView login_btn,settings_logout,my_info,nick_name,notice,terms,faq;
-    AppCompatImageView my_review_image,black_list_image,one_one_question_image;
+    AppCompatImageView my_review_image,black_list_image,one_one_question_image,profile_image;
+    public RequestManager mGlideRequestManager;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mGlideRequestManager = Glide.with(getActivity());
+    }
 
     @Nullable
     @Override
@@ -73,6 +84,7 @@ public class SettingsTab extends Fragment {
             notice = v.findViewById(R.id.notice);
             terms = v.findViewById(R.id.terms);
             faq = v.findViewById(R.id.faq);
+            profile_image = v.findViewById(R.id.profile_image);
 
             //로그인 됬을 경우만 회원 정보 가지고옴
             setRetrofitInit();
@@ -212,6 +224,14 @@ public class SettingsTab extends Fragment {
 
             if(response.body().getCode().equals("200")){
                 nick_name.setText(response.body().getDataList().get("nickname"));
+
+                mGlideRequestManager.load(response.body().getDataList().get("profile_image"))
+//                .apply(new RequestOptions()
+//                        .transform(new RoundedCorners(30))
+//                )
+                        .transform(new CenterCrop(),new RoundedCorners(100))
+//                        .placeholder(R.drawable.dinner_w_64)
+                        .into(profile_image);
             }
 
         }
