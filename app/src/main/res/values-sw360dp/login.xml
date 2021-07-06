@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_text1_fontsize">28dp</dimen>
+    <dimen name="image_text2_fontsize">22.5dp</dimen>
+    <dimen name="image_text3_fontsize">27dp</dimen>
+    <dimen name="image_text4_fontsize">38.25dp</dimen>
+    <dimen name="image_text5_fontsizse">25.5dp</dimen>
+    <dimen name="no_login_button_width">37.5dp</dimen>
+    <dimen name="no_login_button_height">37.5dp</dimen>
+    <dimen name="login_text_fontsize">13.5dp</dimen>
+    <dimen name="find_text_fontsize">13.5dp</dimen>
+    <dimen name="login_button_width">75dp</dimen>
+    <dimen name="signup_button_fontsize">11.25dp</dimen>
+    <dimen name="signup_button_height">37.5dp</dimen>
+    <dimen name="buttonLayoutMarginTop">7.5dp</dimen>
+    <dimen name="login_button_margin_top">36dp</dimen>
+</resources>

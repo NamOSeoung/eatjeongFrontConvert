@@ -1,0 +1,277 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="24dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineActionbarBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="@dimen/actionbar_guideline_percent" />
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/custom_actionbar_blacklist" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/black_tab_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/black_tab_warp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#ffffff"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineActionbarBottom"
+            app:layout_constraintBottom_toBottomOf="@+id/black_tab_bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/left_wrap1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.23" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/left_wrap2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.45" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/post_btn"
+                android:text="게시자"
+                android:gravity="center"
+                android:textColor="#333333"
+                android:textSize="14dp"
+                android:fontFamily="@font/nanumsquareroundb"
+                android:background="@drawable/common_bottom_border"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/left_wrap1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/author_btn"
+                android:paddingLeft="0dp"
+                android:text="게시글"
+                android:gravity="center_vertical"
+                android:textColor="#cccccc"
+                android:textSize="14dp"
+                android:fontFamily="@font/nanumsquareroundb"
+                app:layout_constraintStart_toEndOf="@+id/post_btn"
+                app:layout_constraintEnd_toEndOf="@+id/left_wrap2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/right_wrap1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.6" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/right_wrap1_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.63" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/right_wrap2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.78" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/right_wrap2_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.81" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/right_wrap3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.96" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:id="@+id/youtube_btn"
+                android:text="유튜브"
+                android:gravity="center"
+                android:background="@drawable/blacklist_btn_radius"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/nanumsquareroundb"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@+id/left_wrap2"
+                app:layout_constraintEnd_toEndOf="@+id/right_wrap1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/naver_btn"
+                android:text="네이버"
+                android:textSize="12dp"
+                android:gravity="center"
+                android:background="@drawable/blacklist_btn_default_radius"
+                android:textColor="#ffffff"
+                app:layout_constraintStart_toStartOf="@+id/right_wrap1_1"
+                app:layout_constraintEnd_toEndOf="@+id/right_wrap2"
+                app:layout_constraintTop_toTopOf="@+id/youtube_btn"
+                app:layout_constraintBottom_toBottomOf="@+id/youtube_btn"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/tistory_btn"
+                android:text="티스토리"
+                android:textSize="12dp"
+                android:gravity="center"
+                android:background="@drawable/blacklist_btn_default_radius"
+                android:textColor="#ffffff"
+                app:layout_constraintStart_toStartOf="@+id/right_wrap2_1"
+                app:layout_constraintEnd_toEndOf="@+id/right_wrap3"
+                app:layout_constraintTop_toTopOf="@+id/naver_btn"
+                app:layout_constraintBottom_toBottomOf="@+id/naver_btn"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/black_list_wrap"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#eff2f7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/black_tab_warp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                >
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:orientation="vertical"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_marginTop="40dp"-->
+<!--    android:layout_height="match_parent">-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        >-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_weight="1.5"-->
+<!--            >-->
+<!--            <Button-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:text="게시글"-->
+<!--                android:textSize="10dp"-->
+<!--                android:id="@+id/post_btn"-->
+<!--                android:layout_weight="1"/>-->
+<!--            <Button-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:text="게시자"-->
+<!--                android:textSize="10dp"-->
+<!--                android:id="@+id/author_btn"-->
+<!--                android:layout_weight="1"/>-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_weight="0.5"-->
+<!--            >-->
+<!--            <Button-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:text="유튜브"-->
+<!--                android:id="@+id/youtube_btn"-->
+<!--                android:layout_weight="1"/>-->
+<!--            <Button-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:text="네이버"-->
+<!--                android:id="@+id/naver_btn"-->
+<!--                android:layout_weight="1"/>-->
+<!--            <Button-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:text="티스토리"-->
+<!--                android:id="@+id/tistory_btn"-->
+<!--                android:layout_weight="1"/>-->
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
+
+<!--    <ProgressBar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:id="@+id/progress"/>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/recycler_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--        </androidx.recyclerview.widget.RecyclerView>-->
+<!--    </LinearLayout>-->
+
+
+<!--</LinearLayout>-->
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+
+
+

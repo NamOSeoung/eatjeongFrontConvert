@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="24dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/app_background_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.13" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/title_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.09" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/login_wrap_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/no_login_wrap_header"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/appColor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/app_background_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/title_wrap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/appColor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/title_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            app:fontFamily="@font/nanumsquareroundb"
+            android:textSize="16dp"
+            android:textColor="#b99000"
+            android:text="오늘은 어떤 식사를 하나요?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/no_login_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#eff2f7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/no_login_wrap_header"
+        app:layout_constraintVertical_bias="1.0">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_line"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_line"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_wrap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/login_wrap_radius"
+        app:layout_constraintTop_toBottomOf="@+id/title_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/login_wrap_bottom"
+        app:layout_constraintStart_toEndOf="@+id/left_line"
+        app:layout_constraintEnd_toStartOf="@+id/right_line">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/login_wrap_center_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/profile_header"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/profile_bottom"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.475" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:fontFamily="@font/nanumsquareroundb"
+            android:textSize="14dp"
+            android:textColor="#555555"
+            android:background="@drawable/my_profile_radius"
+            app:layout_constraintTop_toTopOf="@+id/profile_header"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_bottom"
+            app:layout_constraintStart_toStartOf="@+id/profile_left"
+            app:layout_constraintEnd_toEndOf="@+id/profile_right"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profile_camera_image_wrap"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/my_profile_camera_radius"
+            app:layout_constraintBottom_toTopOf="@+id/nick_name"
+            app:layout_constraintEnd_toStartOf="@+id/profile_right"
+            >
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/profile_camera_image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/camera_f_128"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/nick_name"
+            android:layout_width="0dp"
+            android:paddingTop="15dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:textColor="#333333"
+            app:fontFamily="@font/nanumsquareroundb"
+            app:layout_constraintStart_toEndOf="@+id/button_left_line"
+            app:layout_constraintEnd_toStartOf="@+id/button_right_line"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/my_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="내 정보 관리"
+            android:textAlignment="center"
+            android:textSize="12dp"
+            app:fontFamily="@font/nanumsquareroundb"
+            android:textColor="#888888"
+            app:layout_constraintStart_toEndOf="@+id/button_left_line"
+            app:layout_constraintEnd_toStartOf="@+id/button_right_line"
+            app:layout_constraintTop_toBottomOf="@+id/nick_name"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_left_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.07" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/profile_left"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.333" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/profile_right"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.666" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_right_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.93" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_bottom_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/login_wrap_center_line"
+            app:layout_constraintBottom_toBottomOf="@+id/button_bottom_line"
+            app:layout_constraintStart_toEndOf="@+id/button_left_line"
+            app:layout_constraintEnd_toStartOf="@+id/button_right_line"
+            >
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/login_ok_menu_guide1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.333" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/login_ok_menu_guide2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.666" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/login_ok_menu_guide3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+
+                app:layout_constraintGuide_percent="0.999" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/my_review_image"
+                android:src="@drawable/review_5_128"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/login_ok_menu_guide1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/my_review"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/my_review"
+                android:text="내 리뷰"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/my_review_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/login_ok_menu_guide1"
+                />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/black_list_image"
+                android:src="@drawable/balcklist_5_128"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="@+id/login_ok_menu_guide1"
+                app:layout_constraintEnd_toStartOf="@+id/login_ok_menu_guide2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/black_list"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/black_list"
+                android:text="블랙리스트"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/black_list_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/login_ok_menu_guide2"
+                app:layout_constraintStart_toStartOf="@+id/login_ok_menu_guide1"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/one_one_question_image"
+                android:src="@drawable/edit_5_64"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="@+id/login_ok_menu_guide2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/one_one_question"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/one_one_question"
+                android:text="1:1문의"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/one_one_question_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/login_ok_menu_guide2"
+                />
+
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/login_btn"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:text="로그인하기"-->
+<!--                android:gravity="center"-->
+<!--                app:fontFamily="@font/nanumsquareroundb"-->
+<!--                android:textColor="#555555"-->
+<!--                android:textSize="16dp"-->
+<!--                android:background="@drawable/login_button_wrap_radius"-->
+<!--                app:layout_constraintCircleRadius="11dp"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/button_left_line"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/button_right_line"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/login_wrap_center_line"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/button_bottom_line"-->
+<!--                />-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/app_list_left_line"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/no_login_list_bottom1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.525" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/no_login_list_bottom2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/no_login_list_bottom3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.675" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/no_login_list_bottom4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/no_login_list_bottom5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.825" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/notice"
+        android:text="공지사항"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:fontFamily="@font/nanumsquareroundb"
+        android:textSize="14dp"
+        android:textColor="#555555"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toStartOf="@+id/right_line"
+        app:layout_constraintStart_toStartOf="@id/app_list_left_line"
+        app:layout_constraintTop_toBottomOf="@+id/login_wrap"
+        app:layout_constraintBottom_toBottomOf="@+id/no_login_list_bottom1"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/faq"
+        android:text="자주하는 질문"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:fontFamily="@font/nanumsquareroundb"
+        android:textSize="14dp"
+        android:textColor="#555555"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toStartOf="@+id/right_line"
+        app:layout_constraintStart_toStartOf="@id/app_list_left_line"
+        app:layout_constraintTop_toBottomOf="@+id/no_login_list_bottom1"
+        app:layout_constraintBottom_toBottomOf="@+id/no_login_list_bottom2"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/terms"
+        android:text="약관 및 정책"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:fontFamily="@font/nanumsquareroundb"
+        android:textSize="14dp"
+        android:textColor="#555555"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toStartOf="@+id/right_line"
+        app:layout_constraintStart_toStartOf="@id/app_list_left_line"
+        app:layout_constraintTop_toBottomOf="@+id/no_login_list_bottom2"
+        app:layout_constraintBottom_toBottomOf="@+id/no_login_list_bottom3"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:text="앱 정보"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:fontFamily="@font/nanumsquareroundb"
+        android:textSize="14dp"
+        android:textColor="#555555"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toStartOf="@+id/right_line"
+        app:layout_constraintStart_toStartOf="@id/app_list_left_line"
+        app:layout_constraintTop_toBottomOf="@+id/no_login_list_bottom3"
+        app:layout_constraintBottom_toBottomOf="@+id/no_login_list_bottom4"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/settings_logout"
+        android:text="로그아웃"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:fontFamily="@font/nanumsquareroundb"
+        android:textSize="14dp"
+        android:textColor="#555555"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toStartOf="@+id/right_line"
+        app:layout_constraintStart_toStartOf="@id/app_list_left_line"
+        app:layout_constraintTop_toBottomOf="@+id/no_login_list_bottom4"
+        app:layout_constraintBottom_toBottomOf="@+id/no_login_list_bottom5"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--android:orientation="vertical" android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent">-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:id="@+id/nick_name"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="30dp"-->
+<!--        />-->
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:text="내 정보 관리"-->
+<!--        android:id="@+id/my_info"/>-->
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:text="블랙리스트 관리"-->
+<!--        android:id="@+id/my_black_list"/>-->
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:text="내리뷰 관리"-->
+<!--        android:id="@+id/my_review"/>-->
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:text="로그아웃"-->
+<!--        android:id="@+id/settings_logout"/>-->
+<!--</LinearLayout>-->

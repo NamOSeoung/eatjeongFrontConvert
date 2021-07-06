@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "25778723047",
+    "firebase_url": "https://jangchinso.firebaseio.com",
+    "project_id": "jangchinso",
+    "storage_bucket": "jangchinso.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25778723047:android:05bd2753d23655cec0aa42",
+        "android_client_info": {
+          "package_name": "com.dev.eatjeong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "25778723047-clstgso0a677611313tip57cuuj2t04p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dev.eatjeong",
+            "certificate_hash": "1c7fd26e8b8113f063d0fb03cb9dd040dfce0ecb"
+          }
+        },
+        {
+          "client_id": "25778723047-7neq5oclnjfgunfctukmo8t70i112n9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGYpxwgF_LgG9y2amxQUV39ByDbjL0_og"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "25778723047-7neq5oclnjfgunfctukmo8t70i112n9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

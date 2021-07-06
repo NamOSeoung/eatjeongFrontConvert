@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".main.search.searchActivity.ReviewWriteActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/rating1"
+            android:text="1점"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/rating2"
+            android:layout_weight="1"
+            android:text="2점"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/rating3"
+            android:layout_weight="1"
+            android:text="3점"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/rating4"
+            android:layout_weight="1"
+            android:text="4점"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/rating5"
+            android:layout_weight="1"
+            android:text="5점"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/contents"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+    <Button
+        android:id="@+id/confirm"
+        android:text="작성완료"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Button
+            android:text="이미지 삭제"
+            android:id="@+id/delete_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_rx_multi_show"
+            android:layout_centerInParent="true"
+            />
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_rx_multi_show"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+
+
+    <HorizontalScrollView
+        android:id="@+id/hori_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="false"
+        android:foregroundGravity="left"
+        >
+
+
+        <LinearLayout
+            android:id="@+id/selected_photos_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:animateLayoutChanges="true"
+            android:gravity="left"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+
+            <!-- images will be added dynamicall to this layout -->
+        </LinearLayout>
+    </HorizontalScrollView>
+    <Button
+        android:id="@+id/btn_rx_multi_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이미지 첨부" />
+</LinearLayout>

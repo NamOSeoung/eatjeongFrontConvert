@@ -1,0 +1,6 @@
+<resources>
+    <string name="place_text">매장</string>
+    <string name="youtube_text">유튜브</string>
+    <string name="naver_text">네이버</string>
+    <string name="tistory_text">티스토리</string>
+</resources>

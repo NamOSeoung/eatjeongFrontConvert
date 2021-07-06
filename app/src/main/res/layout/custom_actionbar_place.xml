@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="ContentDescription">
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineActionbarBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="@dimen/actionbar_guideline_percent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/action_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/actionbar_border_bottom_2dp"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineActionbarBottom"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/back_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@id/textview1"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+
+            <ImageButton
+                    android:id="@+id/back_image"
+                    android:layout_width="15dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/angle_left"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@id/back_text"
+                    app:layout_constraintEnd_toStartOf="@+id/back_text"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/back_text"
+                    />
+
+            <TextView
+                    android:id="@+id/back_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquareroundb"
+                    android:gravity="center"
+                    android:text="검색결과"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/back_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+                android:id="@+id/textview1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/nanumsquareroundb"
+                android:gravity="center"
+                android:text="textview1"
+                android:textAlignment="center"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/bookmark_layout"
+                app:layout_constraintHorizontal_weight="6"
+                app:layout_constraintStart_toEndOf="@id/back_button" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bookmark_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@id/textview1"
+                >
+
+            <ImageButton
+                    android:id="@+id/bookmark_true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bookmark_y_64"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                    android:id="@+id/bookmark_false"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bookmark_d_64"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:color="#FFE074"
+        android:icon="@drawable/home_d_64"
+        android:title="메인" />
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/search_d_64"
+        android:title="검색" />
+
+    <item
+        android:id="@+id/bookmark"
+        android:icon="@drawable/bookmark_d_64"
+        android:title="북마크" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/user_d_64"
+        android:title="내정보" />
+
+
+</menu>

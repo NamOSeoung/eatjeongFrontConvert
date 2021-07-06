@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="ContentDescription,HardcodedText">
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/imageTextGuideLineLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+    <ImageView
+            android:id="@+id/backgroudImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@id/guidelineVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/login_background_image" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/imageTextLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineVertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/imageTextGuideLineLeft"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/imageTextGuideLineTop"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/imageTextGuideLineBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/terms_constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/personal_terms_constraintLayout"
+                app:layout_constraintTop_toTopOf="@id/imageTextGuideLineTop"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintVertical_weight="1.5">
+
+            <TextView
+                    android:id="@+id/imageText1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquareroundeb"
+                    android:text="맛있는 장소"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/image_text1_fontsize"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                    android:id="@+id/imageText2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    android:text="를"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/image_text2_fontsize"
+                    app:layout_constraintBottom_toBottomOf="@id/imageText1"
+                    app:layout_constraintStart_toEndOf="@id/imageText1" />
+
+            <TextView
+                    android:id="@+id/imageText3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquareroundr"
+                    android:text="찾아보세요."
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/image_text3_fontsize"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageText1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/personal_terms_constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/all_terms_constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/terms_constraintLayout"
+                app:layout_constraintVertical_weight="1.5">
+
+            <TextView
+                    android:id="@+id/imageText4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquareroundeb"
+                    android:text="잇정"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/image_text4_fontsize"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/all_terms_constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/imageTextGuideLineBottom"
+                app:layout_constraintTop_toBottomOf="@+id/personal_terms_constraintLayout"
+                app:layout_constraintVertical_weight="1">
+
+            <TextView
+                    android:id="@+id/imageText5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/nanumsquareroundeb"
+                    android:gravity="center"
+                    android:text="둘러보기"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/image_text5_fontsizse"
+                    app:layout_constraintBottom_toBottomOf="@id/no_login_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                    android:id="@+id/no_login_button"
+                    android:layout_width="@dimen/no_login_button_width"
+                    android:layout_height="@dimen/no_login_button_height"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/no_login_button"
+                    app:layout_constraintStart_toEndOf="@id/imageText5"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/arrow_right" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loginLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#333333"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guidelineVertical">
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/loginGuideTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/loginGuideBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.9" />
+
+        <EditText
+                android:id="@+id/login_id_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nanumsquareroundb"
+                android:hint="이메일"
+                android:inputType="textWebEmailAddress"
+                android:padding="10dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#aaaaaa"
+                android:textSize="@dimen/login_text_fontsize"
+                app:layout_constraintBottom_toTopOf="@+id/login_password_text"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                app:layout_constraintTop_toTopOf="@id/loginGuideTop"
+                app:layout_constraintVertical_bias="0.2"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        <EditText
+                android:id="@+id/login_password_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nanumsquareroundb"
+                android:hint="비밀번호"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#aaaaaa"
+                android:textSize="@dimen/login_text_fontsize"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                app:layout_constraintTop_toBottomOf="@+id/login_id_text" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/buttonLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/buttonLayoutMarginTop"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                app:layout_constraintTop_toBottomOf="@+id/login_password_text">
+
+            <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/login_button"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/nanumsquareroundb"
+                        android:text="아이디 찾기"
+                        android:textColor="#dddddd"
+                        android:textSize="@dimen/find_text_fontsize" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="10dp"
+                        android:fontFamily="@font/nanumsquareroundb"
+                        android:text="|"
+                        android:textColor="#dddddd"
+                        android:textSize="@dimen/find_text_fontsize" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/nanumsquareroundb"
+                        android:text="비밀번호 찾기"
+                        android:textColor="#dddddd"
+                        android:textSize="@dimen/find_text_fontsize" />
+
+            </LinearLayout>
+
+            <Button
+                    android:id="@+id/login_button"
+                    android:layout_width="@dimen/login_button_width"
+                    android:layout_height="@dimen/login_button_margin_top"
+                    android:background="@drawable/loginactivity_login_button"
+                    android:fontFamily="@font/nanumsquareroundb"
+                    android:text="로그인"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/find_text_fontsize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/signUpLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/loginGuideBottom"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLayout">
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/loginButtonGuideLineLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.2" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/loginButtonGuideLineRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.8" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/loginButtonGuideLineTop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.15" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/loginButtonGuideLineBottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.85" />
+
+            <Button
+                    android:id="@+id/emailSignUp"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/signup_button_height"
+                    android:background="@drawable/social_login_button"
+                    android:fontFamily="@font/nanumsquareroundb"
+                    android:text="이메일 회원가입"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/signup_button_fontsize"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/kakaoSignUp"
+                    app:layout_constraintEnd_toEndOf="@id/loginButtonGuideLineRight"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/loginButtonGuideLineLeft"
+                    app:layout_constraintTop_toTopOf="@id/loginButtonGuideLineTop"
+                    app:layout_constraintVertical_chainStyle="spread" />
+
+            <Button
+                    android:id="@+id/kakaoSignUp"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/signup_button_height"
+                    android:background="@drawable/social_login_button"
+                    android:fontFamily="@font/nanumsquareroundb"
+                    android:text="카카오 로그인"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/signup_button_fontsize"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/naverSignUp"
+                    app:layout_constraintEnd_toEndOf="@id/loginButtonGuideLineRight"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/loginButtonGuideLineLeft"
+                    app:layout_constraintTop_toBottomOf="@+id/emailSignUp" />
+
+            <Button
+                    android:id="@+id/naverSignUp"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/signup_button_height"
+                    android:background="@drawable/social_login_button"
+                    android:fontFamily="@font/nanumsquareroundb"
+                    android:text="네이버 로그인"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/signup_button_fontsize"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/loginButtonGuideLineBottom"
+                    app:layout_constraintEnd_toEndOf="@id/loginButtonGuideLineRight"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/loginButtonGuideLineLeft"
+                    app:layout_constraintTop_toBottomOf="@+id/kakaoSignUp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

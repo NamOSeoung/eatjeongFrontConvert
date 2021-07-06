@@ -1,24 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dev.eatjeong">
+        package="com.dev.eatjeong">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 현위치 화인 위한 권한 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
+            android:name=".social.kakao.App"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:largeHeap="true"
+            android:theme="@style/AppTheme">
+
+        <meta-data
+                android:name="com.kakao.sdk.AppKey"
+                android:value="68ab9da973a075def10b0a08972cdeee" />
+
+        <activity
+                android:name=".login.LoginActivity"
+                android:label="@string/app_name"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+                android:name=".mainWrap.MainWrapActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.search.searchActivity.MapSearchActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+                android:name=".main.search.searchActivity.PlaceInfoActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+
+
+        <!-- 북마크 탭 리뷰 별 웹뷰 Activity 화면 -->
+        <activity
+                android:name=".main.bookmark.bookmarkListWebview.BookmarkPlaceWebviewActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.bookmark.bookmarkListWebview.BookmarkYoutubeWebviewActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.bookmark.bookmarkListWebview.BookmarkNaverWebviewActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.bookmark.bookmarkListWebview.BookmarkTistoryWebviewActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+        <!-- END -->
+        <!-- 검색 탭 매장 상세 후 리뷰 별 더보기 Activity 화면 -->
+        <activity
+                android:name=".main.search.searchReviewMoreActivirt.SearchYoutubeReviewMoreActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.search.searchReviewMoreActivirt.SearchNaverReviewMoreActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.search.searchReviewMoreActivirt.SearchTistoryReviewMoreActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.search.searchReviewMoreActivirt.SearchAppReviewMoreActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+
+        <!-- 검색 탭 웹뷰 호출 Activity 화면 -->
+        <activity
+                android:name=".main.search.searchReviewWebview.SearchYoutubeReviewWebviewActivity"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.search.searchReviewWebview.SearchNaverReviewWebviewActivity"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.search.searchReviewWebview.SearchTistoryReviewWebviewActivity"
+                android:windowSoftInputMode="adjustNothing" />
+        <!-- END -->
+
+        <!-- 회원가입 화면 -->
+        <activity
+                android:name=".signUp.signUpActivity.SignUpActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustResize" />
+
+        <!-- 서비스 약관 화면 -->
+        <activity
+                android:name=".signUp.signUpActivity.ServiceTermsPopupActivity"
+                android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- 개인정보 약관 화면 -->
+        <activity android:name=".signUp.signUpActivity.PersonalTermsPopupActivity"
+                android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <!-- 홈 탭 매장, 리뷰별 더보기 시 공통화면 -->
+        <activity
+                android:name=".main.home.homeReviewMore.HomeReviewMoreActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+                android:name=".main.home.homeReviewWebview.HomeReviewWebviewActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+                android:name=".main.home.homeActivity.PlaceInfoActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.bookmark.bookmarkActivity.PlaceInfoActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+                android:name=".main.settings.settingsActivity.UserInfoManagementActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+                android:name=".main.settings.settingsActivity.NickNameChangeActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+                android:name=".main.settings.settingsActivity.AccountCloseActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+                android:name=".main.settings.settingsActivity.PhoneNumberChangeActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+        <activity
+                android:name=".main.settings.settingsActivity.PasswordChangeActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+        android:name=".main.settings.settingsActivity.BlackListActivity"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:windowSoftInputMode="adjustNothing"/>
+
+        <activity
+            android:name=".main.search.searchActivity.ReviewWriteActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".main.settings.settingsActivity.MyAppReviewListActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".main.settings.settingsActivity.MyAppReviewDetailActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.ReviewUpdateActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.NoticeActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.NoticeDetailActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.TermsActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.TermsDetailActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.FAQActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.settings.settingsActivity.FAQDetailActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- 팝업 Activity -->
+        <activity android:name=".main.settings.settingsActivity.AccountClosePopupActivity" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+
+
     </application>
 
 </manifest>

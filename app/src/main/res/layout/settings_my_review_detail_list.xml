@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eff2f7"
+    android:layout_marginTop="24dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineActionbarBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="@dimen/actionbar_guideline_percent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/custom_actionbar_blacklist" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/place_name_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/place_name_wrap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineActionbarBottom"
+        app:layout_constraintBottom_toBottomOf="@+id/place_name_bottom"
+        app:layout_constraintStart_toStartOf="@+id/left_line"
+        app:layout_constraintEnd_toEndOf="@+id/right_line"
+        >
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/place_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="매장이름 매장이름"
+            android:gravity="center_vertical"
+            app:fontFamily="@font/nanumsquareroundb"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/my_review_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/place_name_wrap"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/left_line"
+        app:layout_constraintEnd_toEndOf="@+id/right_line"
+        >
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/other_title_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.40" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_review_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/other_review_wrap"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/other_review_wrap"
+            android:text="잇정리뷰"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/my_review_recycler_view"
+            app:layout_constraintBottom_toBottomOf="@+id/other_title_bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/other_review_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/other_review_wrap"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_navigation">70dp</dimen>
+    <dimen name="actionbar_guideline_percent">0.075</dimen>
+    <dimen name="youtube_image_width">150dp</dimen>
+    <dimen name="youtube_image_height">100dp</dimen>
+</resources>

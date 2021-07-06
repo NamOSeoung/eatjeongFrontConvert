@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="clear_edit_text_padding_vertical">5dp</dimen>
+</resources>
